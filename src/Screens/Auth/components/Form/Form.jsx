@@ -1,30 +1,20 @@
-import { lazy } from "react"
 
-export const Form = ({fields, op}) => {
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('logged')
-    
-    if(op == 'login') {
-      console.log('login')
-    }
-    
-    if(op == 'signup') {
-      console.log('signup')
-    }
-
-  }
+export const Form = ({fields, op, handleSubmit}) => {
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) =>
+      {
+        e.preventDefault()
+        handleSubmit()
+      }
+    }>
       {
         fields.map((item) => 
           <input 
             key={item.label}
             name={item.label}
             type={item.type}
-            value={item.name}
+            value={item.value}
             placeholder={item.placeholder}
             onChange={(e) => item.set(e.target.value)}
             required
