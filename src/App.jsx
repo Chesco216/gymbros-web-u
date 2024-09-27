@@ -5,26 +5,26 @@ import { Signup } from "./Screens/Auth/Signup"
 
 function App() {
 
-  const routes = createBrowserRouter([
-    {
-      path: '/',
-      element: <Home/>
-    },
-    {
-      path: '/login',
-      element: <Login/>
-    },
-    {
-      path: '/signup',
-      element: <Signup/>
-    },
-  ])
+	const routes = createBrowserRouter([
+		{
+			path: '/',
+			element: <Home />
+		},
+		{
+			path: '/login',
+			element: <Login />
+		},
+		{
+			path: '/signup',
+			element: <Signup />
+		},
+	])
 
-  return (
-    <>
-      <RouterProvider router={routes}/>
-    </>
-  )
+	return (
+		<>
+			<RouterProvider router={routes} />
+		</>
+	)
 }
 
 export default App
