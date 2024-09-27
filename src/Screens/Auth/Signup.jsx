@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Form } from "./components/Form/Form"
-import { loginEP } from "./services/auth"
+import { signupEP } from "./services/auth"
 
 export const Signup = () => {
 
@@ -9,7 +9,7 @@ export const Signup = () => {
   const [password, setPassword] = useState()
 
   const handleSubmit = async() => {
-    const user = await loginEP(email, password)
+    const user = await signupEP(email, password)
     console.log({user})
   }
 
@@ -40,7 +40,7 @@ export const Signup = () => {
   return (
     <div>
       <label>(logo de la plataforma)</label>
-      <h1>Bienvenido de nuevo!</h1>
+      <h1>Bienvenido a Gymbros!</h1>
       <Form fields={fields} op='signup' handleSubmit={handleSubmit}/>
     </div>
   )
