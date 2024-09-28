@@ -22,7 +22,7 @@ export const Form = ({ fields, op, handleSubmit }) => {
 		<form onSubmit={(e) => {
 			e.preventDefault()
 			handleSubmit()
-		}} className="flex flex-col gap-2.5">
+		}} className="flex flex-col gap-2.5 xl:gap-5">
 			{
 				fields.map((item) =>
 				(
