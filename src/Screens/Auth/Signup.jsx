@@ -28,14 +28,14 @@ export const Signup = () => {
 			type: 'text',
 			value: email,
 			set: setEmail,
-			label: 'email',
+			label: 'Correo',
 			placeHolder: 'Ingresa tu correo'
 		},
 		{
 			type: 'password',
 			value: password,
 			set: setPassword,
-			label: 'password',
+			label: 'Contraseña',
 			placeHolder: 'Ingresa tu contraseña'
 		},
 	]
