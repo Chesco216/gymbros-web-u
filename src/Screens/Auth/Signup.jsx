@@ -40,15 +40,6 @@ export const Signup = () => {
 		},
 	]
 
-<<<<<<< HEAD
-  return (
-    <div>
-      <label>(logo de la plataforma)</label>
-      <h1>Bienvenido a Gymbros!</h1>
-      <Form fields={fields} op='signup' handleSubmit={handleSubmit}/>
-    </div>
-  )
-=======
 	return (
 		<div className="flex justify-center min-h-screen px-3 bg-fourth pt-5 sm:items-center sm:px-16">
 			<section className="flex flex-col gap-3">
@@ -62,7 +53,4 @@ export const Signup = () => {
 			</section>
 		</div>
 	)
->>>>>>> bc63d71480da7d00c8625171a4f0504526d42b4e
 }
-
-
