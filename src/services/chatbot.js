@@ -1,3 +1,36 @@
-export const getGTP_response = () => {
-  //TODO: get prompt and get gtp response
+import { gyms } from "../../assets/gyms"
+
+export const getGTP_response = async({gym_id, prompt}) => {
+  
+  const gym = gyms.filter(gym => gym.id === gym_id)
+  const url = 'https://api.openai.com/v1/chat/completions'
+
+  try {
+    const res = fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${import.meta.env.VITE_GPT_API_KEY}`
+      },
+      body: {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "content": gym
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+      }
+    })
+    const message = await res.json()
+
+    return message.choices[0].message
+  } catch (error) {
+    console.log({error})
+    alert(error.code)    
+  }
 }
