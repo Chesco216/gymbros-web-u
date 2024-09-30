@@ -3,7 +3,6 @@ import { gyms } from "../../assets/gyms"
 export const getGTP_response = async ({ gym_id, prompt }) => {
 	const gym = gyms.filter(gym => gym.id === gym_id)
 	const url = 'https://api.openai.com/v1/chat/completions'
-	console.log(gym);
 
 	try {
 		const res = await fetch(url, {
@@ -26,9 +25,8 @@ export const getGTP_response = async ({ gym_id, prompt }) => {
 				]
 			})
 		})
-		const message = await res.json();
 
-		return message.choices[0].message
+		return res.choices[0].message
 	} catch (error) {
 		console.log({ error })
 		alert(error.code)
