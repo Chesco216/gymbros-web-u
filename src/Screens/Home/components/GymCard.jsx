@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 
 export const GymCard = ({ gym }) => {
 	return (
-		<li className="flex bg-white rounded-xl shadow-lg hover:bg-gray-50 h-52 px-2 2xl:pr-[600px] w-full items-center">
+		<li className="flex bg-white rounded-xl shadow-lg hover:bg-gray-50 h-52 px-2 2xl:pr-[600px] w-full items-center cursor-pointer">
 			<NavLink to={`/gyms/${gym.id}`} className="flex w-full items-center gap-2">
 				<img src={gym.image_url} alt="" className="w-[30%] rounded-lg object-cover" />
 				<div className="flex flex-col gap-1 md:gap-2 lg:gap-3">
