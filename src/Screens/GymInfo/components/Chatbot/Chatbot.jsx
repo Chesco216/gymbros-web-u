@@ -1,36 +1,65 @@
-import { useState } from 'react'
-import styles from './Chatbot.module.css'
-import { getGTP_response } from '../../../../services/chatbot'
+import dayjs from "dayjs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { useEffect, useState } from "react";
+import { InputBox } from "./InputBox";
+import { MessageBubble } from "./MessageBubble";
 
-export const Chatbot = ({ gym_id }) => {
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const genAi = new GoogleGenerativeAI(API_KEY);
+const model = genAi.getGenerativeModel({ model: "gemini-pro" });
 
-	const [gptResponse, setGptRes] = useState()
-	const [prompt, setPrompt] = useState('')
 
-	const handleGptRes = async () => {
-		const message = await getGTP_response({ gym_id, prompt })
-		setGptRes(message)
+export const Chatbot = () => {
+	const [loading, setLoading] = useState(false);
+	const [messages, setMessages] = useState([]);
+
+	const sendMessage = async (inputText) => {
+		if (!inputText) {
+			return;
+		}
+
+		setMessages((prevMessages) => [...prevMessages, {
+			text: inputText,
+			sender: 'user',
+			timestamp: new Date(),
+		}])
+		setLoading(true);
+		try {
+
+			const result = await model.generateContent(inputText);
+			const text = result.response.text();
+			setMessages((prevMessages) => [...prevMessages, {
+				text,
+				sender: 'ai',
+				timestamp: new Date(),
+			}])
+			setLoading(false);
+		}
+		catch (e) {
+			setLoading(false);
+			console.error(e);
+		}
 	}
 
 	return (
-		<div className={`${styles.container} `}>
-			<p className={`${styles.gptResponse} `}>{(gptResponse) ? gptResponse : 'Preguntame tus dudas'}</p>
-			<span className={`${styles.promptContainer} `}>
-				<input
-					className={`${styles.userIn}`}
-					value={prompt}
-					type='text'
-					name='userPrompt'
-					onChange={(e) => setPrompt(e.target.value)}
-				/>
-				<button
-					className={`${styles.btn}`}
-					onClick={() => handleGptRes().then(console.log('response fetched'))}
-				>
-					Enviar
-				</button>
-			</span>
-		</div>
-	)
-}
 
+		<section className="flex flex-col px-2 py-10 bg-white rounded-xl h-auto">
+			<h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-2xl dark:text-black">Asistente de Gimnasio Virtual</h1>
+			<p>Habla con el asistente virtual</p>
+			<div className="flex flex-col">
+				{
+					messages.map((m, index) =>
+						<MessageBubble key={index} text={m.text} isUserMessage={m.sender} />
+
+					)
+				}
+			</div>
+			<InputBox sendMessage={sendMessage} loading={loading} />
+		</section>
+	)
+
+
+
+
+
+};

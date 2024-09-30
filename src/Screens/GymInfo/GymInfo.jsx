@@ -13,9 +13,11 @@ export const GymInfo = () => {
 	const params = useParams();
 	console.log(params);
 	return (
-		<div className={`${styles.container} flex flex-col min-h-screen bg-fourth sm:items-center  `}>
+		<div className={`${styles.container} flex flex-col min-h-screen bg-fourth sm:items-center  `} >
 			<Navbar />
-			<Chatbot gym_id={params.id} />
+			<section className="px-4 py-10">
+				<Chatbot gym_id={params.id} />
+			</section>
 
 		</div>
 	)
