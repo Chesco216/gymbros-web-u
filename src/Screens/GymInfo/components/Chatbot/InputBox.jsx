@@ -22,7 +22,7 @@ export const InputBox = ({ sendMessage, loading }) => {
 				</div>}
 
 
-			<input className="w-full h-14 xl:h-16 px-2 border-primary border xl:px-5 rounded-lg my-4" disabled={loading} type="text" placeholder="Escribe un mensaje" value={loading ? "Loading ... " : input}
+			<input className="w-full h-14 xl:h-16 px-2 border-primary border xl:px-5 rounded-lg mt-auto" disabled={loading} type="text" placeholder="Escribe un mensaje" value={loading ? "Loading ... " : input}
 
 				onChange={(e) => setInput(e.target.value)}
 				onKeyPress={handleKeyPress}
