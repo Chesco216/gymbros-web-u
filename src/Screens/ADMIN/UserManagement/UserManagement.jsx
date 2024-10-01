@@ -1,45 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './UserManagement.module.css'
 import { UserGrid } from './components/UserGrid/UserGrid'
 import { AddUserModal } from './components/AddUserModal/AddUserModal'
+import { getUsers } from '../services/getUsers'
 
 export const UserManagement = () => {
 
   const [userCI, setUserCI] = useState()
   const [isOpen, setIsOpen] = useState(false)
 
-  const dateRaw = new Date()
-  const date = `${dateRaw.getDay()} / ${dateRaw.getMonth()} / ${dateRaw.getFullYear()}`
-  const [users, setUsers] = useState([
-    {
-      name: 'veichan',
-      ci: '97213',
-      isActive: false,
-      expires_at: date.toString(),
-      plan: 'estudiantil'
-    },
-    {
-      name: 'eibar',
-      ci: '97214',
-      isActive: true,
-      expires_at: date.toString(),
-      plan: 'normal'
-    },
-    {
-      name: 'trini',
-      ci: '97215',
-      isActive: false,
-      expires_at: date.toString(),
-      plan: 'promo 2x1'
-    },
-    {
-      name: 'choca',
-      ci: '97216',
-      isActive: true,
-      expires_at: date.toString(),
-      plan: 'estudiantil'
-    },
-  ])
+
+  const [users, setUsers] = useState(null)
+
+  useEffect(() => {
+    getUsers().then(usersF => setUsers(usersF))
+  }, [])
 
   const handleUsers = () => {
     const userFiltered = users.filter(user => user.ci == userCI)
@@ -59,8 +34,11 @@ export const UserManagement = () => {
         />
         <button onClick={() => handleUsers()}>Buscar</button>
       </span>
-      <UserGrid users={users}/>
       {
+        users && <UserGrid users={users}/>
+
+      }
+            {
         isOpen && <AddUserModal setIsOpen={setIsOpen}/>
 
       }
