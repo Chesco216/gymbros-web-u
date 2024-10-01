@@ -10,7 +10,7 @@ export const Chatbot = ({gym_id}) => {
   const handleGptRes = async() => {
     const message = await getGTP_response(gym_id, prompt)
     setGptRes(message)
-  } 
+  }
 
   return (
     <div className={`${styles.container} `}>
@@ -25,7 +25,7 @@ export const Chatbot = ({gym_id}) => {
         />
         <button 
           className={`${styles.btn}`}
-          onClick={() => handleGptRes().then(console.log('response fetched'))}
+          onClick={async() => await handleGptRes()}
         >
           Enviar
         </button>
