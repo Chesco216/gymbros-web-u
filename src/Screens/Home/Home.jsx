@@ -3,6 +3,7 @@ import { Navbar } from "../Common/Navbar"
 import { FilterBy } from "./components/FilterBy"
 import { SearchBar } from "./components/SearchBar"
 import { GymGrid } from "./components/GymGrid";
+import { UserLayout } from "../Common/Layouts/UserLayout";
 
 export const Home = () => {
 	const filterOptions = [
@@ -19,12 +20,11 @@ export const Home = () => {
 		window.scrollTo(0, 0);
 	}, [])
 	return (
-		<div className="flex flex-col min-h-screen bg-fourth sm:items-center">
-			<Navbar />
+		<UserLayout>
 			<SearchBar />
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
 			<GymGrid />
-		</div>
+		</UserLayout>
 	)
 }
 

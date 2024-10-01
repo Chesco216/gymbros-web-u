@@ -3,10 +3,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useEffect, useState } from "react";
 import { InputBox } from "./InputBox";
 import { MessageBubble } from "./MessageBubble";
+import { gyms } from "../../../../../assets/gyms";
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const genAi = new GoogleGenerativeAI(API_KEY);
-const model = genAi.getGenerativeModel({ model: "gemini-pro" });
+const model = genAi.getGenerativeModel({ model: "gemini-1.5-pro" });
 
 
 export const Chatbot = () => {
@@ -17,7 +18,6 @@ export const Chatbot = () => {
 		if (!inputText) {
 			return;
 		}
-
 		setMessages((prevMessages) => [...prevMessages, {
 			text: inputText,
 			sender: 'user',
@@ -25,8 +25,7 @@ export const Chatbot = () => {
 		}])
 		setLoading(true);
 		try {
-
-			const result = await model.generateContent(inputText);
+			const result = await model.generateContent(`You are an chatbot to assist a person about gyms, you are very supportive and gives recomendations knowing all that info about the gyms of La Paz Bolivia, but just a segment of the gyms that im passing to you,all the info about the gyms are the following just this information you know, no more, no less,you only know about all the gyms that im passing, your only language available is spanish:\n ${gyms} \n and the prompt of the person asking the questions is: \n  ${inputText}`);
 			const text = result.response.text();
 			setMessages((prevMessages) => [...prevMessages, {
 				text,

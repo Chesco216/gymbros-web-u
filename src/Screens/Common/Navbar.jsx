@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useUser } from "../../store/useUser";
 
 
 const dropDownMenuList = [
 	{ name: 'Iniciar Sesion', url: '/login', icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 20H19C20.1046 20 21 19.1046 21 18V6C21 4.89543 20.1046 4 19 4H11M3 12H14M14 12L11 15M14 12L11 9" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg> },
 
-];
+]
+
 
 export const Navbar = () => {
 	const [isDropdownVisible, setDropdownVisible] = useState(false);
+	const user = useUser(state => state.user);
+	console.log(user);
+
+
 
 	const handleMouseEnter = () => {
 		setDropdownVisible(true);
@@ -20,7 +26,7 @@ export const Navbar = () => {
 
 	return (
 		<header className="flex bg-primary px-3 py-5 shadow-md w-full sm:px-4 sm:py-5 xl:px-32 xl:py-6 items-center justify-center">
-			<h1 className="text-2xl font-bold sm:text-3xl xl:text-4xl">Gymbros</h1>
+			<NavLink to="/" className="text-2xl font-bold sm:text-3xl xl:text-4xl">Gymbros</NavLink>
 
 			<div
 				className="relative ml-auto"

@@ -18,7 +18,7 @@ export const FilterBy = ({ options, onSelect }) => {
 				value={selectedOption}
 				onChange={handleSelect}
 				aria-label="Filter by"
-				className="block ml-auto px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+				className="block ml-auto px-4 py-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary cursor-pointer"
 			>
 				{options.map((option, index) => (
 					<option
