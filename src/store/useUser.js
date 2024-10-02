@@ -1,18 +1,18 @@
 import { create } from 'zustand'
 
 const lc = localStorage.getItem('user')
-const initialState = (user) ? 
-    JSON.parse(lc)
-  :
-    {
-      id: '',
-      name: '',
-      email: '',
-    }
+const initialState = (lc) ? JSON.parse(lc)
+	:
+	{
+		id: '',
+		name: '',
+		email: '',
+	}
+
 
 export const useUser = create((set) => ({
-  user: initialState,
-  setUser: (payload) => set({ user: payload }),
-  clearUser: () => set({ user: initialState })
+	user: initialState,
+	setUser: (payload) => set({ user: payload }),
+	clearUser: () => set({ user: initialState })
 }))
 

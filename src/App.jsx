@@ -34,7 +34,11 @@ function App() {
           element: <PostManagement/>
         },
       ]
-    }
+    },
+		{
+			path: '/gyms/:id',
+			element: <GymInfo />
+		}
 	])
 
 	return (
