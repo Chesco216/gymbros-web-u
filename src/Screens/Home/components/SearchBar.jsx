@@ -8,7 +8,7 @@ export const SearchBar = ({ onSubmit }) => {
 		onSubmit(gymSearch);
 	}
 	return (
-		<form onSubmit={handleSubmit} className="px-2 py-4 flex gap-3 w-full xl:max-w-6xl md:max-w-2xl lg:max-w-3xl">
+		<form onSubmit={handleSubmit} className="px-2 py-4 flex gap-3 w-full md:max-w-2xl lg:max-w-3xl xl:max-w-6xl mt-24">
 			<input
 				className="w-full h-14 xl:h-16 px-5 border border-primary xl:px-4 "
 				placeholder="Buscar gimnasios"

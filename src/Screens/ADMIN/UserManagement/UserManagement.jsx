@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import styles from './UserManagement.module.css'
 import { UserGrid } from './components/UserGrid/UserGrid'
 import { AddUserModal } from './components/AddUserModal/AddUserModal'
-import { getUsers } from '../services/getUsers'
 import { useUserList } from '../store/useUserList'
 
+//PERF: no esta del todo bien esto
 export const UserManagement = () => {
 	const [userCI, setUserCI] = useState()
 	const [isOpen, setIsOpen] = useState(false)
-	//PERF: no esta del todo bien esto
+
 	const [mod, setMod] = useState()
 
 	const users = useUserList(state => state.userList)
@@ -25,7 +25,7 @@ export const UserManagement = () => {
 					name='user_ci'
 					value={userCI}
 					type='text'
-					placeholder='ingresa el ci del usuario'
+					placeholder='Ingresa el ci del usuario'
 					onChange={(e) => setUserCI(e.target.value)}
 				/>
 				<button onClick={() => handleUsers()}>Buscar</button>
