@@ -3,6 +3,7 @@ import styles from './UserManagement.module.css'
 import { UserGrid } from './components/UserGrid/UserGrid'
 import { AddUserModal } from './components/AddUserModal/AddUserModal'
 import { getUsers } from '../services/getUsers'
+import { useUserList } from '../store/useUserList'
 
 export const UserManagement = () => {
 
@@ -10,16 +11,16 @@ export const UserManagement = () => {
   const [isOpen, setIsOpen] = useState(false)
 
 
-  const [users, setUsers] = useState(null)
+  // const [users, setUsers] = useState(null)
 
-  useEffect(() => {
-    getUsers().then(usersF => setUsers(usersF))
-  }, [])
+  const users = useUserList(state => state.userList)
+  const setUsers = useUserList(state => state.set_user_list)
+  // useEffect(() => {
+  //   getUsers().then(usersF => setUsers(usersF))
+  // }, [])
 
   const handleUsers = () => {
-    const userFiltered = users.filter(user => user.ci == userCI)
-    setUsers([userFiltered])
-    console.log({userFiltered, userCI})
+    setUsers(userCI)
   }
 
   return (

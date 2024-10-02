@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 
-
 const lc = localStorage.getItem('user')
 const initialState = (user) ? 
     JSON.parse(lc)

@@ -3,6 +3,9 @@ import styles from './UserGrid.module.css'
 
 export const UserGrid = ({users}) => {
 
+
+  console.log('users: ', users)
+
   return (
     <div className={styles.container}>
       <span className={styles.headers}>

@@ -1,4 +1,5 @@
 import styles from './PostManagement.module.css'
+import { PostGrid } from './components/PostGrid/PostGrid'
 
 export const PostManagement = () => {
 
@@ -31,7 +32,7 @@ export const PostManagement = () => {
 
   return (
     <div className={styles.container}>
-
+      <PostGrid posts={posts}/>
     </div>
   )
 }
