@@ -22,20 +22,20 @@ function App() {
 			path: '/signup',
 			element: <Signup />
 		},
-    {
-      path: '/admin',
-      element: <AdminRoutes/>,
-      children: [
-        {
-          path: '/admin/users',
-          element: <UserManagement/>
-        },
-        {
-          path: '/admin/posts',
-          element: <PostManagement/>
-        },
-      ]
-    },
+		{
+			path: '/admin',
+			element: <AdminRoutes />,
+			children: [
+				{
+					path: 'users',
+					element: <UserManagement />
+				},
+				{
+					path: 'posts',
+					element: <PostManagement />
+				},
+			]
+		},
 		{
 			path: '/gyms/:id',
 			element: <GymInfo />

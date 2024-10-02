@@ -6,53 +6,46 @@ import { getUsers } from '../services/getUsers'
 import { useUserList } from '../store/useUserList'
 
 export const UserManagement = () => {
+	const [userCI, setUserCI] = useState()
+	const [isOpen, setIsOpen] = useState(false)
+	//PERF: no esta del todo bien esto
+	const [mod, setMod] = useState()
 
-  const [userCI, setUserCI] = useState()
-  const [isOpen, setIsOpen] = useState(false)
-  //PERF: no esta del todo bien esto
-  const [mod, setMod] = useState()
+	const users = useUserList(state => state.userList)
+	const setUsers = useUserList(state => state.set_user_list)
 
+	const handleUsers = () => {
+		setUsers(userCI)
+	}
 
-  // const [users, setUsers] = useState(null)
+	return (
+		<div className={styles.container}>
+			<span>
+				<input
+					name='user_ci'
+					value={userCI}
+					type='text'
+					placeholder='ingresa el ci del usuario'
+					onChange={(e) => setUserCI(e.target.value)}
+				/>
+				<button onClick={() => handleUsers()}>Buscar</button>
+			</span>
+			{
+				users && <UserGrid users={users} setIsOpen={setIsOpen} setMod={setMod} />
 
-  const users = useUserList(state => state.userList)
-  const setUsers = useUserList(state => state.set_user_list)
-  // useEffect(() => {
-  //   getUsers().then(usersF => setUsers(usersF))
-  // }, [])
+			}
+			{
+				isOpen && <AddUserModal setIsOpen={setIsOpen} mod={mod} />
 
-  const handleUsers = () => {
-    setUsers(userCI)
-  }
-
-  return (
-    <div className={styles.container}>
-      <span>
-        <input 
-          name='user_ci'
-          value={userCI}
-          type='text'
-          placeholder='ingresa el ci del usuario'
-          onChange={(e) => setUserCI(e.target.value)}
-        />
-        <button onClick={() => handleUsers()}>Buscar</button>
-      </span>
-      {
-        users && <UserGrid users={users} setIsOpen={setIsOpen} setMod={setMod}/>
-
-      }
-            {
-        isOpen && <AddUserModal setIsOpen={setIsOpen} mod={mod}/>
-
-      }
-      <button onClick={() => {
-        setIsOpen(!isOpen)
-        setMod('Añadir')
-        }
-      }>
-        Agregar usuario
-      </button> 
-    </div>
-  )
+			}
+			<button onClick={() => {
+				setIsOpen(!isOpen)
+				setMod('Añadir')
+			}
+			}>
+				Agregar usuario
+			</button>
+		</div>
+	)
 }
 
