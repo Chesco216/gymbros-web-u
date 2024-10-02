@@ -9,7 +9,7 @@ export const gyms = [
 		],
 		image_url: "https://lh5.googleusercontent.com/p/AF1QipOGeHea13YPS1RfeeFMk2Xo31gEvHm-kV4vOE7A=w408-h306-k-no",
 		text_address: "Av. Leoncio Prado Gutierrez, Auch Auch",
-		suscription_price: "200bs",
+		suscription_price: 200,
 	},
 	{
 		id: "2",
@@ -21,7 +21,7 @@ export const gyms = [
 		],
 		image_url: "https://lh5.googleusercontent.com/p/AF1QipNQ0dxaTw3WtE-Fi5u_oSGPGJkJc6nX7ODL2a_k=w408-h306-k-no",
 		text_address: "Av. Keivi Veizan , Me lele",
-		suscription_price: "200bs",
+		suscription_price: 300,
 	},
 	{
 		id: "3",
@@ -33,7 +33,7 @@ export const gyms = [
 		],
 		image_url: "https://lh5.googleusercontent.com/p/AF1QipOGeHea13YPS1RfeeFMk2Xo31gEvHm-kV4vOE7A=w408-h306-k-no",
 		text_address: "Av. Leoncio Prado Gutierrez, Auch Auch",
-		suscription_price: "200bs",
+		suscription_price: 120,
 	},
 	{
 		id: "4",
@@ -45,6 +45,6 @@ export const gyms = [
 		],
 		image_url: "https://lh5.googleusercontent.com/p/AF1QipNQ0dxaTw3WtE-Fi5u_oSGPGJkJc6nX7ODL2a_k=w408-h306-k-no",
 		text_address: "Av. Keivi Veizan , Me lele",
-		suscription_price: "200bs",
+		suscription_price: 320,
 	}
 ]

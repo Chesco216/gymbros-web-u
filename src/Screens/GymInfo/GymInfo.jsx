@@ -1,22 +1,24 @@
 import { useParams } from 'react-router-dom'
-import styles from './GymInfo.module.css'
-import { Navbar } from '../Common/Navbar';
 import { Chatbot } from './components/Chatbot/Chatbot';
 import { UserLayout } from '../Common/Layouts/UserLayout';
 import { GymHeader } from './components/GymHeader';
+import { gyms } from '../../../assets/gyms';
+import { useEffect, useState } from 'react';
 
 export const GymInfo = () => {
-
-
-
-	const handleFilterChange = (selectedOption) => {
-		console.log('Selected Filter:', selectedOption);
-	};
 	const params = useParams();
+
+	const [gym, setGym] = useState()
+
+	useEffect(() => {
+		setGym({ ...(gyms.filter(g => g.id === params.id)) })
+
+	}, [params.id])
+
 	return (
 		<UserLayout>
 			<div className="">
-				<GymHeader gym_name={"Gymshark"} gym_address={"Av 6 de Agosto, Esquina Keivi Veizan"} gym_image={'https://www.oleoshop.com/imagenes/porreferencia?identidad=ddb52563-8f92-4224-b03c-a20e45c0e763&referencia=&ancho=&alto='} gym_price={"220bs"} gym_reviews={20} gym_stars={4.3} />
+				<GymHeader {...gym} />
 
 			</div>
 			<div className="px-4 py-10">
