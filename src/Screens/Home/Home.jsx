@@ -1,29 +1,45 @@
-import { useEffect } from "react";
-import { Navbar } from "../Common/Navbar"
+import { useEffect, useState } from "react";
 import { FilterBy } from "./components/FilterBy"
 import { SearchBar } from "./components/SearchBar"
 import { GymGrid } from "./components/GymGrid";
 import { UserLayout } from "../Common/Layouts/UserLayout";
+import { gyms } from "../../../assets/gyms"
 
 export const Home = () => {
+	const [gymsFiltered, setGymsFiltered] = useState(gyms);
 	const filterOptions = [
+		{ value: 'all', label: 'Todos' },
 		{ value: 'highest-rated', label: 'Mejor valorado' },
-		{ value: 'nearest', label: 'Mas cercano' },
 		{ value: 'lowest-price', label: 'Mas barato' }
 	];
 
 
 	const handleFilterChange = (selectedOption) => {
-		console.log('Selected Filter:', selectedOption);
+		switch (selectedOption) {
+			case "highest-rated":
+				setGymsFiltered(gyms.filter((g) => g.stars >= 3));
+				break;
+			case "lowest-price":
+				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 400));
+				break;
+			case "all":
+				setGymsFiltered(gyms);
+				break;
+		}
 	};
+
+	const handleSubmit = (inputValue) => {
+		setGymsFiltered(gyms.filter((g) => g.name.includes(inputValue)));
+
+	}
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, [])
 	return (
 		<UserLayout>
-			<SearchBar />
+			<SearchBar onSubmit={handleSubmit} />
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
-			<GymGrid />
+			<GymGrid gyms={gymsFiltered} />
 		</UserLayout>
 	)
 }
