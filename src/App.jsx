@@ -5,6 +5,7 @@ import { Signup } from "./Screens/Auth/Signup"
 import { AdminRoutes } from "./Screens/ADMIN/AdminRoutes"
 import { UserManagement } from "./Screens/ADMIN/UserManagement/UserManagement"
 import { PostManagement } from "./Screens/ADMIN/PostsManagement/PostManagement"
+import { GymInfo } from "./Screens/GymInfo/GymInfo"
 
 function App() {
 

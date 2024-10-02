@@ -1,7 +1,7 @@
 import { UserCard } from '../UserCard/UserCard'
 import styles from './UserGrid.module.css'
 
-export const UserGrid = ({users}) => {
+export const UserGrid = ({users, setIsOpen, setMod}) => {
 
 
   console.log('users: ', users)
@@ -23,6 +23,8 @@ export const UserGrid = ({users}) => {
           isActive={user.isActive}
           expires={user.expires_at}
           plan={user.plan}
+          setIsOpen={setIsOpen}
+          setMod={setMod}
         />)
       }
     </div>

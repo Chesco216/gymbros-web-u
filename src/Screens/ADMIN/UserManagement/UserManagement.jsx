@@ -9,6 +9,8 @@ export const UserManagement = () => {
 
   const [userCI, setUserCI] = useState()
   const [isOpen, setIsOpen] = useState(false)
+  //PERF: no esta del todo bien esto
+  const [mod, setMod] = useState()
 
 
   // const [users, setUsers] = useState(null)
@@ -36,14 +38,20 @@ export const UserManagement = () => {
         <button onClick={() => handleUsers()}>Buscar</button>
       </span>
       {
-        users && <UserGrid users={users}/>
+        users && <UserGrid users={users} setIsOpen={setIsOpen} setMod={setMod}/>
 
       }
             {
-        isOpen && <AddUserModal setIsOpen={setIsOpen}/>
+        isOpen && <AddUserModal setIsOpen={setIsOpen} mod={mod}/>
 
       }
-      <button onClick={() => setIsOpen(!isOpen)}>Agregar usuario</button> 
+      <button onClick={() => {
+        setIsOpen(!isOpen)
+        setMod('Añadir')
+        }
+      }>
+        Agregar usuario
+      </button> 
     </div>
   )
 }

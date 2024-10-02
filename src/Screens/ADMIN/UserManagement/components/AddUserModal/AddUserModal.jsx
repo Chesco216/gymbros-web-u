@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import styles from './AddUserModal.module.css'
 
-export const AddUserModal = ({setIsOpen}) => {
+const info = {
+  name: '',
+  ci: '',
+  plan: '',
+}
+
+export const AddUserModal = ({setIsOpen, userInfo = info, mod}) => {
 
   const [name, setName] = useState()
   const [ci, setCI] = useState()
@@ -40,7 +46,7 @@ export const AddUserModal = ({setIsOpen}) => {
           placeholder='Plan'
         />
 
-        <button type='submit'>Añadir</button>
+        <button type='submit'>{mod}</button>
         <button onClick={() => setIsOpen(false)}>Cancelar</button>
       </form>
     </div>
