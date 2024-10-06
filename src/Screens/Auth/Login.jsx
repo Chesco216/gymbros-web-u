@@ -5,11 +5,9 @@ import { useNavigate } from "react-router-dom"
 import { BackIcon } from "./components/BackIcon/BackIcon"
 
 export const Login = () => {
-
-
 	const navigate = useNavigate();
-
 	const [email, setEmail] = useState()
+
 	const [password, setPassword] = useState()
 
 	const handleSubmit = async () => {

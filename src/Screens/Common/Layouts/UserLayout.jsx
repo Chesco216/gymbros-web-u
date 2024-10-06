@@ -1,11 +1,14 @@
 import { Navbar } from "../Navbar"
+import './UserLayout.css'
 
 export const UserLayout = ({ children }) => {
 	return (
 
-		<div className="flex flex-col min-h-screen bg-fourth sm:items-center">
+		<div className="flex flex-col min-h-screen bg-fourth overflow-custom items-center">
 			<Navbar />
-			{children}
+			<div className="flex flex-col w-full">
+				{children}
+			</div>
 		</div>
 
 	)

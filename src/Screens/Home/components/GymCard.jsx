@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom"
 
 export const GymCard = ({ gym }) => {
 	return (
-		<li className="flex bg-white rounded-xl shadow-lg hover:bg-gray-50 h-[300px] sm:h-72 px-2 w-full items-center cursor-pointer xl:pr-20">
+		<li className="flex bg-white rounded-xl shadow-lg hover:bg-gray-50 h-[300px] px-2 w-full cursor-pointer transition-all ease-in-out hover:scale-105">
 			<NavLink to={`/gyms/${gym.id}`} className="flex w-full items-center gap-2">
-				<img src={gym.image_url} alt="" className="w-[30%] rounded-lg object-cover" />
+				<img src={gym.image_url} alt="" className="w-[23%] xl:[26%] rounded-lg object-cover" />
 				<div className="flex flex-col gap-1 md:gap-2 lg:gap-3"  >
 					<p className="uppercase text-xl font-bold">{gym.name}</p>
 					<div className="flex gap-1">
@@ -33,7 +33,7 @@ export const GymCard = ({ gym }) => {
 
 				</div>
 
-				<p className="font-bold text-base px-4 xl:text-xl xl:ml-auto"> {gym.suscription_price}Bs</p>
+				<p className="font-bold text-base px-4 xl:text-xl ml-auto"> {gym.suscription_price}Bs</p>
 
 
 			</NavLink>

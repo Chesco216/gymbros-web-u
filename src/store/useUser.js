@@ -3,12 +3,7 @@ import { create } from 'zustand'
 const lc = localStorage.getItem('user')
 const initialState = (lc) ? JSON.parse(lc)
 	:
-	{
-		id: '',
-		name: '',
-		email: '',
-	}
-
+	null
 
 export const useUser = create((set) => ({
 	user: initialState,
