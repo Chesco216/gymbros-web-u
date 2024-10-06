@@ -5,10 +5,16 @@ import { GymHeader } from './components/GymHeader';
 import { gyms } from '../../../assets/gyms';
 import { ExtraServices } from './components/ExtraServices/ExtraServices';
 import { Location } from './components/Location/Location';
+import { useEffect } from 'react';
 
 export const GymInfo = () => {
 	const params = useParams();
 	const gym = gyms.find((g) => g.id === params.id);
+
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [])
 
 
 	return (

@@ -5,7 +5,7 @@ export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, 
 
 	return (
 		<section className='flex flex-col gap-3 w-full'>
-			<img src={image_url} alt="" className="w-full h-[200px] md:h-[400px] xl:h-[500px] object-cover xl:blur-[6px] lg:blur-[3px] shadow-lg xl:shadow-2xl" />
+			<img src={image_url} alt="" className="w-full h-[200px] md:h-[400px] xl:h-[500px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl" />
 
 			<div className="flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-4 xl:gap-4">
 				<div className='flex flex-col'>
