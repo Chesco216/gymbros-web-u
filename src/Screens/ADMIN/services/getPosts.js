@@ -14,13 +14,12 @@ export const getPosts = async () => {
 				img: data.img
 			}
 
-			posts.push(post)
+      if(data.is_Active) posts.push(post)
 		})
 
 		return posts
 	} catch (error) {
 		console.error("Perra esta mal", error);
-
 	}
 
 }

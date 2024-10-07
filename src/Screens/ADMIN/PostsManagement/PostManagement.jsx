@@ -1,5 +1,6 @@
 import { Navbar } from '../../Common/Navbar'
 import styles from './PostManagement.module.css'
+import { PostForm } from './components/PostForm/PostForm'
 import { PostGrid } from './components/PostGrid/PostGrid'
 const posts = [
 	{
@@ -29,10 +30,12 @@ const posts = [
 ]
 
 export const PostManagement = () => {
+
 	return (
-		<Navbar>
+    <>
 			<PostGrid posts={posts} />
-		</Navbar>
+      <PostForm/>
+    </>
 	)
 }
 
