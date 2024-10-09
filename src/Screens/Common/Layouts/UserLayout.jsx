@@ -1,3 +1,4 @@
+import { Footer } from "../Footer"
 import { Navbar } from "../Navbar"
 import './UserLayout.css'
 
@@ -9,6 +10,7 @@ export const UserLayout = ({ children }) => {
 			<div className="flex flex-col w-full">
 				{children}
 			</div>
+			<Footer />
 		</div>
 
 	)
