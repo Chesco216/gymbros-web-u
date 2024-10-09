@@ -5,6 +5,7 @@ import { GymGrid } from "./components/GymGrid";
 import { UserLayout } from "../Common/Layouts/UserLayout";
 import { gyms } from "../../../assets/gyms"
 import { Welcome } from "./components/Welcome";
+import { AboutUs } from "./components/AboutUs";
 
 export const Home = () => {
 	const [gymsFiltered, setGymsFiltered] = useState(gyms);
@@ -44,6 +45,9 @@ export const Home = () => {
 			<SearchBar onSubmit={handleSubmit} />
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
 			<GymGrid gyms={gymsFiltered} />
+			<AboutUs />
+
+
 		</UserLayout>
 	)
 }
