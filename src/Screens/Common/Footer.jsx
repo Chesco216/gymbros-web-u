@@ -19,9 +19,9 @@ export const Footer = () => {
 				<section className="flex flex-col gap-4 mt-10">
 					<span className="font-bold uppercase xl:text-2xl">menu</span>
 
-					<NavLink className="hover:underline" to="/" >Inicio</NavLink>
-					<NavLink className="hover:underline" to="/">Registra tu gimnasio</NavLink>
-					<NavLink className="hover:underline" to="/">Mas sobre nosotros</NavLink>
+					<NavLink className="navlink" to="/" >Inicio</NavLink>
+					<NavLink className="navlink" to="/">Registra tu gimnasio</NavLink>
+					<NavLink className="navlink" to="/">Mas sobre nosotros</NavLink>
 
 
 				</section>

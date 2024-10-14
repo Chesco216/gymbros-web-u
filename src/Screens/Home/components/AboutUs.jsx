@@ -16,7 +16,7 @@ export const AboutUs = () => {
 					</p>
 
 				</header>
-				<img className="hidden xl:flex" src="/public/imggym.png" alt="" />
+				<img className="hidden xl:flex" src="/imggym.png" alt="" />
 
 			</section>
 		</div>
