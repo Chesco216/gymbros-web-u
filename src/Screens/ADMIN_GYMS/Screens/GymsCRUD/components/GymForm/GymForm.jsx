@@ -1,4 +1,6 @@
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import React, { useState } from 'react'
+import { store } from '../../../../../../firebase/firebasse'
 
 //NOTE: only for superuser rol pipipi
 
@@ -12,7 +14,7 @@ export const GymForm = () => {
     legs: []
   })
   const [services, setServices] = useState()
-  const [images, setImages] = useState()
+  const [images, setImages] = useState([])
   const [location, setLocation] = useState()
   const [basicInfo, setBasicInfo] = useState()
   const [trainers, setTrainers] = useState()
@@ -73,9 +75,30 @@ export const GymForm = () => {
     }
   }
 
+  const uploadImages = async () => {
+    console.log('upload images')
+    const imagesToUpload = []
+    if (!images) return
+    console.log(images)
+    for (let i = 0; i < images.length; i++) {
+      const refImg = ref(store, `gyms/${images[i].name}`)
+      await uploadBytes(refImg, images[i]).then(console.log('imageUploaded'))
+      const getRef = ref(store, `gs://gymbros-f0bab.appspot.com/gyms/${images[i].name}`)
+      const downloadUrl = await getDownloadURL(getRef)
+      imagesToUpload.push(downloadUrl)
+    }
+    console.log(imagesToUpload)
+  }
+  
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    console.log('submited')
+    await uploadImages()
+  }
+
   // WARN: Perdon trini esto va a estar feito de estilizar
   return (
-    <form>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <span>
         <label>Con que maquinas cuenta?</label>
         <label>Brazos</label>
@@ -114,21 +137,19 @@ export const GymForm = () => {
         <input
           placeholder='ej: servicio 1, servicio 2, servicio 3'
           name='legs'
-          onChange={(e) => setEquipementOnChange(e, 'legs')}
+          onChange={(e) => setServices(e)}
         />
       </span>
       <span>
         <label>Agrega imagenes</label>
-        { // TODO: subir la imagenes 
-        { // TODO: subir la imagenes 
-          { // TODO: subir la imagenes 
-          { // TODO: subir la imagenes }}}}
         <input
           type='file'
-          name='legs'
-          // onChange={(e) => setEquipementOnChange(e, 'legs')}
+          name='images'
+          multiple 
+          onChange={(e) => setImages(e.target.files)}
         />
       </span>
+      <button type='submit'>Aceptar</button>
     </form>
   )
 }
