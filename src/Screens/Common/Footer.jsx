@@ -13,7 +13,8 @@ export const Footer = () => {
 			<div className="w-full md:max-w-3xl lg:max-w-4xl xl:max-w-7xl  bg-primary lg:grid lg:grid-cols-3 px-4 xl:px-0">
 				<section className="flex flex-col items-center justify-center">
 					<BackyardigansIcon />
-					<p className="text-3xl font-bold uppercase">Gymbros</p>
+					<p className="text-3xl font-bold uppercase block p-2 transition duration-300 will-change-transform hover:scale-105 motion-reduce:transition-none cursor-pointer">Gymbros</p>
+
 				</section>
 
 				<section className="flex flex-col gap-4 mt-10">
@@ -30,34 +31,34 @@ export const Footer = () => {
 					<p className="font-bold uppercase xl:text-2xl">Envia un mensaje a Gymbros</p>
 					<ul className="socials flex gap-4">
 						<li>
-							<NavLink to="https://facebook.com" target="_blank">
+							<NavLink className="icon" to="https://facebook.com" target="_blank">
 								<FacebookIcon />
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="https://instagram.com" target="_blank">
+							<NavLink className="icon" to="https://instagram.com" target="_blank">
 								<InstagramIcon />
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="https://bo.linkedin.com/" target="_blank">
+							<NavLink className="icon" to="https://bo.linkedin.com/" target="_blank">
 								<LinkedlnIcon />
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="https://web.telegram.org/a/" target="_blank">
+							<NavLink className="icon" to="https://web.telegram.org/a/" target="_blank">
 								<TelegramIcon />
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="https://youtube.com" target="_blank">
+							<NavLink className="icon" to="https://youtube.com" target="_blank">
 								<YoutubeIcon />
 							</NavLink>
 						</li>
 						<li>
-							<a href="https://tiktok.com" target="_blank">
+							<NavLink className="icon" href="https://tiktok.com" target="_blank">
 								<TiktokIcon />
-							</a>
+							</NavLink>
 						</li>
 					</ul>
 				</section>

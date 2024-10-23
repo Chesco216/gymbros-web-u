@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom"
+import { useFadeIn } from "../hooks/useFadeIn"
 
 export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, image_url, text_address, suscription_price }) => {
 
+	const { isVisible, sectionRef } = useFadeIn();
 
 	return (
-		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-2xl'>
+		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-xl shadow-black/5'>
 			<img src={image_url} alt="" className="w-full h-[200px] md:h-[400px] xl:h-[500px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl fade-in" />
 
-			<div className="flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-5 xl:gap-4">
+			<div className={`flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-5 xl:gap-4 slide-in`} ref={sectionRef}>
 				<div className='flex flex-col pt-7'>
 					<h1 className='text-3xl uppercase font-extrabold sm:text-4xl xl:text-5xl'>{name}</h1>
 					<p className='flex mt-4 items-center text-lg font-md sm:text-xl xl:text-2xl '>
@@ -22,8 +24,17 @@ export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, 
 					{stars} ({number_of_reviews} valoraciones)
 				</p>
 
-				<NavLink className="flex items-center justify-center self-start bg-primary shadow-lg w-auto h-12 border border-black font-bold px-4 hover:bg-primary/90 xl:text-xl xl:h-16 xl:px-6 cursor-pointer" to={`/gyms/${id}/suscript`}>
-					{suscription_price}Bs | Inscribirse
+				<NavLink className="group/button flex items-center justify-center gap-3 rounded-md bg-primary px-7 py-4 font-bold text-white transition duration-200 motion-reduce:transition-none self-start shadow-lg xl:text-xl border border-black hover:bg-primary/90" to={`/gyms/${id}/suscript`}>
+					<span>
+						{suscription_price} Bs  |  Inscribirse
+					</span>
+
+					<div className="ml-2 transition duration-300 group-hover/button:translate-x-1.5 motion-reduce:transition-none motion-reduce:group-hover/button:transform-none">
+						<svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 12.992h2.5m13.5 0-6-6m6 6-6 6m6-6H9.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+						</svg>
+					</div>
+
 
 				</NavLink>
 			</div>

@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom"
+import { useFadeIn } from "../../GymInfo/hooks/useFadeIn"
 
 export const GymCard = ({ gym }) => {
+	const { isVisible, sectionRef } = useFadeIn()
 
 	return (
-		<li className="flex bg-white rounded-xl shadow-lg hover:bg-gray-50 w-full cursor-pointer transition-all ease-in-out hover:scale-[1.020] h-80 lg:h-auto pb-10 border border-gray-300">
+		<li className={`fade-in-section ${isVisible ? 'is-visible' : ''} flex bg-white rounded-xl shadow-lg hover:bg-gray-50 w-full cursor-pointer transition-all ease-in-out hover:scale-[1.020] h-80 lg:h-auto pb-10 border border-gray-300`} ref={sectionRef}>
 			<NavLink to={`/gyms/${gym.id}`} className="flex flex-col w-full items-start gap-4">
 				<img src={gym.image_url} alt="" className="w-full h-1/3 xl:h-2/3 object-cover rounded-t-xl" />
 				<div className="flex flex-col w-full h-2/3 xl:h-1/3 gap-1 px-2">

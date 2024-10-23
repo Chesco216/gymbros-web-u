@@ -13,7 +13,7 @@ export const SearchBar = ({ onSubmit }) => {
 			<form onSubmit={handleSubmit} className="px-2 py-4 flex gap-3 w-full md:max-w-3xl lg:max-w-4xl xl:max-w-7xl">
 				<input
 					className="w-full h-14 xl:h-16 px-5 border border-primary xl:px-4"
-					placeholder="Buscar por el nombre del gimnasio"
+					placeholder="Nombre del gimnasio"
 					type="text"
 					value={gymSearch}
 					onChange={(e) => setGymSearch(e.target.value)}

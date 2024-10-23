@@ -21,10 +21,10 @@ export const Home = () => {
 	const handleFilterChange = (selectedOption) => {
 		switch (selectedOption) {
 			case "highest-rated":
-				setGymsFiltered(gyms.filter((g) => g.stars >= 3));
+				setGymsFiltered(gyms.filter((g) => g.stars >= 3.5));
 				break;
 			case "lowest-price":
-				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 400));
+				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 300));
 				break;
 			case "all":
 				setGymsFiltered(gyms);
@@ -33,7 +33,7 @@ export const Home = () => {
 	};
 
 	const handleSubmit = (inputValue) => {
-		setGymsFiltered(gyms.filter((g) => g.name.includes(inputValue)));
+		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 	useEffect(() => {
 		window.scrollTo(0, 0);

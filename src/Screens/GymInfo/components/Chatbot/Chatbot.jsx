@@ -1,8 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InputBox } from "./InputBox";
 import { MessageBubble } from "./MessageBubble";
 import { gyms } from "../../../../../assets/gyms";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const genAi = new GoogleGenerativeAI(API_KEY);
@@ -11,6 +12,7 @@ const model = genAi.getGenerativeModel({ model: "gemini-1.5-pro" });
 export const Chatbot = () => {
 	const [loading, setLoading] = useState(false);
 	const [messages, setMessages] = useState([]);
+	const { isVisible, sectionRef } = useFadeIn();
 
 	const sendMessage = async (inputText) => {
 		if (!inputText) {
@@ -38,9 +40,10 @@ export const Chatbot = () => {
 		}
 	}
 
+
 	return (
 
-		<section className="flex flex-col px-5 py-10 bg-white rounded-xl max-h-[600px] md:max-h-[700px] shadow-lg gap-2 hover:outline hover:outline-primary fade-in-fast">
+		<section className={`fade-in-section ${isVisible ? 'is-visible' : ''} flex flex-col px-5 py-10 bg-white rounded-xl max-h-[600px] md:max-h-[700px] shadow-lg gap-2 hover:outline hover:outline-primary`} ref={sectionRef}>
 			<p className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-black">Tienes dudas?, Hazme una pregunta</p>
 			<p className="text-gray-600">Habla con el asistente virtual que resolvera tus dudas sobre el mundo fitness o sobre gimnasios </p>
 			<div className="flex flex-col overflow-auto my-5">

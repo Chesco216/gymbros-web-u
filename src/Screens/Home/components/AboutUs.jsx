@@ -1,9 +1,12 @@
+import { useFadeIn } from "../../GymInfo/hooks/useFadeIn"
+
 export const AboutUs = () => {
+	const {isVisible, sectionRef} = useFadeIn();
 	return (
 		<div className="px-2 py-10 xl:py-16 mt-10 bg-gray-200 w-full flex justify-center items-center">
 
 			<section className="px-2 py-4 flex gap-4 w-full md:max-w-3xl lg:max-w-4xl xl:max-w-7xl items-center">
-				<header className="flex flex-col gap-5">
+		<header className={`${isVisible ? 'slide-in': ''} flex flex-col gap-5`} ref={sectionRef}>
 					<h2 className="text-lg font-bold sm:text-xl xl:text-2xl">
 						¡Encuentra tu gimnasio ideal en La Paz!
 					</h2>

@@ -7,7 +7,7 @@ export const UserLayout = ({ children }) => {
 
 		<div className="flex flex-col min-h-screen bg-fourth overflow-custom items-center">
 			<Navbar />
-			<div className="flex flex-col w-full">
+			<div className="flex flex-col w-full mt-20 xl:mt-24">
 				{children}
 			</div>
 			<Footer />
