@@ -24,8 +24,13 @@ body {
 .fade-in {
 	animation: fadeIn 0.79s;
 }
+
 .fade-in-fast {
 	animation: fadeIn 0.2s;
+}
+
+.payment-method {
+	@apply bg-white px-2 py-5 flex gap-2;
 }
 
 @keyframes fadeIn {

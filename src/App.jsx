@@ -6,6 +6,7 @@ import { Home } from "./Screens/Home/Home"
 import { Login } from "./Screens/Auth/Login"
 import { Signup } from "./Screens/Auth/Signup"
 import { GymInfo } from "./Screens/GymInfo/GymInfo"
+import { Suscription } from "./Screens/Suscription/Suscription"
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
 		{
 			path: '/gyms/:id',
 			element: <GymInfo />
+		},
+		{
+			path: '/gyms/:id/suscript',
+			element: <Suscription />
 		}
 	])
 
