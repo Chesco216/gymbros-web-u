@@ -1,15 +1,12 @@
 import { NavLink } from "react-router-dom"
-import { useFadeIn } from "../hooks/useFadeIn"
 
 export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, image_url, text_address, suscription_price }) => {
 
-	const { isVisible, sectionRef } = useFadeIn();
-
 	return (
 		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-xl shadow-black/5'>
-			<img src={image_url} alt="" className="w-full h-[200px] md:h-[400px] xl:h-[500px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl fade-in" />
+			<img src={image_url} alt="" className="w-full h-[200px] md:h-[250px] 2xl:h-[300px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl fade-in" />
 
-			<div className={`flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-5 xl:gap-4 slide-in`} ref={sectionRef}>
+			<div className={`flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-5 xl:gap-4 slide-in`} >
 				<div className='flex flex-col pt-7'>
 					<h1 className='text-3xl uppercase font-extrabold sm:text-4xl xl:text-5xl'>{name}</h1>
 					<p className='flex mt-4 items-center text-lg font-md sm:text-xl xl:text-2xl '>

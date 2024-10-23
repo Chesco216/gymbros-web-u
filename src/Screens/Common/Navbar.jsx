@@ -66,7 +66,7 @@ export const Navbar = () => {
 	};
 
 	return (
-		<header className="flex bg-primary px-3 h-20 xl:h-24 shadow-md w-full sm:px-10 xl:px-40 items-center justify-center fixed z-10">
+		<header className="flex bg-primary px-3 h-16 xl:h-20 2xl:h-24 shadow-md w-full sm:px-10 xl:px-40 items-center justify-center fixed z-10">
 			<NavLink
 				to="/"
 				className="text-2xl font-bold sm:text-3xl xl:text-4xl hover:text-gray-900 uppercase"

@@ -10,7 +10,7 @@ import { YoutubeIcon } from "./Icons/YoutubeIcon"
 export const Footer = () => {
 	return (
 		<footer className="py-10 mt-auto lg:py-16 xl:py-20 border-t-black border-t-[1px] bg-primary w-full flex flex-col justify-center items-center">
-			<div className="w-full md:max-w-3xl lg:max-w-4xl xl:max-w-7xl  bg-primary lg:grid lg:grid-cols-3 px-4 xl:px-0">
+			<div className="w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-[1300px] bg-primary lg:grid lg:grid-cols-3 2xl:px-0 px-4 xl:px-0">
 				<section className="flex flex-col items-center justify-center">
 					<BackyardigansIcon />
 					<p className="text-3xl font-bold uppercase block p-2 transition duration-300 will-change-transform hover:scale-105 motion-reduce:transition-none cursor-pointer">Gymbros</p>
