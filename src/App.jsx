@@ -6,7 +6,13 @@ import { Home } from "./Screens/Home/Home"
 import { Login } from "./Screens/Auth/Login"
 import { Signup } from "./Screens/Auth/Signup"
 import { GymInfo } from "./Screens/GymInfo/GymInfo"
+
 import { Suscription } from "./Screens/Suscription/Suscription"
+
+import { GymsAdminRoutes } from "./Screens/ADMIN_GYMS/GymsAdminRoutes"
+import { GymsManagement } from "./Screens/ADMIN_GYMS/Screens/GymsManagement/GymsManagement"
+import { Reports } from "./Screens/ADMIN_GYMS/Screens/Reports/Reports"
+
 
 function App() {
 
@@ -44,7 +50,21 @@ function App() {
 		{
 			path: '/gyms/:id/suscript',
 			element: <Suscription />
-		}
+		},
+    {
+      path: '/superadmin',
+      element: <GymsAdminRoutes/>,
+      children: [
+        {
+          path: 'gyms',
+          element: <GymsManagement/>
+        },
+        {
+          path: 'reports',
+          element: <Reports/>
+        },
+      ]
+    }
 	])
 
 	return (
