@@ -15,11 +15,11 @@ export const UserCard = ({ name, ci, isActive, expires, plan, setIsOpen, setMod,
 
 	return (
 		<tr className="bg-white border-b hover:bg-gray-50 fade-in">
-			<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{name}</th>
+			<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize">{name}</th>
 			<td className="px-6 py-4">{ci}</td>
 			<td className="px-6 py-4">{(isActive) ? 'Activo' : 'Expirado'}</td>
 			<td className="px-6 py-4">{date}</td>
-			<td className="px-6 py-4">{plan}</td>
+			<td className="px-6 py-4 capitalize">{plan}</td>
 			<td className="px-6 py-4 text-right">
 
 				<button onClick={() => handleUpdate()} className="text-primary hover:underline"> Editar </button>
