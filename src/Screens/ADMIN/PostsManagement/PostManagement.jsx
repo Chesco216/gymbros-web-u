@@ -32,10 +32,10 @@ const posts = [
 export const PostManagement = () => {
 
 	return (
-    <>
+		<>
 			<PostGrid posts={posts} />
-      <PostForm/>
-    </>
+			<PostForm />
+		</>
 	)
 }
 

@@ -95,3 +95,7 @@ body {
 .icon {
 	@apply grid place-items-center transition duration-300 will-change-transform hover:scale-125 motion-reduce:transition-none motion-reduce:hover:transform-none min-[850px]:col-span-2
 }
+
+.no-scroll {
+	overflow: hidden;
+}
