@@ -12,6 +12,7 @@ import { Suscription } from "./Screens/Suscription/Suscription"
 import { GymsAdminRoutes } from "./Screens/ADMIN_GYMS/GymsAdminRoutes"
 import { GymsManagement } from "./Screens/ADMIN_GYMS/Screens/GymsManagement/GymsManagement"
 import { Reports } from "./Screens/ADMIN_GYMS/Screens/Reports/Reports"
+import { GymCRUD } from "./Screens/ADMIN_GYMS/Screens/GymsCRUD/GymCRUD"
 
 
 function App() {
@@ -43,10 +44,24 @@ function App() {
 				},
 			]
 		},
-		{
-			path: '/gyms/:id',
-			element: <GymInfo />
-		},
+    {
+      path: '/superadmin',
+      element: <GymsAdminRoutes/>,
+      children: [
+        {
+          path: 'gyms',
+          element: <GymsManagement/>
+        },
+        {
+          path: 'newgym',
+          element: <GymCRUD/>
+        },
+        {
+          path: 'reports',
+          element: <Reports/>
+        },
+      ]
+    },
 		{
 			path: '/gyms/:id/suscript',
 			element: <Suscription />
