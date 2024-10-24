@@ -11,6 +11,20 @@ export const GymsAdminGrid = () => {
   console.log({isOpen})
   return (
     <div>
+      <table>
+        <tr>
+          <th>Nombre</th>
+          <th>Usuarios Permitidos</th>
+          <th>Usuarios Activos</th>
+          <th>Fecha de renovacion</th>
+          <th>Plan</th>
+        </tr>
+        {
+          gymsAdmin.map((item) => {
+            console.log({item})
+          })
+        }
+      </table>
       <button onClick={() => setIsOpen(true)}>Agreagar un gimnasio</button>
       {
         (isOpen) && <GymsModal setIsOpen={setIsOpen}/>
