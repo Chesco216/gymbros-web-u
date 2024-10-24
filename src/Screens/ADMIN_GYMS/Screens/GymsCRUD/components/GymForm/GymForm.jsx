@@ -15,8 +15,18 @@ export const GymForm = () => {
   })
   const [services, setServices] = useState()
   const [images, setImages] = useState([])
-  const [location, setLocation] = useState()
-  const [basicInfo, setBasicInfo] = useState()
+  const [location, setLocation] = useState({
+    chords: '',
+    text: ''
+  })
+  const [basicInfo, setBasicInfo] = useState({
+    name: '',
+    phone_number: '',
+    reviews: 0,
+    schedule: '',
+    stars: 0,
+    suscription_price: 0
+  })
   const [trainers, setTrainers] = useState()
 
 
@@ -94,6 +104,15 @@ export const GymForm = () => {
     e.preventDefault()
     console.log('submited')
     await uploadImages()
+    console.log({location})
+    const gymToUpload = {
+      equipement,
+      services,
+      images,
+      location,
+      ...basicInfo,
+      trainers
+    }
   }
 
   // WARN: Perdon trini esto va a estar feito de estilizar
@@ -136,8 +155,8 @@ export const GymForm = () => {
         <label>Que servicios ofrece?</label>
         <input
           placeholder='ej: servicio 1, servicio 2, servicio 3'
-          name='legs'
-          onChange={(e) => setServices(e)}
+          name='services'
+          onChange={(e) => setServices(e.target.value.split(','))}
         />
       </span>
       <span>
@@ -147,6 +166,95 @@ export const GymForm = () => {
           name='images'
           multiple 
           onChange={(e) => setImages(e.target.files)}
+        />
+      </span>
+      <span>
+        <label>Agrega la ubicacion</label>
+        <input
+          placeholder='coordenadas'
+          name='chords'
+          onChange={(e) => setLocation({
+            ...location,
+            chords: e.target.value
+          })}
+        />
+        <input
+          placeholder='ubicacion'
+          name='locationText'
+          onChange={(e) => setLocation({
+            ...location,
+            text: e.target.value
+          })}
+        />
+      </span>
+      <span>
+        <label>Agrega la informacion basica del gimnasio</label>
+        <input
+          placeholder='Nombre del gimnaiso'
+          name='gymName'
+          onChange={(e) => setBasicInfo({
+            ...basicInfo,
+            name: e.target.value
+          })}
+        />
+        <input
+          placeholder='Numero de telefono'
+          name='phone'
+          onChange={(e) => setBasicInfo({
+            ...basicInfo,
+            phone_number: e.target.value
+          })}
+        />
+        <input
+          placeholder='Horarios'
+          name='schedule'
+          onChange={(e) => setBasicInfo({
+            ...basicInfo,
+            schedule: e.target.value
+          })}
+        />
+        <input
+          placeholder='Calificacion'
+          name='stars'
+          onChange={(e) => setBasicInfo({
+            ...basicInfo,
+            stars: e.target.value
+          })}
+        />
+        <input
+          placeholder='Precio de la suscripcion'
+          name='price'
+          onChange={(e) => setBasicInfo({
+            ...basicInfo,
+            suscription_price: e.target.value
+          })}
+        />
+      </span>
+      <span>
+        <label>Agregue la informacion de su entrenador</label>
+        <input
+          placeholder='Nombre'
+          name='trainerName'
+          onChange={(e) => setTrainers({
+            ...trainers,
+            name: e.target.value
+          })}
+        />
+        <input
+          placeholder='Horario'
+          name='trainerSchedule'
+          onChange={(e) => setTrainers({
+            ...trainers,
+            schedule: e.target.value
+          })}
+        />
+        <input
+          placeholder='Actividades'
+          name='trainerActivity'
+          onChange={(e) => setTrainers({
+            ...trainers,
+            activity: e.target.value
+          })}
         />
       </span>
       <button type='submit'>Aceptar</button>
