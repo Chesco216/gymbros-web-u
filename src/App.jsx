@@ -44,24 +44,28 @@ function App() {
 				},
 			]
 		},
-    {
-      path: '/superadmin',
-      element: <GymsAdminRoutes/>,
-      children: [
-        {
-          path: 'gyms',
-          element: <GymsManagement/>
-        },
-        {
-          path: 'newgym',
-          element: <GymCRUD/>
-        },
-        {
-          path: 'reports',
-          element: <Reports/>
-        },
-      ]
-    },
+		{
+			path: '/superadmin',
+			element: <GymsAdminRoutes />,
+			children: [
+				{
+					path: 'gyms',
+					element: <GymsManagement />
+				},
+				{
+					path: 'newgym',
+					element: <GymCRUD />
+				},
+				{
+					path: 'reports',
+					element: <Reports />
+				},
+			]
+		},
+		{
+			path: '/gyms/:id',
+			element: <GymInfo />
+		},
 		{
 			path: '/gyms/:id/suscript',
 			element: <Suscription />
