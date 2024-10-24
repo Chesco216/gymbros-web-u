@@ -6,17 +6,18 @@ import { UserLayout } from "../Common/Layouts/UserLayout";
 import { gyms } from "../../../assets/gyms"
 import { Welcome } from "./components/Welcome";
 import { AboutUs } from "./components/AboutUs";
+import { getGymsFb } from "./services/getGymsFb";
 
 export const Home = () => {
 
+
+
 	const [gymsFiltered, setGymsFiltered] = useState(gyms);
-  //TODO: get gyms from firebase
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
 		{ value: 'highest-rated', label: 'Mejor valorado' },
 		{ value: 'lowest-price', label: 'Mas barato' }
 	];
-
 
 	const handleFilterChange = (selectedOption) => {
 		switch (selectedOption) {
@@ -35,9 +36,15 @@ export const Home = () => {
 	const handleSubmit = (inputValue) => {
 		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
+
+  //NOTE: ACA ESTAN LOS GYMS DESDE FIREBASE
+  const [gymsFromFb, setGymsFromFb] = useState()
 	useEffect(() => {
 		window.scrollTo(0, 0);
+    getGymsFb().then(gyms => setGymsFromFb(gyms))
 	}, [])
+  
+  console.log({gymsFromFb})
 	return (
 		<UserLayout>
 
