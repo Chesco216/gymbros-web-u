@@ -1,24 +1,29 @@
 import styles from './UserCard.module.css'
 
-export const UserCard = ({name, ci, isActive, expires, plan, setIsOpen, setMod}) => {
 
-  // console.log('expires date: ', expires.seconds)
-  const dateObj = new Date(expires.seconds*1000)
-  const date = `${dateObj.getDate()} / ${dateObj.getMonth()} / ${dateObj.getFullYear()}`
+export const UserCard = ({ name, ci, isActive, expires, plan, setIsOpen, setMod, setUpdateUser }) => {
 
-  const handleUpdate =() => {
-    setIsOpen(true)
-    setMod('Actualizar')
-  }
+	// console.log('expires date: ', expires.seconds)
+	const dateObj = new Date(expires.seconds * 1000)
+	const date = `${dateObj.getDate()} / ${dateObj.getMonth()} / ${dateObj.getFullYear()}`
 
-  return (
-    <div className={styles.container}>
-      <label className={`${styles.labels} `}>{name}</label>
-      <label className={`${styles.labels} `}>{ci}</label>
-      <label className={`${styles.labels} `}>{(isActive) ? 'Activo' : 'Expirado'}</label>
-      <label className={`${styles.labels} `}>{date}</label>
-      <label className={`${styles.labels} `}>{plan}</label>
-      <button onClick={() => handleUpdate()}>Actualizar usuario</button>
-    </div>
-  )
+	const handleUpdate = () => {
+		setIsOpen(true)
+		setMod('Actualizar')
+		setUpdateUser({ name, ci, plan });
+	}
+
+	return (
+		<tr className="bg-white border-b hover:bg-gray-50 fade-in">
+			<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{name}</th>
+			<td className="px-6 py-4">{ci}</td>
+			<td className="px-6 py-4">{(isActive) ? 'Activo' : 'Expirado'}</td>
+			<td className="px-6 py-4">{date}</td>
+			<td className="px-6 py-4">{plan}</td>
+			<td className="px-6 py-4 text-right">
+
+				<button onClick={() => handleUpdate()} className="text-primary hover:underline"> Editar </button>
+			</td>
+		</tr>
+	)
 }
