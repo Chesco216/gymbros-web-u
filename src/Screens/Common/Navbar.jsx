@@ -120,14 +120,14 @@ export const Navbar = () => {
 						className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 xl:w-60 right-0"
 					>
 						<ul
-							className="text-md text-black list-disc"
+							className="text-md text-black"
 							aria-labelledby="dropdownHoverButton"
 						>
 							{dropDownMenuList.map((menu) => (
 								<li key={menu.name}>
 									<NavLink
 										to={menu.url}
-										className="flex gap-3 px-2 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg text-base items-center"
+										className="flex gap-3 px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg text-base items-center"
 									>
 										{menu.icon}
 										{menu.name}
