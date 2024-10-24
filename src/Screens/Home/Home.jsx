@@ -49,7 +49,7 @@ export const Home = () => {
 				gymsFiltered.length !== 0 ?
 					<GymGrid gyms={gymsFiltered} /> :
 					<section className="px-2 py-4 w-full flex justify-center">
-						<p className="md:max-w-3xl lg:max-w-4xl xl:max-w-7xl font-bold text-xl py-10 lg:text-2xl xl:text-3xl">No se encontraron resultados para esa busqueda</p>
+						<p className="md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl font-bold text-xl py-10 lg:text-2xl xl:text-3xl">No se encontraron resultados para esa busqueda</p>
 					</section>
 
 			}

@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { AdminRoutes } from "./Screens/ADMIN/AdminRoutes"
-// import { UserManagement } from "./Screens/ADMIN/UserManagement/UserManagement"
+import { UserManagement } from "./Screens/ADMIN/UserManagement/UserManagement"
 import { PostManagement } from "./Screens/ADMIN/PostsManagement/PostManagement"
 import { Home } from "./Screens/Home/Home"
 import { Login } from "./Screens/Auth/Login"
@@ -33,10 +33,10 @@ function App() {
 			path: '/admin',
 			element: <AdminRoutes />,
 			children: [
-				// {
-				// 	path: 'users',
-				// 	element: <UserManagement />
-				// },
+				{
+					path: 'users',
+					element: <UserManagement />
+				},
 				{
 					path: 'posts',
 					element: <PostManagement />
