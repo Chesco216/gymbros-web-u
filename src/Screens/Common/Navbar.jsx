@@ -19,7 +19,6 @@ export const Navbar = () => {
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 					>
-						{/* SVG para "Mi Perfil" */}
 						<path
 							d="M256 256a128 128 0 100-256 128 128 0 000 256zm0 64c-70.7 0-256 35.3-256 106v42h512v-42c0-70.7-185.3-106-256-106z"
 							fill="#000"
@@ -67,10 +66,10 @@ export const Navbar = () => {
 	};
 
 	return (
-		<header className="flex bg-primary px-3 h-24 shadow-md w-full sm:px-10 xl:px-40 items-center justify-center fixed z-10">
+		<header className="flex bg-primary px-3 h-16 xl:h-20 2xl:h-24 shadow-md w-full sm:px-10 xl:px-40 items-center justify-center fixed z-10">
 			<NavLink
 				to="/"
-				className="text-2xl font-bold sm:text-3xl xl:text-4xl hover:text-gray-900"
+				className="text-2xl font-bold sm:text-3xl xl:text-4xl hover:text-gray-900 uppercase"
 			>
 				Gymbros
 			</NavLink>
@@ -121,14 +120,14 @@ export const Navbar = () => {
 						className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 xl:w-60 right-0"
 					>
 						<ul
-							className="text-md text-gray-700"
+							className="text-md text-black"
 							aria-labelledby="dropdownHoverButton"
 						>
 							{dropDownMenuList.map((menu) => (
 								<li key={menu.name}>
 									<NavLink
 										to={menu.url}
-										className="flex gap-3 px-2 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg text-base items-center"
+										className="flex gap-3 px-4 py-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white rounded-lg text-base items-center"
 									>
 										{menu.icon}
 										{menu.name}

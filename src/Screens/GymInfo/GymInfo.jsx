@@ -19,11 +19,11 @@ export const GymInfo = () => {
 
 	return (
 		<UserLayout>
-			<div className="w-full mt-24">
+			<div className="w-full">
 				<GymHeader {...gym} />
 			</div>
 
-			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 px-4 py-10 xl:px-8 gap-5 xl:gap-5 w-full">
+			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 px-4 py-14 xl:px-8 gap-5 xl:gap-5 w-full xl:py-32">
 				<Chatbot gym_id={params.id} />
 				<ExtraServices extra_services={gym.extra_services} />
 				<Location coords_addresss={gym.coords_address} />

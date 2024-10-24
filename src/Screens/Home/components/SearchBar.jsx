@@ -9,11 +9,11 @@ export const SearchBar = ({ onSubmit }) => {
 	};
 
 	return (
-		<section className="w-full flex justify-center mt-24">
-			<form onSubmit={handleSubmit} className="px-2 py-4 flex gap-3 w-full md:max-w-3xl lg:max-w-4xl xl:max-w-6xl">
+		<section className="w-full flex justify-center">
+			<form onSubmit={handleSubmit} className="px-2 py-4 flex gap-3 w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl">
 				<input
 					className="w-full h-14 xl:h-16 px-5 border border-primary xl:px-4"
-					placeholder="Buscar gimnasios"
+					placeholder="Nombre del gimnasio"
 					type="text"
 					value={gymSearch}
 					onChange={(e) => setGymSearch(e.target.value)}
