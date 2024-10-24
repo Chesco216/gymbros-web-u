@@ -4,7 +4,7 @@ export const UserCard = ({name, ci, isActive, expires, plan, setIsOpen, setMod})
 
   // console.log('expires date: ', expires.seconds)
   const dateObj = new Date(expires.seconds*1000)
-  const date = `${dateObj.getDate()} / ${dateObj.getMonth()} / ${dateObj.getFullYear()}`
+  const date = `${dateObj.getDate().toString()} / ${dateObj.getMonth().toString()} / ${dateObj.getFullYear().toString()}`
 
   const handleUpdate =() => {
     setIsOpen(true)
