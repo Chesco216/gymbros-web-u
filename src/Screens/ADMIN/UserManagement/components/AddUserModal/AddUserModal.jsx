@@ -1,16 +1,28 @@
 import { useEffect, useState } from 'react';
 import styles from './AddUserModal.module.css';
+import { useUser } from '../../../../../store/useUser';
+import { collection, doc, getDoc, query, setDoc, where } from 'firebase/firestore';
+import { auth, db } from '../../../../../firebase/firebasse';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const info = {
 	name: '',
 	ci: '',
-	plan: '',
+	email: '',
+  age: '',
+  height: '',
+  weight: '',
+  uid: '',
+  phone: '',
+  isActive: '',
+  id_rol: '',
+  expires_at: ''
 }
 
 export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
-	const [name, setName] = useState(userInfo.name);
-	const [ci, setCI] = useState(userInfo.ci);
-	const [plan, setPlan] = useState(userInfo.plan);
+
+  const [user, setUser] = useState(userInfo)
+  const [password, setPassword] = useState('')
 
 	useEffect(() => {
 		if (isOpen) {
@@ -24,16 +36,43 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 		};
 	}, [isOpen]);
 
-	const handleAddUser = () => {
-		console.log('user added');
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if(mod == 'Actualizar') handleUpdateAddUser()
+    if(mod == 'Crear') handleCreateUser()
+  }
+
+	const handleUpdateAddUser = async () => {
+    // const q = query(collection(db, 'user'), where('uid', '==', user.uid))
+    // const doc = await getDoc(q)
+    // const userFB = doc[0].data()
+    // console.log({userFB})
+		console.log('user updated');
+    console.log({user})
 		setIsOpen(false);
 	};
 
+  const handleCreateUser = async() => {
+    const res = await createUserWithEmailAndPassword(auth, user.email, password)
+    const userUID = res.user.uid
+    console.log('user created')
+    console.log({user})
+    const date = new Date()
+    const userFB = {
+      ...user,
+      expires_at: date,
+      isActive: true,
+      uid: userUID,
+      rol_id: 1
+      //TODO: add gym_id to user profile
+    }
+    await setDoc(doc(db, 'user', userUID), userFB )
+		setIsOpen(false);
+  }
+
 	const handleCancelModal = () => {
 		console.log('modal canceled');
-		setName('');
-		setCI('');
-		setPlan('');
+    setUser(userInfo)
 		setIsOpen(false);
 	};
 
@@ -52,37 +91,107 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 								Estás a punto de <strong className="underline">{mod}</strong> un usuario. Ingresa los campos correspondientes para dicha acción.
 							</p>
 
-							<form id='myform' onSubmit={handleAddUser} className="flex flex-col justify-center px-auto gap-1">
+							<form 
+                id='myform' 
+                onSubmit={(e) => handleSubmit(e)}
+                className="flex flex-col justify-center px-auto gap-1">
 								<label className="slide-in text-md text-gray-900">Nombre:</label>
 								<input
 									type='text'
 									name='name'
-									value={name}
-									onChange={(e) => setName(e.target.value)}
+									value={user.name}
+									onChange={(e) => setUser({...user, name: e.target.value })}
 									placeholder='Nombre'
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Carnet de Identidad:</label>
+                {
+                  (mod == 'Crear') &&
+                    <>
+                      <label className="slide-in text-md text-gray-900">Carnet de Identidad:</label>
+                      <input
+                        type='text'
+                        name='ci'
+                        value={user.ci}
+                        onChange={(e) => setUser({...user, ci: e.target.value })}
+                        placeholder='Carnet de identidad'
+                        className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
+                        required
+                      />
+                    </>
+                }
+                {
+                  (mod == 'Crear') &&
+                    <>
+                      <label className="slide-in text-md text-gray-900">Correo electronico:</label>
+                      <input
+                        type='text'
+                        name='email'
+                        value={user.email}
+                        onChange={(e) => setUser({...user, email: e.target.value })}
+                        placeholder='Correo electronico'
+                        className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
+                        required
+                      />
+                    </>
+                }
+                {
+
+                  (mod == 'Crear') &&
+                    <>
+                      <label className="slide-in text-md text-gray-900">Contraseña:</label>
+                      <input
+                        type='password'
+                        name='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Contraseña'
+                        className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
+                        required
+                      />
+                    </>
+                }
+								<label className="slide-in text-md text-gray-900">Edad:</label>
 								<input
-									type='text'
-									name='ci'
-									value={ci}
-									onChange={(e) => setCI(e.target.value)}
-									placeholder='Carnet de identidad'
+									type='number'
+									name='age'
+									value={user.age}
+									onChange={(e) => setUser({...user, age: e.target.value })}
+									placeholder='Edad'
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Plan del gimnasio:</label>
+								<label className="slide-in text-md text-gray-900">Peso:</label>
 								<input
-									type='text'
-									name='plan'
-									value={plan}
-									onChange={(e) => setPlan(e.target.value)}
-									placeholder='Plan del gimnasio'
+									type='number'
+									name='weight'
+									value={user.weight}
+									onChange={(e) => setUser({...user, weight: e.target.value })}
+									placeholder='Peso'
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
+								<label className="slide-in text-md text-gray-900">Altura:</label>
+								<input
+									type='number'
+									name='height'
+									value={user.height}
+									onChange={(e) => setUser({...user, height: e.target.value })}
+									placeholder='Altura'
+									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
+									required
+								/>
+								<label className="slide-in text-md text-gray-900">Telefono:</label>
+								<input
+									type='number'
+									name='phone'
+									value={user.phone}
+									onChange={(e) => setUser({...user, phone: e.target.value })}
+									placeholder='Telefono'
+									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
+									required
+								/>
+                {/*TODO: add fields for start and expiration date*/}
 							</form>
 						</div>
 						<div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-2">
@@ -108,3 +217,4 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 		</div>
 	);
 };
+
