@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './AddUserModal.module.css';
+import { updateUser } from '../../../services/updateUsers';
+import { useNavigate } from 'react-router-dom';
 
 const info = {
 	name: '',
@@ -8,6 +10,8 @@ const info = {
 }
 
 export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
+
+	const navigate = useNavigate();
 	const [name, setName] = useState(userInfo.name);
 	const [ci, setCI] = useState(userInfo.ci);
 	const [plan, setPlan] = useState(userInfo.plan);
@@ -24,8 +28,14 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 		};
 	}, [isOpen]);
 
-	const handleAddUser = () => {
-		console.log('user added');
+	const handleAddUser = async () => {
+		if (mod == 'Crear') {
+			console.log('user added');
+		}
+		else if (mod == 'Actualizar') {
+			await updateUser(userInfo.id, userInfo);
+			navigate(0);
+		}
 		setIsOpen(false);
 	};
 
