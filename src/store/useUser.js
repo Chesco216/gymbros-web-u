@@ -7,7 +7,7 @@ const initialState = (lc) ? JSON.parse(lc)
 
 export const useUser = create((set) => ({
 	user: initialState,
-	setUser: (payload) => set({ user: payload }),
-	clearUser: () => set({ user: initialState })
+	set_user: (payload) => set({ user: payload }),
+	clear_user: () => set({ user: initialState })
 }))
 

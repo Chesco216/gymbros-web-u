@@ -1,6 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import React, { useState } from 'react'
-import { store } from '../../../../../../firebase/firebasse'
+import { db, store } from '../../../../../../firebase/firebasse'
+import { addDoc, collection, setDoc } from 'firebase/firestore'
 
 //NOTE: only for superuser rol pipipi
 
@@ -112,6 +113,12 @@ export const GymForm = () => {
       location,
       ...basicInfo,
       trainers
+    }
+    try {
+      const gymDoc = await addDoc(collection(db, 'gym'), gymToUpload)
+      console.log({message: 'gym added', gym: gymDoc})
+    } catch (error) {
+      alert(error.code)
     }
   }
 
