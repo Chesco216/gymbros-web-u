@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './AddUserModal.module.css';
 import { updateUser } from '../../../services/updateUsers';
 import { useNavigate } from 'react-router-dom';
+import { createUser } from '../../../services/createUsers';
 
 const info = {
 	name: '',
@@ -31,11 +32,14 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 	const handleAddUser = async () => {
 		if (mod == 'Crear') {
 			console.log('user added');
+			await createUser(userInfo);
 		}
 		else if (mod == 'Actualizar') {
+			console.log('user updated')
 			await updateUser(userInfo.id, userInfo);
 			navigate(0);
 		}
+
 		setIsOpen(false);
 	};
 

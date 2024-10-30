@@ -15,7 +15,7 @@ export const createUser = async (userData) => {
 			phone: userData.phone,
 			plan: userData.plan,
 			weight: userData.weight,
-			created_at: new Date()
+			created_at: new Date(),
 		})
 
 		return docRef.id
@@ -25,7 +25,6 @@ export const createUser = async (userData) => {
 	}
 }
 
-// Método 2: Especificando un ID personalizado
 export const createUserWithCustomId = async (customId, userData) => {
 	try {
 		// Crear referencia con ID personalizado
