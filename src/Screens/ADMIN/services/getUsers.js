@@ -1,9 +1,12 @@
-import { collection, doc, getDocs } from 'firebase/firestore'
+import { collection, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase/firebasse'
 
 export const getUsers = async () => {
 	try {
-		const docs = await getDocs(collection(db, 'user'))
+    const q = query(collection(db, 'user'),
+                      where('id_rol', '==', 1) //TODO: add gym_id to query
+                    )
+		const docs = await getDocs(q)
 		const users = []
 		docs.forEach(doc => {
 			const data = doc.data()
@@ -18,7 +21,8 @@ export const getUsers = async () => {
 				is_active: data.is_active,
 				phone: data.phone,
 				plan: data.plan,
-				weight: data.weight
+				weight: data.weight,
+        uid: data.uid
 			}
 			users.push(user)
 		})

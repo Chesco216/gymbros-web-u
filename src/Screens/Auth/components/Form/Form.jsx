@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import './Form.css';
 import { useState } from "react";
+import { useUser } from "../../../../store/useUser";
 
 export const Form = ({ fields, op, handleSubmit }) => {
 	const navigate = useNavigate();
 	const [isChecked, setIsChecked] = useState(false);
 	const [errors, setErrors] = useState({});
 	const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+
+  const set_user = useUser(state => state.set_user)
 
 	const goToSignup = (e) => {
 		e.preventDefault();
@@ -41,8 +44,11 @@ export const Form = ({ fields, op, handleSubmit }) => {
 			setErrors(newErrors);
 			return;
 		}
-
-		setErrors({});
+    
+    set_user({
+      name: fields[0].value
+    })
+    setErrors({});
 		handleSubmit();
 	};
 
