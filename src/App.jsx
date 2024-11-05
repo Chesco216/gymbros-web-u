@@ -82,20 +82,6 @@ function App() {
 			path: '/gyms/:id/suscript',
 			element: <Suscription />
 		},
-		{
-			path: '/superadmin',
-			element: <GymsAdminRoutes />,
-			children: [
-				{
-					path: 'gyms',
-					element: <GymsManagement />
-				},
-				{
-					path: 'reports',
-					element: <Reports />
-				},
-			]
-		}
 	])
 
 	return (
