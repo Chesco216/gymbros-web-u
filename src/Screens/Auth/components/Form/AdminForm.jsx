@@ -17,40 +17,43 @@ export const AdminForm = () => {
   const [gymInfo, setGymInfo] = useState(info)
   const [gymList, setGymList] = useState([])
 
+  //FIX: i dont know why but statte is not changing
   useEffect(() => {
+    const data = []
     getDocs(collection(db, 'gym'))
       .then(doc => doc.forEach(gym => {
-        console.log(gym.data())
-        setGymList([
-          ...gymList,
-          gym.data()
-        ])
+        data.push(gym.data())
       }))
-    // const filtered = gymList.filter(gym => gym.name != '')
-    // console.log({filtered})
-    // setGymList(gymList.filter(gym => console.log(gym.name)))
-    console.log(gymList)
+    setGymList(data)
+    console.log(data)
   },[])
+
 
   return (
     <form>
-      <select
-        onChange={(e) => setGymInfo({
-          ...gymInfo,
-          id_gym: e.target.value
-        })}
-      >
-        {
-          gymList.map((gym) =>
-            <option
-              key={gym.uid}
-              value={gym.uid}
-            >
-              {gym.name}
-            </option>
-          )
-        }
-      </select>
+      {
+        console.log({msg: 'gymList from form', gymList})
+      }
+      {
+        (gymList.length > 0) &&
+          <select
+            onChange={(e) => setGymInfo({
+              ...gymInfo,
+              id_gym: e.target.value
+            })}
+          >
+            {
+              gymList.map((gym) =>
+                <option
+                  key={gym.uid}
+                  value={gym.uid}
+                >
+                  {gym.name}
+                </option>
+              )
+            }
+          </select>
+      }
     </form>
   )
 }

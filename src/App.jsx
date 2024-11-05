@@ -13,6 +13,8 @@ import { GymsAdminRoutes } from "./Screens/ADMIN_GYMS/GymsAdminRoutes"
 import { GymsManagement } from "./Screens/ADMIN_GYMS/Screens/GymsManagement/GymsManagement"
 import { Reports } from "./Screens/ADMIN_GYMS/Screens/Reports/Reports"
 import { GymCRUD } from "./Screens/ADMIN_GYMS/Screens/GymsCRUD/GymCRUD"
+import { TrainerRoutes } from "./Screens/ADMIN/Trainer/TrainerRoutes"
+import { TrainerLayout } from "./Screens/ADMIN/Trainer/TrainerLayout"
 
 
 function App() {
@@ -41,6 +43,16 @@ function App() {
 				{
 					path: 'posts',
 					element: <PostManagement />
+				},
+			]
+		},
+		{
+			path: '/trainer',
+			element: <TrainerRoutes />,
+			children: [
+				{
+					path: 'users',
+					element: <TrainerLayout />
 				},
 			]
 		},
