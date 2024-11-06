@@ -19,6 +19,7 @@ export const UserGrid = ({ users, setIsOpen, setMod, setUpdateUser }) => {
 					{
 						users.map(user => <UserCard
 							key={user.name}
+              uid={user.uid}
 							name={user.name}
 							ci={user.ci}
 							isActive={user.isActive}

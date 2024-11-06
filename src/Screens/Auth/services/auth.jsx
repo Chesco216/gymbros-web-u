@@ -6,7 +6,7 @@ export const signupEP = async (email, password) => {
 	try {
 		const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 		const user = userCredential.user
-		localStorage.setItem('user', JSON.stringify(user))
+		localStorage.setItem('user', JSON.stringify(user.uid))
 		window.location.href = '/'
 
 		return user
@@ -21,7 +21,7 @@ export const loginEP = async (email, password) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
 		const user = userCredential.user
-		localStorage.setItem('user', JSON.stringify(user))
+		localStorage.setItem('user', JSON.stringify(user.uid))
 		window.location.href = '/'
 
 		return user

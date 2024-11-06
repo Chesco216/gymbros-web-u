@@ -43,12 +43,18 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 	}
 
 	const handleUpdateAddUser = async () => {
-		// const q = query(collection(db, 'user'), where('uid', '==', user.uid))
-		// const doc = await getDoc(q)
-		// const userFB = doc[0].data()
-		// console.log({userFB})
-		console.log('user updated');
 		console.log({ user })
+		const userDoc = await getDoc(doc(db, 'user', user.uid))
+		const userFB = userDoc.data()
+		const res = await setDoc(doc(db, 'user', userFB.uid), {
+			...userFB,
+			name: user.name,
+			age: user.age,
+			weight: user.weight,
+			height: user.height,
+			phone: user.phone
+		})
+		console.log('user updated');
 		setIsOpen(false);
 	};
 
@@ -66,7 +72,6 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 			id_rol: 1
 		}
 		await setDoc(doc(db, 'user', userUID), userFB)
-
 		setIsOpen(false);
 	}
 

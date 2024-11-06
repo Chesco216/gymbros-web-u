@@ -7,12 +7,14 @@ import { gyms } from "../../../assets/gyms"
 import { Welcome } from "./components/Welcome";
 import { AboutUs } from "./components/AboutUs";
 import { getGymsFb } from "./services/getGymsFb";
+import { useGym } from "../../store/useGym";
+import { getUserFb } from "../Profile/services/getUserFb";
+import { useUser } from "../../store/useUser";
 
 export const Home = () => {
 
-
-
-	const [gymsFiltered, setGymsFiltered] = useState(gyms);
+	const gymsFiltered = useGym(state => state.gyms)
+  const setGymsFiltered = useGym(state => state.set_gyms)
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
 		{ value: 'highest-rated', label: 'Mejor valorado' },
@@ -37,14 +39,11 @@ export const Home = () => {
 		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 
-  //NOTE: ACA ESTAN LOS GYMS DESDE FIREBASE
-  const [gymsFromFb, setGymsFromFb] = useState()
 	useEffect(() => {
 		window.scrollTo(0, 0);
-    getGymsFb().then(gyms => setGymsFromFb(gyms))
+    getGymsFb().then(gyms => setGymsFiltered(gyms))
 	}, [])
   
-  console.log({gymsFromFb})
 	return (
 		<UserLayout>
 
