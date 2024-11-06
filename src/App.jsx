@@ -15,6 +15,8 @@ import { Reports } from "./Screens/ADMIN_GYMS/Screens/Reports/Reports"
 import { GymCRUD } from "./Screens/ADMIN_GYMS/Screens/GymsCRUD/GymCRUD"
 import { TrainerRoutes } from "./Screens/ADMIN/Trainer/TrainerRoutes"
 import { TrainerLayout } from "./Screens/ADMIN/Trainer/TrainerLayout"
+import { Profile } from "./Screens/Profile/Profile"
+import { Payment } from "./Screens/Profile/Payment"
 
 
 function App() {
@@ -31,6 +33,14 @@ function App() {
 		{
 			path: '/signup',
 			element: <Signup />
+		},
+		{
+			path: '/profile',
+			element: <Profile />
+		},
+		{
+			path: '/profile/payment',
+			element: <Payment />
 		},
 		{
 			path: '/admin',

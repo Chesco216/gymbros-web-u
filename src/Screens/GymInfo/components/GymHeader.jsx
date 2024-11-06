@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom"
 
-export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, image_url, text_address, suscription_price }) => {
+export const GymHeader = ({ uid, name, stars, number_of_reviews, extra_services, main_image, text_address, suscription_price }) => {
 
 	return (
 		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-xl shadow-black/5'>
-			<img src={image_url} alt="" className="w-full h-[200px] md:h-[250px] 2xl:h-[300px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl fade-in" />
+			<img src={main_image} alt="" className="w-full h-[200px] md:h-[250px] 2xl:h-[300px] object-cover xl:blur-[6px] lg:blur-[3px] sm:blur-[3px] shadow-lg xl:shadow-2xl fade-in" />
 
 			<div className={`flex flex-col gap-3 px-4 xl:px-8 py-2 xl:py-5 xl:gap-4 slide-in`} >
 				<div className='flex flex-col pt-7'>
@@ -21,7 +21,7 @@ export const GymHeader = ({ id, name, stars, number_of_reviews, extra_services, 
 					{stars} ({number_of_reviews} valoraciones)
 				</p>
 
-				<NavLink className="group/button flex items-center justify-center gap-3 rounded-md bg-primary px-7 py-4 font-bold text-white transition duration-200 motion-reduce:transition-none self-start shadow-lg xl:text-xl border border-black hover:bg-primary/90" to={`/gyms/${id}/suscript`}>
+				<NavLink className="group/button flex items-center justify-center gap-3 rounded-md bg-primary px-7 py-4 font-bold text-white transition duration-200 motion-reduce:transition-none self-start shadow-lg xl:text-xl border border-black hover:bg-primary/90" to={`/gyms/${uid}/suscript`}>
 					<span>
 						{suscription_price} Bs  |  Inscribirse
 					</span>
