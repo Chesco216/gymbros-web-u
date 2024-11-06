@@ -2,15 +2,17 @@ import { useParams } from 'react-router-dom'
 import { Chatbot } from './components/Chatbot/Chatbot';
 import { UserLayout } from '../Common/Layouts/UserLayout';
 import { GymHeader } from './components/GymHeader';
-import { gyms } from '../../../assets/gyms';
 import { ExtraServices } from './components/ExtraServices/ExtraServices';
 import { Location } from './components/Location/Location';
 import { useEffect } from 'react';
+import { useGym } from '../../store/useGym';
 
 export const GymInfo = () => {
 	const params = useParams();
-	const gym = gyms.find((g) => g.id === params.id);
-
+  const gyms = useGym(state => state.gyms)
+	const gym = gyms.find((g) => g.uid === params.id);
+  
+  console.log({gym})
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
