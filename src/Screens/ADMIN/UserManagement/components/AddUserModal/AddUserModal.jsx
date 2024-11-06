@@ -63,8 +63,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 			expires_at: date,
 			isActive: true,
 			uid: userUID,
-			rol_id: 1
-			//TODO: add gym_id to user profile
+			id_rol: 1
 		}
 		await setDoc(doc(db, 'user', userUID), userFB)
 
