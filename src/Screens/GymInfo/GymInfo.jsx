@@ -9,10 +9,9 @@ import { useGym } from '../../store/useGym';
 
 export const GymInfo = () => {
 	const params = useParams();
-  const gyms = useGym(state => state.gyms)
+	const gyms = useGym(state => state.gyms)
 	const gym = gyms.find((g) => g.uid === params.id);
-  
-  console.log({gym})
+
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -27,7 +26,7 @@ export const GymInfo = () => {
 
 			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 px-4 py-14 xl:px-8 gap-5 xl:gap-5 w-full xl:py-32">
 				<Chatbot gym_id={params.id} />
-				<ExtraServices extra_services={gym.extra_services} />
+				<ExtraServices services={[gym.equipment.arms, gym.equipment.back, gym.equipment.chest, gym.equipment.dumbells, gym.equipment.legs]} schedule={gym.schedule} extra_services={gym.extra_services} />
 				<Location coords_addresss={gym.coords_address} />
 
 			</div>

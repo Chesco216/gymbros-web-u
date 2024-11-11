@@ -28,14 +28,20 @@ export const Home = () => {
 	];
 
 	const handleFilterChange = (selectedOption) => {
+		let sortedGyms;
 		switch (selectedOption) {
 			case "highest-rated":
-				setGymsFiltered(gyms.filter((g) => g.stars >= 3.5));
+				sortedGyms = [...gyms].sort((a, b) => b.stars - a.stars);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "lowest-price":
-				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 300));
+				sortedGyms = [...gyms].sort((a, b) => a.suscription_price - b.suscription_price);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "all":
+				setGymsFiltered(gyms);
+				break;
+			default:
 				setGymsFiltered(gyms);
 				break;
 		}
