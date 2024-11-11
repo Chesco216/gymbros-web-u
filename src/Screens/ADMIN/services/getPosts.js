@@ -14,7 +14,7 @@ export const getPosts = async () => {
 				img: data.img
 			}
 
-      if(data.is_Active) posts.push(post)
+			if (data.is_Active) posts.push(post)
 		})
 
 		return posts

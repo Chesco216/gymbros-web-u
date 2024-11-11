@@ -3,9 +3,9 @@ import { db } from '../../../firebase/firebasse'
 
 export const getUsers = async () => {
 	try {
-    const q = query(collection(db, 'user'),
-                      where('id_rol', '==', 1) //TODO: add gym_id to query
-                    )
+		const q = query(collection(db, 'user'),
+			where('id_rol', '==', 1) //TODO: add gym_id to query
+		)
 		const docs = await getDocs(q)
 		const users = []
 		docs.forEach(doc => {
@@ -22,7 +22,7 @@ export const getUsers = async () => {
 				phone: data.phone,
 				plan: data.plan,
 				weight: data.weight,
-        uid: data.uid
+				uid: data.uid
 			}
 			users.push(user)
 		})
