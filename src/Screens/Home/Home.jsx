@@ -17,6 +17,7 @@ export const Home = () => {
 
 	const gymsFiltered = useGym(state => state.gyms)
   const setGymsFiltered = useGym(state => state.set_gyms)
+
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
 		{ value: 'highest-rated', label: 'Mejor valorado' },
@@ -24,14 +25,20 @@ export const Home = () => {
 	];
 
 	const handleFilterChange = (selectedOption) => {
+		let sortedGyms;
 		switch (selectedOption) {
 			case "highest-rated":
-				setGymsFiltered(gyms.filter((g) => g.stars >= 3.5));
+				sortedGyms = [...gyms].sort((a, b) => b.stars - a.stars);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "lowest-price":
-				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 300));
+				sortedGyms = [...gyms].sort((a, b) => a.suscription_price - b.suscription_price);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "all":
+				setGymsFiltered(gyms);
+				break;
+			default:
 				setGymsFiltered(gyms);
 				break;
 		}
@@ -43,9 +50,12 @@ export const Home = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-    getGymsFb().then(gyms => setGymsFiltered(gyms))
+		getGymsFb().then(gyms => {
+			setGyms(gyms)
+			setGymsFiltered(gyms)
+		})
 	}, [])
-  
+
 	return (
 		<UserLayout>
 

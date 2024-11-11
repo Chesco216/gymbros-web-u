@@ -22,6 +22,8 @@ export const UserManagement = () => {
 		getUsers().then((us) => setUsers(us))
 	}, [])
 
+	console.log(users);
+
 	const handleUsers = () => {
 		setUsers(userCI)
 	}

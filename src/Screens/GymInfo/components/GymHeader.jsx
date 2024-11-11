@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom"
 
-export const GymHeader = ({ uid, name, stars, number_of_reviews, extra_services, main_image, text_address, suscription_price }) => {
+export const GymHeader = ({ uid, name, stars, number_of_reviews, main_image, location, suscription_price }) => {
+
+	console.log(location)
 
 	return (
 		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-xl shadow-black/5'>
@@ -12,7 +14,7 @@ export const GymHeader = ({ uid, name, stars, number_of_reviews, extra_services,
 					<p className='flex mt-4 items-center text-lg font-md sm:text-xl xl:text-2xl '>
 
 						<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 21C15.5 17.4 19 14.1764 19 10.2C19 6.22355 15.866 3 12 3C8.13401 3 5 6.22355 5 10.2C5 14.1764 8.5 17.4 12 21Z" stroke="#e73b37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z" stroke="#e73b37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
-						{text_address}
+						{location.text}
 					</p>
 				</div>
 

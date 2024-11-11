@@ -1,6 +1,6 @@
 export const Reports = () => {
 	return (
-		<div>Reports</div>
+		<div>Falta</div>
 	)
 }
 
