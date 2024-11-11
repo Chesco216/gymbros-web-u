@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getRoutines } from '../../services/getRoutines'
-import { RoutineCard } from './RoutineCard'
+import { RoutineCardTrainer } from './RoutineCardTrainer'
 
 export const RoutinesGrid = () => {
 
@@ -8,18 +8,23 @@ export const RoutinesGrid = () => {
 
   useEffect(() => {
     getRoutines().then(res => setRoutines(res))
-  })
+  },[])
   return (
-    <div>
-      {
-        routines.map(routine => 
-          <RoutineCard 
-            key={routine.uid}
-            routine={routine}
-          />
-        )
-      }
-    </div>
+    <>
+    {
+      (routines) &&
+        <div>
+          { 
+            routines.map(routine => 
+              <RoutineCardTrainer 
+                key={routine.uid}
+                routine={routine}
+              />
+            )
+          }
+        </div>
+    }
+    </>
   )
 }
 

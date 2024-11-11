@@ -3,6 +3,9 @@ import { Form } from "./components/Form/Form"
 import { loginEP } from "./services/auth"
 import { useNavigate } from "react-router-dom"
 import { BackIcon } from "./components/BackIcon/BackIcon"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../../firebase/firebasse"
+import { useUser } from "../../store/useUser"
 
 export const Login = () => {
 	const navigate = useNavigate();
@@ -10,10 +13,23 @@ export const Login = () => {
 
 	const [password, setPassword] = useState()
 
+  // const set_user = useUser(state => state.set_user)
+
 	const handleSubmit = async () => {
-		const user = await loginEP(email, password)
-		navigate('/')
-		console.log({ user })
+    try {
+      const user = await loginEP(email, password)
+      const res = await getDoc(doc(db, 'user', user.uid))
+      const data = res.data()
+      console.log(data)
+      // set_user(data)
+      (data.id_rol == 1) ? navigate('/')
+        : (data.id_rol == 2) ? navigate('/admin/users')
+          : (data.id_rol == 3) ? navigate('/superadmin/gyms')
+            : (data.id_rol == 4) ? navigate('/trainer/users')
+              : navigate('/')
+    } catch (error) {
+      console.error(error)      
+    }
 	}
 
 	const fields = [

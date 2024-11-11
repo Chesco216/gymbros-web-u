@@ -16,6 +16,7 @@ export const Profile = () => {
   //TODO: add a function to set a new profile_photo
 
   const set_user = useUser(state => state.set_user)
+  const clear_user = useUser(state => state.clear_user)
   useEffect(() => {
     const lc = localStorage.getItem('user')
     const id = (lc) ? lc.replaceAll('"', '') : null
@@ -54,6 +55,11 @@ export const Profile = () => {
                     <p>{user.phone}</p>
                   </span>
                   <button onClick={() => navigate('/profile/payment')}>Gestionar incripcion y pago</button>
+                  <button onClick={() => {
+                    localStorage.clear()
+                    clear_user()
+                    navigate('/')
+                  }}>Cerrar sesion</button>
                 </>
             }
             {

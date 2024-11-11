@@ -13,6 +13,8 @@ import { useUser } from "../../store/useUser";
 
 export const Home = () => {
 
+  const user = useUser(state => state.user)
+
 	const gymsFiltered = useGym(state => state.gyms)
   const setGymsFiltered = useGym(state => state.set_gyms)
 	const filterOptions = [

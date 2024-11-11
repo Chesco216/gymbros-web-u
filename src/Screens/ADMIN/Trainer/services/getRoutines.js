@@ -3,7 +3,7 @@ import { db } from "../../../../firebase/firebasse"
 
 export const getRoutines = async() => {
   try {
-    const q = query(collection(db, 'routines'), where('isAproved', '==', true))
+    const q = query(collection(db, 'routines'), where('isAproved', '==', false))
     const res = await getDocs(q)
     const routines = []
     res.forEach(routine => {
@@ -28,6 +28,7 @@ export const getRoutines = async() => {
 
     return formatedRoutines
   } catch (error) {
+    console.log({error})
     alert(error.code)
   }
 }
