@@ -7,7 +7,7 @@ export const FilterBy = ({ options, onSelect }) => {
 	const handleSelect = (event) => {
 		const value = event.target.value;
 		setSelectedOption(value);
-		onSelect(value); // Pasar la selección al componente padre   
+		onSelect(value); // Pasar la seleccion al componente padre   
 	};
 
 	return (

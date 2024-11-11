@@ -16,7 +16,9 @@ export const Home = () => {
 	const gyms = useGym(state => state.gyms)
 	const setGyms = useGym(state => state.set_gyms)
 
-	// const [gymsFiltered, setGymsFiltered] = useState(gyms);
+
+
+	const [gymsFiltered, setGymsFiltered] = useState([]);
 
 
 	const filterOptions = [
@@ -28,24 +30,27 @@ export const Home = () => {
 	const handleFilterChange = (selectedOption) => {
 		switch (selectedOption) {
 			case "highest-rated":
-				setGyms(gyms.filter((g) => g.stars >= 3.5));
+				setGymsFiltered(gyms.filter((g) => g.stars >= 3.5));
 				break;
 			case "lowest-price":
-				setGyms(gyms.filter((g) => g.suscription_price <= 300));
+				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 300));
 				break;
 			case "all":
-				setGyms(gyms);
+				setGymsFiltered(gyms);
 				break;
 		}
 	};
 
 	const handleSubmit = (inputValue) => {
-		setGyms(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
+		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		getGymsFb().then(gyms => setGyms(gyms))
+		getGymsFb().then(gyms => {
+			setGyms(gyms)
+			setGymsFiltered(gyms)
+		})
 	}, [])
 
 	return (
@@ -56,8 +61,8 @@ export const Home = () => {
 			<SearchBar onSubmit={handleSubmit} />
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
 			{
-				gyms.length !== 0 ?
-					<GymGrid gyms={gyms} /> :
+				gymsFiltered.length !== 0 ?
+					<GymGrid gyms={gymsFiltered} /> :
 					<section className="px-2 py-4 w-full flex justify-center">
 						<p className="md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-7xl font-bold text-xl py-10 lg:text-2xl xl:text-3xl">No se encontraron resultados para esa busqueda</p>
 					</section>
