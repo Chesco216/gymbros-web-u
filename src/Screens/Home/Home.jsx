@@ -61,27 +61,20 @@ export const Home = () => {
 			setGymsFiltered(gyms)
 		})
     const lc = localStorage.getItem('user')
-    const id = lc.replaceAll('"', '');
-    if(id) {
+
+    if(lc) {
+      const id = lc.replaceAll('"', '');
       getDoc(doc(db, 'user', id)).then(userFb => set_user(userFb.data()))
     }
-      console.log(user.id_rol)
     if(user) {
       (user.id_rol == 1) ? navigate('/')
         : (user.id_rol == 2) ? navigate('/admin/users')
           : (user.id_rol == 3) ? navigate('/superadmin/gyms')
             : (user.id_rol == 4) ? navigate('/trainer/users')
-              : navigate('/')
+              : null
     }
 	}, [])
 
-  // if(user) {
-  //   (user.id_rol == 1) ? navigate('/')
-  //     : (user.id_rol == 2) ? navigate('/admin/users')
-  //       : (user.id_rol == 3) ? navigate('/superadmin/gyms')
-  //         : (user.id_rol == 4) ? navigate('/trainer/users')
-  //           : navigate('/')
-  // }
 
 	return (
 		<UserLayout>
