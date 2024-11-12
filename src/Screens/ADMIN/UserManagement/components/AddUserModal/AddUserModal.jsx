@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
+
+
 import styles from './AddUserModal.module.css';
 import { useUser } from '../../../../../store/useUser';
 import { collection, doc, getDoc, query, setDoc, where } from 'firebase/firestore';
 import { auth, db } from '../../../../../firebase/firebasse';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+
+import { Toaster, toast } from 'sonner'
 
 const info = {
 	name: '',
@@ -38,47 +43,73 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		if (mod == 'Actualizar') handleUpdateAddUser()
-		else if (mod == 'Crear') handleCreateUser()
+		if (mod == 'Actualizar') {
+			handleUpdateAddUser()
+
+		}
+		else if (mod == 'Crear') {
+			handleCreateUser()
+		}
+
+
 	}
 
 	const handleUpdateAddUser = async () => {
 		console.log({ user })
-		const userDoc = await getDoc(doc(db, 'user', user.uid))
-		const userFB = userDoc.data()
-		const res = await setDoc(doc(db, 'user', userFB.uid), {
-			...userFB,
-			name: user.name,
-			age: user.age,
-			weight: user.weight,
-			height: user.height,
-			phone: user.phone
-		})
-		console.log('user updated');
-		setIsOpen(false);
+		try {
+			const userDoc = await getDoc(doc(db, 'user', user.uid))
+			const userFB = userDoc.data()
+			const res = await setDoc(doc(db, 'user', userFB.uid), {
+				...userFB,
+				name: user.name,
+				age: user.age,
+				weight: user.weight,
+				height: user.height,
+				phone: user.phone
+			})
+			console.log('user updated');
+
+			toast.success("Usuario actualizado correctamente")
+
+			setIsOpen(false);
+		}
+		catch (e) {
+			console.log(e);
+		}
+
+
 	};
 
 	const handleCreateUser = async () => {
-		const res = await createUserWithEmailAndPassword(auth, user.email, password)
-		const userUID = res.user.uid
-		console.log('user created')
-		console.log({ user })
-		const date = new Date()
-		const userFB = {
-			...user,
-			expires_at: date,
-			isActive: true,
-			uid: userUID,
-			id_rol: 1
+		try {
+			const res = await createUserWithEmailAndPassword(auth, user.email, password)
+			const userUID = res.user.uid
+			console.log('user created')
+			console.log({ user })
+			const date = new Date()
+			const userFB = {
+				...user,
+				expires_at: date,
+				isActive: true,
+				uid: userUID,
+				id_rol: 1
+			}
+			await setDoc(doc(db, 'user', userUID), userFB)
+
+			toast.success("Usuario creado correctamente")
+
+			setIsOpen(false);
+
+		} catch (e) {
+			console.log(e);
 		}
-		await setDoc(doc(db, 'user', userUID), userFB)
-		setIsOpen(false);
 	}
 
 	const handleCancelModal = () => {
 		console.log('modal canceled');
 		setUser(userInfo)
 		setIsOpen(false);
+
 	};
 
 	if (!isOpen) return null;
@@ -219,6 +250,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 					</div>
 				</div>
 			</div>
+			<Toaster />
 		</div>
 	);
 };
