@@ -10,9 +10,13 @@ import { getGymsFb } from "./services/getGymsFb";
 import { useGym } from "../../store/useGym";
 import { getUserFb } from "../Profile/services/getUserFb";
 import { useUser } from "../../store/useUser";
+import { getDoc, doc } from 'firebase/firestore'
+import { db } from '../../firebase/firebasse.js'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
 
+  const navigate = useNavigate()
   const user = useUser(state => state.user)
 
 	const gymsFiltered = useGym(state => state.gyms)
@@ -48,12 +52,36 @@ export const Home = () => {
 		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 
+  const set_user = useUser(state => state.set_user)
+
 	useEffect(() => {
+    console.log({user})
 		window.scrollTo(0, 0);
 		getGymsFb().then(gyms => {
 			setGymsFiltered(gyms)
 		})
+    const lc = localStorage.getItem('user')
+    const id = lc.replaceAll('"', '');
+    if(id) {
+      getDoc(doc(db, 'user', id)).then(userFb => set_user(userFb.data()))
+    }
+      console.log(user.id_rol)
+    if(user) {
+      (user.id_rol == 1) ? navigate('/')
+        : (user.id_rol == 2) ? navigate('/admin/users')
+          : (user.id_rol == 3) ? navigate('/superadmin/gyms')
+            : (user.id_rol == 4) ? navigate('/trainer/users')
+              : navigate('/')
+    }
 	}, [])
+
+  // if(user) {
+  //   (user.id_rol == 1) ? navigate('/')
+  //     : (user.id_rol == 2) ? navigate('/admin/users')
+  //       : (user.id_rol == 3) ? navigate('/superadmin/gyms')
+  //         : (user.id_rol == 4) ? navigate('/trainer/users')
+  //           : navigate('/')
+  // }
 
 	return (
 		<UserLayout>

@@ -9,7 +9,6 @@ import { GymbrosIcon } from "./Icons/GymbrosIcon";
 export const Navbar = () => {
 	const [isDropdownVisible, setDropdownVisible] = useState(false);
 	const user = useUser((state) => state.user);
-	console.log(user);
 
 	const dropDownMenuList = user
 		? [

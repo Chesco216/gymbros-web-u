@@ -13,4 +13,3 @@ export const useUser = create((set) => ({
 	set_user: (payload) => set({ user: payload }),
 	clear_user: () => set({ user: initialState })
 }))
-

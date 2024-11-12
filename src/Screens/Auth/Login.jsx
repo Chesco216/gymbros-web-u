@@ -13,15 +13,15 @@ export const Login = () => {
 
 	const [password, setPassword] = useState()
 
-  // const set_user = useUser(state => state.set_user)
+  const set_user = useUser(state => state.set_user)
 
 	const handleSubmit = async () => {
     try {
       const user = await loginEP(email, password)
       const res = await getDoc(doc(db, 'user', user.uid))
       const data = res.data()
-      // console.log(data)
-      // set_user(data)
+      console.log({msg: 'data from login', data: data})
+      set_user(data)
       // (data.id_rol == 1) ? navigate('/')
       //   : (data.id_rol == 2) ? navigate('/admin/users')
       //     : (data.id_rol == 3) ? navigate('/superadmin/gyms')
