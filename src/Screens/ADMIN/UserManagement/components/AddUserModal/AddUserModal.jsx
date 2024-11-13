@@ -9,6 +9,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 import { Toaster, toast } from 'sonner'
+import { useNavigate } from 'react-router-dom';
 
 const info = {
 	name: '',
@@ -28,6 +29,8 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 
 	const [user, setUser] = useState(userInfo)
 	const [password, setPassword] = useState('')
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isOpen) {

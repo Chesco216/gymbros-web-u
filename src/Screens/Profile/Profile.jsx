@@ -15,6 +15,8 @@ export const Profile = () => {
 	const user = useUser(state => state.user)
 	const set_user = useUser(state => state.set_user)
 
+	console.log(user.profile_photo)
+
 	// toggle update or not
 	const [update, setUpdate] = useState(false)
 	// navigate
@@ -23,6 +25,10 @@ export const Profile = () => {
 
 	// loading
 	const [loading, setLoading] = useState(true);
+
+	// profile photo
+	const [profilePhoto, setProfilePhoto] = useState("");
+
 
 
 	useEffect(() => {
@@ -60,7 +66,7 @@ export const Profile = () => {
 	return (
 		<UserLayout>
 			{
-				(isOpen) && <AddImageModal setIsOpen={setIsOpen} />
+				(isOpen) && <AddImageModal setIsOpen={setIsOpen} isOpen={isOpen} setProfilePhoto={setProfilePhoto} profilePhoto={profilePhoto} />
 			}
 			{user && (
 				<div className="min-h-screen bg-gradient-to-br from-fourth to-fourth/80 py-12 px-4 sm:px-6 lg:px-8">
@@ -74,25 +80,41 @@ export const Profile = () => {
 							<div className="flex flex-col items-center mb-8">
 								<div className="relative">
 									{
-										user.profile_photo ?
+										loading ?
 
-											<img
-												src={user.profile_photo}
-												alt="Profile"
-												className="w-32 h-32 rounded-full object-cover border-4 border-primary"
-											/> :
 											<div className="w-32 h-32 rounded-full object-cover border-4 border-primary bg-gray-300 animate-pulse">
 											</div>
+											:
+											user.profile_photo ?
+
+												<img
+													src={user.profile_photo}
+
+													className="w-32 h-32 rounded-full object-cover border-4 border-primary"
+												/>
+												: <img
+
+
+													src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+													alt="Profile"
+													className="w-32 h-32 rounded-full object-cover border-4 border-primary"
+												/>
+
+
 
 									}
+									{
+										update ?
 
-									<div className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer hover:bg-blue-600 transition-colors duration-300">
-										<svg onClick={() => setIsOpen(true)} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<div className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer hover:bg-primary/90 transition-colors duration-300">
+												<svg onClick={() => setIsOpen(true)} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-										</svg>
-									</div>
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+												</svg>
+											</div> : ''
+									}
+
 								</div>
 								{loading ? (
 									<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
@@ -140,7 +162,7 @@ export const Profile = () => {
 									<ProfileAttribute label="Número de celular" attribute={user.phone} loading={loading} />
 								</div>
 							) : (
-								<UpdateForm />
+								<UpdateForm profilePhoto={profilePhoto} />
 							)
 							}
 

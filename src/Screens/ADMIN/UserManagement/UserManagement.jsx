@@ -4,6 +4,7 @@ import { AddUserModal } from './components/AddUserModal/AddUserModal'
 import { useUserList } from '../store/useUserList'
 import { getUsers } from '../services/getUsers'
 import { UserLayout } from '../../Common/Layouts/UserLayout'
+import { useNavigate } from 'react-router-dom'
 
 //PERF: no esta del todo bien esto
 export const UserManagement = () => {
@@ -15,6 +16,8 @@ export const UserManagement = () => {
 
 	// const users = useUserList(state => state.userList)
 	// const setUsers = useUserList(state => state.set_user_list)
+
+	const navigate = useNavigate();
 
 	const [users, setUsers] = useState([]);
 	const [usersFiltered, setUsersFiltered] = useState();
