@@ -114,6 +114,7 @@ export const Navbar = () => {
                 },
               ];
 
+
 	const handleMouseEnter = () => {
 		setDropdownVisible(true);
 	};

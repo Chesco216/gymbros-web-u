@@ -14,42 +14,59 @@ export const Profile = () => {
 	// user
 	const user = useUser(state => state.user)
 
+	console.log(user.profile_photo)
+
 	// toggle update or not
 	const [update, setUpdate] = useState(false)
 	// navigate
 	const navigate = useNavigate()
-  const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
+	// loading
+	const [loading, setLoading] = useState(true);
+
+	// profile photo
+	const [profilePhoto, setProfilePhoto] = useState("");
+
+
+
+	useEffect(() => {
+		const lc = localStorage.getItem('user')
+		const id = (lc) ? lc.replaceAll('"', '') : null
+		console.log({ id })
+		if (id) {
+			getUserFb(id).then(user => {
+				set_user(user)
+				setLoading(false);
+			})
+		} else {
+			setLoading(true);
+		}
+	}, [])
+
+	//TODO: add a function to set a new profile_photo
+
+	// const set_user = useUser(state => state.set_user)
+	const clear_user = useUser(state => state.clear_user)
 	useEffect(() => {
 		const lc = localStorage.getItem('user')
 		const id = (lc) ? lc.replaceAll('"', '') : null
 		console.log({ id })
 		if (id) getUserFb(id).then(user => set_user(user))
 	}, [])
-  
-  //TODO: add a function to set a new profile_photo
-
-  const set_user = useUser(state => state.set_user)
-  const clear_user = useUser(state => state.clear_user)
-  useEffect(() => {
-    const lc = localStorage.getItem('user')
-    const id = (lc) ? lc.replaceAll('"', '') : null
-    console.log({id})
-    if(id) getUserFb(id).then(user => set_user(user))
-  },[])
 
 	const handleLogout = () => {
 		console.log('Logging out...')
 		localStorage.removeItem('user')
-    clear_user()
+		clear_user()
 		navigate('/login')
 	}
 
 	return (
 		<UserLayout>
-      {
-        (isOpen) && <AddImageModal setIsOpen={setIsOpen}/>
-      }
+			{
+				(isOpen) && <AddImageModal setIsOpen={setIsOpen} isOpen={isOpen} setProfilePhoto={setProfilePhoto} profilePhoto={profilePhoto} />
+			}
 			{user && (
 				<div className="min-h-screen bg-gradient-to-br from-fourth to-fourth/80 py-12 px-4 sm:px-6 lg:px-8">
 					<div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -62,44 +79,56 @@ export const Profile = () => {
 							<div className="flex flex-col items-center mb-8">
 								<div className="relative">
 									{
-										user.profile_photo ?
+										loading ?
 
-											<img
-												src={user.profile_photo}
-												alt="Profile"
-												className="w-32 h-32 rounded-full object-cover border-4 border-primary"
-											/> :
 											<div className="w-32 h-32 rounded-full object-cover border-4 border-primary bg-gray-300 animate-pulse">
 											</div>
+											:
+											user.profile_photo ?
+
+												<img
+													src={user.profile_photo}
+
+													className="w-32 h-32 rounded-full object-cover border-4 border-primary"
+												/>
+												: <img
+
+
+													src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+													alt="Profile"
+													className="w-32 h-32 rounded-full object-cover border-4 border-primary"
+												/>
+
+
 
 									}
+									{
+										update ?
 
-									<div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2 cursor-pointer hover:bg-blue-600 transition-colors duration-300">
-										<svg onClick={() => setIsOpen(true)} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+											<div className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer hover:bg-primary/90 transition-colors duration-300">
+												<svg onClick={() => setIsOpen(true)} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-										</svg>
-									</div>
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+												</svg>
+											</div> : ''
+									}
+
 								</div>
-								{
-									user.name ?
-
-										<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name}</h2>
-										:
-
-										<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
-
-								}
-
-								{
-									user.email ?
-
-										<p className="text-gray-600">{user.email}</p>
-										:
-										<div className="animate-pulse h-5 bg-gray-300 rounded-full w-44"></div>
-
-								}
+								{loading ? (
+									<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
+								) : user.name ? (
+									<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name}</h2>
+								) : (
+									<h2 className="mt-4 text-2xl font-semibold text-gray-800">Sin nombre</h2>
+								)}
+								{loading ? (
+									<div className="animate-pulse h-5 bg-gray-300 rounded-full w-44"></div>
+								) : user.email ? (
+									<p className="text-gray-600">{user.email}</p>
+								) : (
+									<p className="text-gray-600">Sin email</p>
+								)}
 							</div>
 
 							<div className="flex items-center justify-center mb-8">
@@ -126,13 +155,13 @@ export const Profile = () => {
 
 							{!update ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-									<ProfileAttribute label="Número de carnet de identidad" attribute={user.ci} />
-									<ProfileAttribute label="Altura" attribute={user.height} metric="cm" />
-									<ProfileAttribute label="Peso" attribute={user.weight} metric="kg" />
-									<ProfileAttribute label="Número de celular" attribute={user.phone} />
+									<ProfileAttribute label="Número de carnet de identidad" attribute={user.ci} loading={loading} />
+									<ProfileAttribute label="Altura" attribute={user.height} metric="cm" loading={loading} />
+									<ProfileAttribute label="Peso" attribute={user.weight} metric="kg" loading={loading} />
+									<ProfileAttribute label="Número de celular" attribute={user.phone} loading={loading} />
 								</div>
 							) : (
-								<UpdateForm />
+								<UpdateForm profilePhoto={profilePhoto} />
 							)
 							}
 
