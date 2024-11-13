@@ -21,7 +21,7 @@ export const Signup = () => {
   const user = useUser(state => state.user)
 	const handleSubmit = async () => {
 
-		// const userFB = await signupEP(email, password)
+		const userFB = await signupEP(email, password)
     // set_user({
     //  ...user
     //  email: userFB.email,
