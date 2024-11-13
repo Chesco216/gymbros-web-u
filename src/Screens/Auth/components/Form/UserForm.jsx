@@ -31,23 +31,24 @@ export const UserForm = ({name, email}) => {
     e.preventDefault()
     try {
       const date = new Date()
-      const res = await addDoc(collection(db, 'user'), {
-        ...userInfo,
-        name: name,
-        email: email,
-        isActive: false,
-        id_rol: 1,
-        expires_at: date
-      })
-      console.log(res.id)
-      await setDoc(doc(db, 'user', res.id), {
+      // const res = await addDoc(collection(db, 'user'), {
+      //   ...userInfo,
+      //   name: name,
+      //   email: email,
+      //   isActive: false,
+      //   id_rol: 1,
+      //   expires_at: date
+      // })
+      const lc = localStorage.getItem('user')
+      const id = lc.replaceAll('"', '');
+      await setDoc(doc(db, 'user', id), {
         ...userInfo,
         name: name,
         email: email,
         isActive: false,
         id_rol: 1,
         expires_at: date,
-        uid: res.id
+        uid: id
       })
       navigate('/')
     } catch (error) {
