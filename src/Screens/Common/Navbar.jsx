@@ -88,7 +88,7 @@ const trainerRolesMenu = [
 			},
 			{
 				name: "Rutinas",
-				url: "/trainer/routines",
+				url: "/trainer/users",
 				icon: (
 					<GymIcon />
 				),
@@ -100,10 +100,10 @@ export const Navbar = () => {
 	const user = useUser((state) => state.user);
 
 	const dropDownMenuList = 
-    (user.id_rol == 1) ? userRolesMenu
-      : (user.id_rol == 2) ? adminRolesMenu
-        : (user.id_rol == 3) ? ownerRolesMenu
-          : (user.id_rol == 4) ? trainerRolesMenu
+    (user && user.id_rol == 1) ? userRolesMenu
+      : (user && user.id_rol == 2) ? adminRolesMenu
+        : (user && user.id_rol == 3) ? ownerRolesMenu
+          : (user && user.id_rol == 4) ? trainerRolesMenu
             : [
                 {
                   name: "Iniciar Sesión",
