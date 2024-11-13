@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import { Toaster, toast } from 'sonner'
 import { useUser } from '../../../store/useUser'
 import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../../../firebase/firebasse'
+import { db, store } from '../../../firebase/firebasse'
+import { ref, uploadBytes } from 'firebase/storage'
 
 export const UpdateForm = () => {
 
 	const user = useUser(state => state.user)
+	const set_user = useUser(state => state.set_user)
+  const [img, setImg] = useState()
 	const setUser = useUser(state => state.set_user)
 
 	const [isUpdating, setIsUpdating] = useState(false);

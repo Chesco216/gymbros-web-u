@@ -6,6 +6,7 @@ import { BackIcon } from "./components/BackIcon/BackIcon"
 import { AdminForm } from "./components/Form/AdminForm"
 import { UserForm } from "./components/Form/UserForm"
 import { useUser } from "../../store/useUser"
+import { createAssessment } from "./services/getCaptcha"
 
 export const Signup = () => {
 	const navigate = useNavigate();
@@ -29,6 +30,8 @@ export const Signup = () => {
     setIsSubmited(true)
 		// navigate('/')
 		console.log({ user })
+    const res = await createAssessment()
+    console.log({res})
 	}
 
 	const fields = [

@@ -13,13 +13,10 @@ import { useUser } from "../../store/useUser";
 
 export const Home = () => {
 
-	const gyms = useGym(state => state.gyms)
-	const setGyms = useGym(state => state.set_gyms)
+  const user = useUser(state => state.user)
 
-
-
-	const [gymsFiltered, setGymsFiltered] = useState([]);
-
+	const gymsFiltered = useGym(state => state.gyms)
+  const setGymsFiltered = useGym(state => state.set_gyms)
 
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
@@ -54,7 +51,6 @@ export const Home = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		getGymsFb().then(gyms => {
-			setGyms(gyms)
 			setGymsFiltered(gyms)
 		})
 	}, [])
