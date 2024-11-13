@@ -122,62 +122,75 @@ export const GymForm = () => {
     }
   }
 
+  const titles = 'text-[25px] font-bold my-[20px]'
+  const subtitles = 'text-[18px] font-semibold'
+  const inputs = 'border border-gray-300 px-4 py-3 rounded-md w-full fade-in my-[15px]'
   // WARN: Perdon trini esto va a estar feito de estilizar
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <span>
-        <label>Con que maquinas cuenta?</label>
-        <label>Brazos</label>
+    <form 
+      className='flex flex-col w-[800px]'
+      onSubmit={(e) => handleSubmit(e)}>
+      <span className='flex flex-col'>
+        <label className={titles}>Con que maquinas cuenta?</label>
+        <label className={subtitles}>Brazos</label>
         <input
+          className={inputs}
           placeholder='ej: maquina 1, maquina 2, maquina 3'
           name='arms'
           onChange={(e) => setEquipementOnChange(e, 'arms')}
         />
-        <label>Espalda</label>
+        <label className={subtitles}>Espalda</label>
         <input
+          className={inputs}
           placeholder='ej: maquina 1, maquina 2, maquina 3'
           name='back'
           onChange={(e) => setEquipementOnChange(e, 'back')}
         />
-        <label>Pecho</label>
+        <label className={subtitles}>Pecho</label>
         <input
+          className={inputs}
           placeholder='ej: maquina 1, maquina 2, maquina 3'
           name='chest'
           onChange={(e) => setEquipementOnChange(e, 'chest')}
         />
-        <label>Piernas</label>
+        <label className={subtitles}>Piernas</label>
         <input
+          className={inputs}
           placeholder='ej: maquina 1, maquina 2, maquina 3'
           name='legs'
           onChange={(e) => setEquipementOnChange(e, 'legs')}
         />
-        <label>Mancuernas</label>
+        <label className={subtitles}>Mancuernas</label>
         <input
+          className={inputs}
           placeholder='ej: 2kg - 60kg'
           name='dumbells'
           onChange={(e) => setEquipementOnChange(e, 'dumbells')}
         />
       </span>
       <span>
-        <label>Que servicios ofrece?</label>
+        <label className={titles}>Que servicios ofrece?</label>
         <input
+          className={inputs}
           placeholder='ej: servicio 1, servicio 2, servicio 3'
           name='services'
           onChange={(e) => setServices(e.target.value.split(','))}
         />
       </span>
       <span>
-        <label>Agrega imagenes</label>
-        <input
-          type='file'
+        <label className={titles}>Agrega imagenes</label>
+        <input 
+          className="my-[15px] block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" 
+          type="file"
           name='images'
           multiple 
           onChange={(e) => setImages(e.target.files)}
         />
       </span>
       <span>
-        <label>Agrega la ubicacion</label>
+        <label className={titles}>Agrega la ubicacion</label>
         <input
+          className={inputs}
           placeholder='coordenadas'
           name='chords'
           onChange={(e) => setLocation({
@@ -186,6 +199,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='ubicacion'
           name='locationText'
           onChange={(e) => setLocation({
@@ -195,8 +209,9 @@ export const GymForm = () => {
         />
       </span>
       <span>
-        <label>Agrega la informacion basica del gimnasio</label>
+        <label className={titles}>Agrega la informacion basica del gimnasio</label>
         <input
+          className={inputs}
           placeholder='Nombre del gimnaiso'
           name='gymName'
           onChange={(e) => setBasicInfo({
@@ -205,6 +220,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Numero de telefono'
           name='phone'
           onChange={(e) => setBasicInfo({
@@ -213,6 +229,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Horarios'
           name='schedule'
           onChange={(e) => setBasicInfo({
@@ -221,6 +238,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Calificacion'
           name='stars'
           onChange={(e) => setBasicInfo({
@@ -229,6 +247,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Precio de la suscripcion'
           name='price'
           onChange={(e) => setBasicInfo({
@@ -238,8 +257,9 @@ export const GymForm = () => {
         />
       </span>
       <span>
-        <label>Agregue la informacion de su entrenador</label>
+        <label className={titles}>Agregue la informacion de su entrenador</label>
         <input
+          className={inputs}
           placeholder='Nombre'
           name='trainerName'
           onChange={(e) => setTrainers({
@@ -248,6 +268,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Horario'
           name='trainerSchedule'
           onChange={(e) => setTrainers({
@@ -256,6 +277,7 @@ export const GymForm = () => {
           })}
         />
         <input
+          className={inputs}
           placeholder='Actividades'
           name='trainerActivity'
           onChange={(e) => setTrainers({
@@ -264,7 +286,9 @@ export const GymForm = () => {
           })}
         />
       </span>
-      <button type='submit'>Aceptar</button>
+      <button 
+        className='focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900'
+        type='submit'>Aceptar</button>
     </form>
   )
 }

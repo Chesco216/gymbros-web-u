@@ -13,7 +13,6 @@ export const Profile = () => {
 
 	// user
 	const user = useUser(state => state.user)
-	const set_user = useUser(state => state.set_user)
 
 	// toggle update or not
 	const [update, setUpdate] = useState(false)

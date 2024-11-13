@@ -8,17 +8,21 @@ export const getGymsAdmin = async() => {
     res.forEach(doc => {
       const data = doc.data()
       const gym = {
-        equipement: data.equipement,
-        extra_services: data.extra_services,
-        images: data.images,
-        location: data.location,
+        // equipement: data.equipement,
+        // extra_services: data.extra_services,
+        // images: data.images,
+        // location: data.location,
+        // name: data.name,
+        // phone_number: data.phone_number,
+        // reviews: data.reviews,
+        // schedule: data.schedule,
+        // stars: data.stars,
+        // suscription_price: data.suscription_price,
+        // trainers: data.trainers
+        active_users: data.active_users,
+        max_users: data.max_users,
         name: data.name,
-        phone_number: data.phone_number,
-        reviews: data.reviews,
-        schedule: data.schedule,
-        stars: data.stars,
-        suscription_price: data.suscription_price,
-        trainers: data.trainers
+        plan: data.plan
       }
       gymsAdmin.push(gym)
     })

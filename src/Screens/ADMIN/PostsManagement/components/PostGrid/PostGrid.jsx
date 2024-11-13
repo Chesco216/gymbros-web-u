@@ -2,10 +2,9 @@ import { PostCard } from "../PostCard/PostCard"
 
 export const PostGrid = ({ posts }) => {
 	return (
-
-		<section>
-			<p>Publicaciones</p>
-			<ul className="grid grid-cols-1 gap-2">
+		<div>
+			<p className='font-bold w-screen text-[30px] text-center my-[30px]'>Publicaciones</p>
+			<div className="grid grid-cols-4">
 				{
 					posts.map((item) =>
 						<PostCard
@@ -16,7 +15,7 @@ export const PostGrid = ({ posts }) => {
 						/>
 					)
 				}
-			</ul>
-		</section>
+			</div>
+		</div>
 	)
 }
