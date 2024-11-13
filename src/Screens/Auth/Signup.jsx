@@ -22,11 +22,11 @@ export const Signup = () => {
 	const handleSubmit = async () => {
 
 		const userFB = await signupEP(email, password)
-		set_user({
-			...user,
-			email: userFB.email,
-			uid: userFB.uid
-		})
+		// set_user({
+		//	...user,
+		// 	email: userFB.email,
+		//	uid: userFB.uid
+		// })
 		setIsSubmited(true)
 		// navigate('/')
 		console.log({ user })

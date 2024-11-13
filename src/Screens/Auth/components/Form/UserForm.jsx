@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useUser } from '../../../../store/useUser'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, doc, collection, setDoc } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasse.js'
+import { useNavigate } from 'react-router-dom'
 
 const info = {
 	name: '',
@@ -24,20 +25,33 @@ export const UserForm = ({name, email}) => {
   
 	const [userInfo, setUserInfo] = useState(info)
 
-	const handleSubmit = async() => {
+  const navigate = useNavigate()
+
+	const handleSubmit = async(e) => {
+    e.preventDefault()
     try {
       const date = new Date()
       const res = await addDoc(collection(db, 'user'), {
         ...userInfo,
         name: name,
         email: email,
-        uid: res.uid,
         isActive: false,
         id_rol: 1,
         expires_at: date
       })
+      console.log(res.id)
+      await setDoc(doc(db, 'user', res.id), {
+        ...userInfo,
+        name: name,
+        email: email,
+        isActive: false,
+        id_rol: 1,
+        expires_at: date,
+        uid: res.id
+      })
+      navigate('/')
     } catch (error) {
-      alert(error.code)
+      alert(error)
     }
 	}
 
@@ -49,7 +63,7 @@ export const UserForm = ({name, email}) => {
 	return (
 		<form 
       className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg"
-      onSubmit={(e) => handleSubmit(e)}>
+      onSubmit={handleSubmit}>
 			<label>Numero de documento</label>
 			<input
 				type='text'
