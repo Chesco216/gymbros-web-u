@@ -13,7 +13,6 @@ export const Profile = () => {
 
 	// user
 	const user = useUser(state => state.user)
-	const set_user = useUser(state => state.set_user)
 
 	console.log(user.profile_photo)
 
@@ -31,6 +30,7 @@ export const Profile = () => {
 
 
 
+	const set_user = useUser(state => state.set_user)
 	useEffect(() => {
 		const lc = localStorage.getItem('user')
 		const id = (lc) ? lc.replaceAll('"', '') : null
@@ -47,14 +47,13 @@ export const Profile = () => {
 
 	//TODO: add a function to set a new profile_photo
 
-	// const set_user = useUser(state => state.set_user)
 	const clear_user = useUser(state => state.clear_user)
-	useEffect(() => {
-		const lc = localStorage.getItem('user')
-		const id = (lc) ? lc.replaceAll('"', '') : null
-		console.log({ id })
-		if (id) getUserFb(id).then(user => set_user(user))
-	}, [])
+	// useEffect(() => {
+	// 	const lc = localStorage.getItem('user')
+	// 	const id = (lc) ? lc.replaceAll('"', '') : null
+	// 	console.log({ id })
+	// 	if (id) getUserFb(id).then(user => set_user(user))
+	// }, [])
 
 	const handleLogout = () => {
 		console.log('Logging out...')

@@ -2,6 +2,7 @@ import { Navbar } from '../../Common/Navbar'
 import styles from './PostManagement.module.css'
 import { PostForm } from './components/PostForm/PostForm'
 import { PostGrid } from './components/PostGrid/PostGrid'
+import { UserLayout } from '../../Common/Layouts/UserLayout.jsx'
 const posts = [
 	{
 		id: '1',
@@ -32,10 +33,12 @@ const posts = [
 export const PostManagement = () => {
 
 	return (
-		<>
+		<UserLayout>
 			<PostGrid posts={posts} />
-			<PostForm />
-		</>
+      <div className='flex align-center justify-center'>
+        <PostForm />
+      </div>
+		</UserLayout>
 	)
 }
 

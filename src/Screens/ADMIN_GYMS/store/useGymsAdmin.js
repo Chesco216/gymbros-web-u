@@ -37,7 +37,5 @@ const initialstate = (gyms) ? gyms :
 
 export const useGymsAdmin = create((set) => ({
   gymsAdmin: initialstate,
-  // TODO: make functions to set state
-  // set_gyms_admin: (set, payload) => {
-  // }
+  set_gyms_admin: (payload) => set({gymsAdmin: payload})
 }))

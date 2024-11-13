@@ -27,7 +27,7 @@ export const Login = () => {
       //     : (data.id_rol == 3) ? navigate('/superadmin/gyms')
       //       : (data.id_rol == 4) ? navigate('/trainer/users')
       //         : navigate('/')
-      navigate('/')
+      navigate('/profile')
     } catch (error) {
       console.error(error)      
     }

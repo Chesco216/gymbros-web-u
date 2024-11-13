@@ -56,6 +56,10 @@ export const AddImageModal = ({ isOpen, setIsOpen }) => {
 				setIsOpen(false)
 
 			}
+      await setDoc(doc(db, 'user', user.uid), {
+        ...user,
+        profile_photo: imageUrl
+      })
 		} catch (error) {
 			console.error('Error uploading image:', error)
 			alert('Failed to update profile photo')

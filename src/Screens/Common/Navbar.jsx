@@ -6,13 +6,7 @@ import { GymIcon } from "./Icons/GymIcon";
 import { LoginIcon } from "./Icons/LoginIcon";
 import { GymbrosIcon } from "./Icons/GymbrosIcon";
 
-export const Navbar = () => {
-	const [isDropdownVisible, setDropdownVisible] = useState(false);
-	const user = useUser((state) => state.user);
-	console.log(user.uid);
-
-	let dropDownMenuList = user
-		? [
+const userRolesMenu = [
 			{
 				name: "Mi Perfil",
 				url: "/profile",
@@ -27,16 +21,98 @@ export const Navbar = () => {
 					<GymIcon />
 				),
 			}
-		]
-		: [
+]
+
+const adminRolesMenu = [
 			{
-				name: "Iniciar Sesión",
-				url: "/login",
+				name: "Mi Perfil",
+				url: "/profile",
 				icon: (
-					<LoginIcon />
+					<ProfileIcon />
 				),
 			},
-		];
+			{
+				name: "Usuarios",
+				url: "/admin/users",
+				icon: (
+					<GymIcon />
+				),
+			},
+			{
+				name: "Comunicados",
+				url: "/admin/posts",
+				icon: (
+					<GymIcon />
+				),
+			}
+]
+
+const ownerRolesMenu = [
+			{
+				name: "Mi Perfil",
+				url: "/profile",
+				icon: (
+					<ProfileIcon />
+				),
+			},
+			{
+				name: "Gimnasios",
+				url: "/superadmin/gyms",
+				icon: (
+					<GymIcon />
+				),
+			},
+			{
+				name: "Agregar Nuevo Gimnasio",
+				url: "/superadmin/newgym",
+				icon: (
+					<GymIcon />
+				),
+			},
+			{
+				name: "Reportes",
+				url: "/superadmin/reports",
+				icon: (
+					<GymIcon />
+				),
+			}
+]
+
+const trainerRolesMenu = [
+			{
+				name: "Mi Perfil",
+				url: "/profile",
+				icon: (
+					<ProfileIcon />
+				),
+			},
+			{
+				name: "Rutinas",
+				url: "/trainer/routines",
+				icon: (
+					<GymIcon />
+				),
+			}
+]
+
+export const Navbar = () => {
+	const [isDropdownVisible, setDropdownVisible] = useState(false);
+	const user = useUser((state) => state.user);
+
+	const dropDownMenuList = 
+    (user.id_rol == 1) ? userRolesMenu
+      : (user.id_rol == 2) ? adminRolesMenu
+        : (user.id_rol == 3) ? ownerRolesMenu
+          : (user.id_rol == 4) ? trainerRolesMenu
+            : [
+                {
+                  name: "Iniciar Sesión",
+                  url: "/login",
+                  icon: (
+                    <LoginIcon />
+                  ),
+                },
+              ];
 
 
 	const handleMouseEnter = () => {
