@@ -7,112 +7,112 @@ import { LoginIcon } from "./Icons/LoginIcon";
 import { GymbrosIcon } from "./Icons/GymbrosIcon";
 
 const userRolesMenu = [
-			{
-				name: "Mi Perfil",
-				url: "/profile",
-				icon: (
-					<ProfileIcon />
-				),
-			},
-			{
-				name: "Gimnasios",
-				url: "/",
-				icon: (
-					<GymIcon />
-				),
-			}
+	{
+		name: "Mi Perfil",
+		url: "/profile",
+		icon: (
+			<ProfileIcon />
+		),
+	},
+	{
+		name: "Gimnasios",
+		url: "/",
+		icon: (
+			<GymIcon />
+		),
+	}
 ]
 
 const adminRolesMenu = [
-			{
-				name: "Mi Perfil",
-				url: "/profile",
-				icon: (
-					<ProfileIcon />
-				),
-			},
-			{
-				name: "Usuarios",
-				url: "/admin/users",
-				icon: (
-					<GymIcon />
-				),
-			},
-			{
-				name: "Comunicados",
-				url: "/admin/posts",
-				icon: (
-					<GymIcon />
-				),
-			}
+	{
+		name: "Mi Perfil",
+		url: "/profile",
+		icon: (
+			<ProfileIcon />
+		),
+	},
+	{
+		name: "Usuarios",
+		url: "/admin/users",
+		icon: (
+			<GymIcon />
+		),
+	},
+	{
+		name: "Comunicados",
+		url: "/admin/posts",
+		icon: (
+			<GymIcon />
+		),
+	}
 ]
 
 const ownerRolesMenu = [
-			{
-				name: "Mi Perfil",
-				url: "/profile",
-				icon: (
-					<ProfileIcon />
-				),
-			},
-			{
-				name: "Gimnasios",
-				url: "/superadmin/gyms",
-				icon: (
-					<GymIcon />
-				),
-			},
-			{
-				name: "Agregar Nuevo Gimnasio",
-				url: "/superadmin/newgym",
-				icon: (
-					<GymIcon />
-				),
-			},
-			{
-				name: "Reportes",
-				url: "/superadmin/reports",
-				icon: (
-					<GymIcon />
-				),
-			}
+	{
+		name: "Mi Perfil",
+		url: "/profile",
+		icon: (
+			<ProfileIcon />
+		),
+	},
+	{
+		name: "Gimnasios",
+		url: "/superadmin/gyms",
+		icon: (
+			<GymIcon />
+		),
+	},
+	{
+		name: "Agregar Nuevo Gimnasio",
+		url: "/superadmin/newgym",
+		icon: (
+			<GymIcon />
+		),
+	},
+	{
+		name: "Reportes",
+		url: "/superadmin/reports",
+		icon: (
+			<GymIcon />
+		),
+	}
 ]
 
 const trainerRolesMenu = [
-			{
-				name: "Mi Perfil",
-				url: "/profile",
-				icon: (
-					<ProfileIcon />
-				),
-			},
-			{
-				name: "Rutinas",
-				url: "/trainer/users",
-				icon: (
-					<GymIcon />
-				),
-			}
+	{
+		name: "Mi Perfil",
+		url: "/profile",
+		icon: (
+			<ProfileIcon />
+		),
+	},
+	{
+		name: "Rutinas",
+		url: "/trainer/users",
+		icon: (
+			<GymIcon />
+		),
+	}
 ]
 
 export const Navbar = () => {
 	const [isDropdownVisible, setDropdownVisible] = useState(false);
 	const user = useUser((state) => state.user);
 
-	const dropDownMenuList = 
-    (user && user.id_rol == 1) ? userRolesMenu
-      : (user && user.id_rol == 2) ? adminRolesMenu
-        : (user && user.id_rol == 3) ? ownerRolesMenu
-          : (user && user.id_rol == 4) ? trainerRolesMenu
-            : [
-                {
-                  name: "Iniciar Sesión",
-                  url: "/login",
-                  icon: (
-                    <LoginIcon />
-                  ),
-                },
-              ];
+	const dropDownMenuList =
+		(user && user.id_rol == 1) ? userRolesMenu
+			: (user && user.id_rol == 2) ? adminRolesMenu
+				: (user && user.id_rol == 3) ? ownerRolesMenu
+					: (user && user.id_rol == 4) ? trainerRolesMenu
+						: [
+							{
+								name: "Iniciar Sesión",
+								url: "/login",
+								icon: (
+									<LoginIcon />
+								),
+							},
+						];
 
 
 	const handleMouseEnter = () => {
