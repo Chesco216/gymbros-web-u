@@ -58,6 +58,8 @@ export const Signup = () => {
 		},
 	]
 
+  console.log(userType)
+
 	return (
 		<div className="flex justify-center min-h-screen bg-fourth sm:items-center xl:bg-third ">
       {
@@ -79,36 +81,43 @@ export const Signup = () => {
             </div>
           </>
       }
+      <div className='flex flex-col p-[50px]'>
+
       {
         (isSubmited) &&
-          <div>
+          <div className='bg-white w-fit py-[15px] px-[20px]'>
             <label>Como deseas registrarte?</label>
-            <input
-              onChange={(e) => setUserType(e.target.value)}
-              type="radio"
-              value='user'
-              id="user"
-              name="userType"
-            />
-            <label for='user'>Usuario</label>
-            <input
-              onChange={(e) => setUserType(e.target.value)}
-              type="radio"
-              value='gym'
-              id="gym"
-              name="userType"
-            />
-            <label for='gym'>Gimnasio</label>
+            <div className='flex flex-row'>
+              <input
+                className="form-radio text-blue-600 h-5 w-5"
+                onChange={(e) => setUserType(e.target.value)}
+                type="radio"
+                value='user'
+                id="user"
+                name="userType"
+              />
+              <label for='user'>Usuario</label>
+              <input
+                className="form-radio text-blue-600 h-5 w-5"
+                onChange={(e) => setUserType(e.target.value)}
+                type="radio"
+                value='gym'
+                id="gym"
+                name="userType"
+              />
+              <label for='gym'>Gimnasio</label>
+            </div>
           </div>
       }
       {
         (userType == 'gym') &&
-          <AdminForm/>
+          <AdminForm name={name} email={email}/>
       }
       {
         (userType == 'user') &&
-          <UserForm/>
+          <UserForm name={name} email={email}/>
       }
+      </div>
 		</div>
 	)
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useUser } from '../../../../store/useUser'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../../../firebase/firebasse.js'
 
 const info = {
 	name: '',
@@ -15,23 +17,44 @@ const info = {
 	expires_at: ''
 }
 
-export const UserForm = () => {
+export const UserForm = ({name, email}) => {
 
 	const user = useUser(state => state.user)
-
+  const set_user = useUser(state => state.set_user)
+  
 	const [userInfo, setUserInfo] = useState(info)
 
-	const handleSubmit = () => {
-
+	const handleSubmit = async() => {
+    try {
+      const date = new Date()
+      const res = await addDoc(collection(db, 'user'), {
+        ...userInfo,
+        name: name,
+        email: email,
+        uid: res.uid,
+        isActive: false,
+        id_rol: 1,
+        expires_at: date
+      })
+    } catch (error) {
+      alert(error.code)
+    }
 	}
 
+  const fields = 'flex flex-col'
+  const titles = 'text-[25px] font-bold my-[20px]'
+  const subtitles = 'text-[18px] font-semibold'
+  const inputs = 'border border-gray-300 px-4 py-3 rounded-md w-full fade-in my-[15px]'
+
 	return (
-		<form onSubmit={(e) => handleSubmit(e)}>
+		<form 
+      className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg"
+      onSubmit={(e) => handleSubmit(e)}>
 			<label>Numero de documento</label>
 			<input
 				type='text'
-				name='name'
-				value={userInfo.name}
+				name='ci'
+				value={userInfo.ci}
 				placeholder='ci'
 				onChange={(e) => setUserInfo({
 					...userInfo,
@@ -69,17 +92,6 @@ export const UserForm = () => {
 				onChange={(e) => setUserInfo({
 					...userInfo,
 					height: e.target.value
-				})}
-			/>
-			<label>Peso (kg)</label>
-			<input
-				type='number'
-				name='weight'
-				value={userInfo.weight}
-				placeholder=''
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					weight: e.target.value
 				})}
 			/>
 			<label>Telefono</label>
