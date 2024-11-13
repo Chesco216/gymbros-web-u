@@ -29,6 +29,10 @@ export const UserManagement = () => {
 		})
 	}, [])
 
+	const handleRefresh = () => {
+		navigate("/admin/users");
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (userCI.trim().length === 0) {
