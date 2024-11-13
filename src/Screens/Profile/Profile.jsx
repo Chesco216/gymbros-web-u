@@ -21,11 +21,22 @@ export const Profile = () => {
 	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 
+	// loading
+	const [loading, setLoading] = useState(true);
+
+
 	useEffect(() => {
 		const lc = localStorage.getItem('user')
 		const id = (lc) ? lc.replaceAll('"', '') : null
 		console.log({ id })
-		if (id) getUserFb(id).then(user => set_user(user))
+		if (id) {
+			getUserFb(id).then(user => {
+				set_user(user)
+				setLoading(false);
+			})
+		} else {
+			setLoading(true);
+		}
 	}, [])
 
 	//TODO: add a function to set a new profile_photo
@@ -83,24 +94,20 @@ export const Profile = () => {
 										</svg>
 									</div>
 								</div>
-								{
-									user.name ?
-
-										<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name.length > 0 ? user.name : 'Sin nombre'}</h2>
-										:
-
-										<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
-
-								}
-
-								{
-									user.email ?
-
-										<p className="text-gray-600">{user.email.length > 0 ? user.email : 'Sin email'}</p>
-										:
-										<div className="animate-pulse h-5 bg-gray-300 rounded-full w-44"></div>
-
-								}
+								{loading ? (
+									<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
+								) : user.name ? (
+									<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name}</h2>
+								) : (
+									<h2 className="mt-4 text-2xl font-semibold text-gray-800">Sin nombre</h2>
+								)}
+								{loading ? (
+									<div className="animate-pulse h-5 bg-gray-300 rounded-full w-44"></div>
+								) : user.email ? (
+									<p className="text-gray-600">{user.email}</p>
+								) : (
+									<p className="text-gray-600">Sin email</p>
+								)}
 							</div>
 
 							<div className="flex items-center justify-center mb-8">
@@ -127,10 +134,10 @@ export const Profile = () => {
 
 							{!update ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-									<ProfileAttribute label="Número de carnet de identidad" attribute={user.ci} />
-									<ProfileAttribute label="Altura" attribute={user.height} metric="cm" />
-									<ProfileAttribute label="Peso" attribute={user.weight} metric="kg" />
-									<ProfileAttribute label="Número de celular" attribute={user.phone} />
+									<ProfileAttribute label="Número de carnet de identidad" attribute={user.ci} loading={loading} />
+									<ProfileAttribute label="Altura" attribute={user.height} metric="cm" loading={loading} />
+									<ProfileAttribute label="Peso" attribute={user.weight} metric="kg" loading={loading} />
+									<ProfileAttribute label="Número de celular" attribute={user.phone} loading={loading} />
 								</div>
 							) : (
 								<UpdateForm />
