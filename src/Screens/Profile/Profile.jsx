@@ -19,7 +19,7 @@ export const Profile = () => {
 	const [update, setUpdate] = useState(false)
 	// navigate
 	const navigate = useNavigate()
-  const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	useEffect(() => {
 		const lc = localStorage.getItem('user')
@@ -27,30 +27,30 @@ export const Profile = () => {
 		console.log({ id })
 		if (id) getUserFb(id).then(user => set_user(user))
 	}, [])
-  
-  //TODO: add a function to set a new profile_photo
 
-  const set_user = useUser(state => state.set_user)
-  const clear_user = useUser(state => state.clear_user)
-  useEffect(() => {
-    const lc = localStorage.getItem('user')
-    const id = (lc) ? lc.replaceAll('"', '') : null
-    console.log({id})
-    if(id) getUserFb(id).then(user => set_user(user))
-  },[])
+	//TODO: add a function to set a new profile_photo
+
+	// const set_user = useUser(state => state.set_user)
+	const clear_user = useUser(state => state.clear_user)
+	useEffect(() => {
+		const lc = localStorage.getItem('user')
+		const id = (lc) ? lc.replaceAll('"', '') : null
+		console.log({ id })
+		if (id) getUserFb(id).then(user => set_user(user))
+	}, [])
 
 	const handleLogout = () => {
 		console.log('Logging out...')
 		localStorage.removeItem('user')
-    clear_user()
+		clear_user()
 		navigate('/login')
 	}
 
 	return (
 		<UserLayout>
-      {
-        (isOpen) && <AddImageModal setIsOpen={setIsOpen}/>
-      }
+			{
+				(isOpen) && <AddImageModal setIsOpen={setIsOpen} />
+			}
 			{user && (
 				<div className="min-h-screen bg-gradient-to-br from-fourth to-fourth/80 py-12 px-4 sm:px-6 lg:px-8">
 					<div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -75,7 +75,7 @@ export const Profile = () => {
 
 									}
 
-									<div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2 cursor-pointer hover:bg-blue-600 transition-colors duration-300">
+									<div className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer hover:bg-blue-600 transition-colors duration-300">
 										<svg onClick={() => setIsOpen(true)} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -86,7 +86,7 @@ export const Profile = () => {
 								{
 									user.name ?
 
-										<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name}</h2>
+										<h2 className="mt-4 text-2xl font-semibold text-gray-800">{user.name.length > 0 ? user.name : 'Sin nombre'}</h2>
 										:
 
 										<div className="animate-pulse h-7 bg-gray-300 rounded-full w-32 mt-4 mb-3"></div>
@@ -96,7 +96,7 @@ export const Profile = () => {
 								{
 									user.email ?
 
-										<p className="text-gray-600">{user.email}</p>
+										<p className="text-gray-600">{user.email.length > 0 ? user.email : 'Sin email'}</p>
 										:
 										<div className="animate-pulse h-5 bg-gray-300 rounded-full w-44"></div>
 
