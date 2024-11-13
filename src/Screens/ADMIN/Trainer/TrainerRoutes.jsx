@@ -5,5 +5,5 @@ export const TrainerRoutes = () => {
 
   const user = useUser(state => state.user)
 
-	return (user.id_rol === 4) ? <Outlet /> : <Navigate to={'/'} />
+	return (user.id_rol == 4) ? <Outlet /> : <Navigate to={'/'} />
 }
