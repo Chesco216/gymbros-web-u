@@ -16,12 +16,12 @@ export const UpdateForm = () => {
 	const [isUpdated, setIsUpdated] = useState(false);
 
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		setIsUpdating(true);
 		try {
-			const res = setDoc(doc(db, 'user', user.uid), user)
+			const res = await setDoc(doc(db, 'user', user.uid), user)
 			toast.success("Actualizado correctamente", {
 				duration: 2500,
 			})

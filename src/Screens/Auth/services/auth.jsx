@@ -10,8 +10,9 @@ export const signupEP = async (email, password) => {
 		const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 		const user = userCredential.user
 		localStorage.setItem('user', JSON.stringify(user.uid))
+
 		// window.location.href = '/'
-    
+
 		return user
 	} catch (error) {
 		alert(`Error: ${error.code}`)
