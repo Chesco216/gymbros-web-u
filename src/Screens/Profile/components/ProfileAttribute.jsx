@@ -9,7 +9,7 @@ export const ProfileAttribute = ({ label, attribute, metric }) => {
 					attribute ?
 
 						<p className="text-lg font-semibold text-gray-800 break-words">
-							{`${attribute} ${metric ? metric : ''}`}
+							{`${attribute.length > 0 ? attribute : `Sin ${label}`} ${metric ? metric : ''}`}
 						</p>
 						:
 						<div className="animate-pulse h-[14px] bg-gray-300 rounded-full w-36 mb-4"></div>
