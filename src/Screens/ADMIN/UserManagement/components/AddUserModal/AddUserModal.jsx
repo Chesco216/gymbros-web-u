@@ -45,11 +45,16 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 		e.preventDefault()
 		if (mod == 'Actualizar') {
 			handleUpdateAddUser()
+			toast.success("Usuario actualizado correctamente", {
+			})
 
 		}
 		else if (mod == 'Crear') {
 			handleCreateUser()
+			toast.success("Usuario creado correctamente", {
+			})
 		}
+
 
 
 	}
@@ -67,9 +72,6 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 				height: user.height,
 				phone: user.phone
 			})
-			console.log('user updated');
-
-			toast.success("Usuario actualizado correctamente")
 
 			setIsOpen(false);
 		}
@@ -95,8 +97,6 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 				id_rol: 1
 			}
 			await setDoc(doc(db, 'user', userUID), userFB)
-
-			toast.success("Usuario creado correctamente")
 
 			setIsOpen(false);
 
@@ -146,7 +146,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 									<>
 										<label className="slide-in text-md text-gray-900">Carnet de Identidad:</label>
 										<input
-											type='text'
+											type='number'
 											name='ci'
 											value={user.ci}
 											onChange={(e) => setUser({ ...user, ci: e.target.value })}
@@ -197,17 +197,17 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Peso:</label>
+								<label className="slide-in text-md text-gray-900">Peso (kg):</label>
 								<input
 									type='number'
 									name='weight'
 									value={user.weight}
 									onChange={(e) => setUser({ ...user, weight: e.target.value })}
-									placeholder='Peso'
+									placeholder='Peso (kg)'
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Altura:</label>
+								<label className="slide-in text-md text-gray-900">Altura (cm):</label>
 								<input
 									type='number'
 									name='height'

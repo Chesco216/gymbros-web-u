@@ -16,39 +16,51 @@ export const UserManagement = () => {
 	// const users = useUserList(state => state.userList)
 	// const setUsers = useUserList(state => state.set_user_list)
 
-	const [users, setUsers] = useState();
+	const [users, setUsers] = useState([]);
+	const [usersFiltered, setUsersFiltered] = useState();
 
 	useEffect(() => {
-		getUsers().then((us) => setUsers(us))
+		getUsers().then((us) => {
+			setUsers(us);
+			setUsersFiltered(us);
+		})
 	}, [])
 
-	console.log(users);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (userCI.trim().length === 0) {
+			setUsersFiltered(users);
+		}
 
-	const handleUsers = () => {
-		setUsers(userCI)
+		setUsersFiltered(users.filter((u) => u.ci.toLowerCase().includes(userCI.toLowerCase())));
+
 	}
+
 
 	return (
 
 		<UserLayout>
 			<div className={`w-full flex justify-center py-10 fade-in`}>
 				<section className="flex flex-col 2xl:w-[1300px] bg-white rounded-xl p-16 shadow-md">
-					<h1 className="text-4xl font-bold mb-5 slide-in">Gestion de Usuarios</h1>
-					<div className="flex gap-4 mb-5">
-						<input
-							name='user_ci'
-							value={userCI}
-							type='text'
-							placeholder='Search users...'
-							onChange={(e) => setUserCI(e.target.value)}
-							className="border border-gray-300 px-4 py-2 rounded-md w-1/2 slide-in-reverse"
-						/>
-						<button
-							onClick={handleUsers}
-							className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse"
-						>
-							Buscar
-						</button>
+					<h1 className="text-4xl font-bold mb-5 slide-in">Gestion de Clientes</h1>
+					<div className="flex w-full gap-4 mb-5">
+						<form onSubmit={handleSubmit} className="flex gap-4" action="">
+							<input
+								name='user_ci'
+								value={userCI}
+								type='number'
+								placeholder='Buscar clientes por CI'
+								onChange={(e) => setUserCI(e.target.value)}
+								className="border border-gray-300 px-4 py-2 rounded-md w-full slide-in-reverse"
+							/>
+							<button
+								type='submit'
+								className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse"
+							>
+								Buscar
+							</button>
+
+						</form>
 						<button
 							onClick={() => {
 								setIsOpen(true);
@@ -65,7 +77,7 @@ export const UserManagement = () => {
 						</button>
 					</div>
 
-					{users && <UserGrid users={users} setIsOpen={setIsOpen} setMod={setMod} setUpdateUser={setUpdateUser} />}
+					{usersFiltered && <UserGrid users={usersFiltered} setIsOpen={setIsOpen} setMod={setMod} setUpdateUser={setUpdateUser} />}
 					{isOpen && <AddUserModal isOpen={isOpen} setIsOpen={setIsOpen} mod={mod} userInfo={updateUser} />}
 				</section>
 			</div>

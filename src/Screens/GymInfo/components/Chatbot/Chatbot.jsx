@@ -43,7 +43,7 @@ export const Chatbot = () => {
 
 	return (
 
-		<section className={`fade-in-section ${isVisible ? 'is-visible' : ''} flex flex-col px-5 py-10 bg-white rounded-xl max-h-[600px] md:max-h-[700px] shadow-lg gap-2 hover:outline hover:outline-primary`} ref={sectionRef}>
+		<section className={`fade-in-section ${isVisible ? 'is-visible' : ''} flex flex-col px-5 py-10 bg-white rounded-xl max-h-[900px] shadow-lg gap-2 hover:outline hover:outline-primary`} ref={sectionRef}>
 			<p className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-black">Tienes dudas?, Hazme una pregunta</p>
 			<p className="text-gray-600">Habla con el asistente virtual que resolvera tus dudas sobre el mundo fitness o sobre gimnasios </p>
 			<div className="flex flex-col overflow-auto my-5">

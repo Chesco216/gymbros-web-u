@@ -21,7 +21,9 @@ export const UpdateForm = () => {
 		setIsUpdating(true);
 		try {
 			const res = setDoc(doc(db, 'user', user.uid), user)
-			toast.success("Actualizado correctamente")
+			toast.success("Actualizado correctamente", {
+				duration: 2500,
+			})
 			setIsUpdating(false);
 			setIsUpdated(true);
 
@@ -92,7 +94,6 @@ export const UpdateForm = () => {
 					</label>
 				</div>
 
-				{/* Height Field */}
 				<div className="relative group">
 					<input
 						type="number"
@@ -110,7 +111,6 @@ export const UpdateForm = () => {
 					</label>
 				</div>
 
-				{/* Phone Field */}
 				<div className="relative group col-span-full">
 					<input
 						type="tel"
