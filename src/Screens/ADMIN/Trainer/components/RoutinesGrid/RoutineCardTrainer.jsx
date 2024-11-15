@@ -29,7 +29,9 @@ export const RoutineCardTrainer = ({routine}) => {
                     item.map((exercise) => 
                       <ExerciseCard
                         key={exercise.set}
-                        info={exercise}
+                        name={exercise.name}
+                        reps={exercise.reps}
+                        series={exercise.series}
                       />  
                     )
                   }
