@@ -10,32 +10,33 @@ import { useUser } from '../../../store/useUser.js'
 
 export const PostManagement = () => {
 
-  const user = useUser(state => state.user)
-  const [posts, setPosts] = useState([])
-  
-  useEffect(() => {
-    try {
-      getDocs(collection(db, 'posts')).then(docs => {
-        const postsArr = []
-        docs.forEach(doc => {
-          const post = doc.data()
-          if(post.id_gym == user.id_gym) postsArr.push(post)
-        });
-        setPosts(postsArr)
-      })
-    } catch (error) {
-      alert(error.code)
-    }
-  }, [])
+	const user = useUser(state => state.user)
+	const [posts, setPosts] = useState([])
 
-  console.log({posts})
+	useEffect(() => {
+		try {
+			getDocs(collection(db, 'posts')).then(docs => {
+				const postsArr = []
+				docs.forEach(doc => {
+					const post = doc.data()
+					if (post.id_gym == user.id_gym) postsArr.push(post)
+				});
+				setPosts(postsArr)
+			})
+		} catch (error) {
+			alert(error.code)
+		}
+	}, [])
+
+
+
 
 	return (
 		<UserLayout>
 			<PostGrid posts={posts} />
-      <div className='flex align-center justify-center'>
-        <PostForm />
-      </div>
+			<div className='flex align-center justify-center'>
+				<PostForm />
+			</div>
 		</UserLayout>
 	)
 }
