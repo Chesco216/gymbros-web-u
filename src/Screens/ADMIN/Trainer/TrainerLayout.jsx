@@ -5,11 +5,12 @@ import { UserLayout } from '../../Common/Layouts/UserLayout.jsx'
 export const TrainerLayout = () => {
 
   const user = useUser(state => state.user)
-  console.log({user});
   
   return (
     <UserLayout>
-      <RoutinesGrid/>
+      <div className='w-full flex align-center justify-center'>
+        <RoutinesGrid/>
+      </div>
     </UserLayout>
   )
 }

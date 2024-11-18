@@ -14,20 +14,19 @@ export const RoutinesGrid = () => {
     <>
     {
       (routines) &&
-        <div>
+        <div className='w-[60%] flex flex-col align-center justify-center'>
           { 
             routines.map((routine) => 
               <RoutineCardTrainer
                 key={routine.user_id}
+                r_id={routine.uid}
                 routine={routine.days}
                 user_id={routine.user_id}
               />
             )
           }
-            pipipi
         </div>
     }
     </>
   )
 }
-
