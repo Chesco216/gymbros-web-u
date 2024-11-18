@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { db, store } from '../../../../../firebase/firebasse'
 import { addDoc, collection } from 'firebase/firestore'
+import { useUser } from '../../../../../store/useUser'
 
 export const PostForm = () => {
 
 	const [title, setTitle] = useState()
 	const [desc, setDesc] = useState()
+  const user = useUser(state => state.user)
 	// const [file, setFile] = useState()
 	// console.log(file)
 
@@ -28,13 +31,18 @@ export const PostForm = () => {
 		try {
 			const picUrl = await uploadPostImage(e)
 			await addDoc(collection(db, 'posts'), {
-				id_gym: 1,
+				id_gym: user.id_gym,
 				description: desc,
 				title: title,
 				img: picUrl,
 				is_Active: true
 			})
 			console.log('post uploaded')
+      toast.success('Publicacion subida correctamente', {
+        duration: 2500,
+      })
+      setTitle('')
+      setDesc('')
 		} catch (error) {
 			alert(error.code)
 		}
@@ -90,6 +98,7 @@ export const PostForm = () => {
           Subir
       </button>
 		</form>
+      <Toaster/>
     </div>
 	)
 }
