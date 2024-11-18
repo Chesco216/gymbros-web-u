@@ -1,8 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom'
+import { useUser } from '../../store/useUser'
 
 export const AdminRoutes = () => {
 
-	const user = 1
+  const user = useUser(state => state.user)
 
-	return (user === 1) ? <Outlet /> : <Navigate to={'/'} />
+	return (user.id_rol == 2) ? <Outlet /> : <Navigate to={'/'} />
 }

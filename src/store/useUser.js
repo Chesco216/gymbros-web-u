@@ -1,13 +1,15 @@
 import { create } from 'zustand'
+import { getUserFb } from '../Screens/Profile/services/getUserFb'
 
 const lc = localStorage.getItem('user')
-const initialState = (lc) ? JSON.parse(lc)
+const id = (lc) ? lc.replaceAll('"', '') : null
+
+const initialState = (id) ? getUserFb(id).then()
 	:
 	null
 
 export const useUser = create((set) => ({
 	user: initialState,
-	setUser: (payload) => set({ user: payload }),
-	clearUser: () => set({ user: initialState })
+	set_user: (payload) => set({ user: payload }),
+	clear_user: () => set({ user: initialState })
 }))
-

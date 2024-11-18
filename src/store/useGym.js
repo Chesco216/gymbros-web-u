@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 
-
-const useGym = create((set) => ({
+export const useGym = create((set) => ({
 	gyms: [],
-	setGym: () => set((state) => ({})),
+	set_gyms: (payload) => set({ gyms: payload }),
 }))

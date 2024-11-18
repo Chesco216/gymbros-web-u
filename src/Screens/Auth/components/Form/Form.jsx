@@ -1,12 +1,18 @@
+import ReCaptcha from 'react-google-recaptcha'
 import { useNavigate } from "react-router-dom";
 import './Form.css';
 import { useState } from "react";
+import { useUser } from "../../../../store/useUser";
 
 export const Form = ({ fields, op, handleSubmit }) => {
+
 	const navigate = useNavigate();
+
 	const [isChecked, setIsChecked] = useState(false);
 	const [errors, setErrors] = useState({});
 	const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
+
+  const set_user = useUser(state => state.set_user)
 
 	const goToSignup = (e) => {
 		e.preventDefault();
@@ -41,10 +47,17 @@ export const Form = ({ fields, op, handleSubmit }) => {
 			setErrors(newErrors);
 			return;
 		}
-
-		setErrors({});
+    
+    set_user({
+      name: fields[0].value
+    })
+    setErrors({});
 		handleSubmit();
 	};
+
+  const handleCaptcha = (e) => {
+    (e) ? setIsChecked(true) : setIsChecked(false)
+  }
 
 	return (
 		<form onSubmit={handleFormSubmit} className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg">
@@ -77,25 +90,34 @@ export const Form = ({ fields, op, handleSubmit }) => {
 					{errors[item.label] && <p className="text-red-500">{errors[item.label]}</p>} {/* Muestra el error si existe */}
 				</div>
 			))}
+      {
 
-			<div className="flex space-x-2">
-				<div className="checkbox-wrapper-58 mt-1.5">
-					<label className="switch">
-						<input
-							type="checkbox"
-							checked={isChecked}
-							onChange={(e) => setIsChecked(e.target.checked)}
-							name="notRobot"
-						/>
-						<span className="slider w-9 sm:w-10"></span>
-					</label>
-				</div>
-				<label htmlFor="notRobot" className="flex items-center gap-2">
-					No soy un robot
-				</label>
-			</div>
+			// <div className="flex space-x-2">
+			// 	<div className="checkbox-wrapper-58 mt-1.5">
+			// 		<label className="switch">
+   //          <div class="g-recaptcha" data-sitekey="6LdrrXsqAAAAAMwen3x79eOoBgMEWCPhMGvueRL2" data-action="LOGIN"></div>
+   //          {
+			// 			// <input
+			// 			// 	type="checkbox"
+			// 			// 	checked={isChecked}
+			// 			// 	onChange={(e) => setIsChecked(e.target.checked)}
+			// 			// 	name="notRobot"
+			// 			// />
+			// 			// <span className="slider w-9 sm:w-10"></span>
+   //          }
+			// 		</label>
+			// 	</div>
+			// 	<label htmlFor="notRobot" className="flex items-center gap-2">
+			// 		No soy un robot
+			// 	</label>
+			// </div>
+      }
 			{errors['robot'] && <p className="text-red-500">{errors['robot']}</p>} {/* Muestra el error si el checkbox no está marcado */}
 
+      <ReCaptcha
+        sitekey='6LdrrXsqAAAAAMwen3x79eOoBgMEWCPhMGvueRL2'
+        onChange={(e) => handleCaptcha(e)}
+      />
 			<button type="submit" className="bg-primary py-4 border-black border font-semibold hover:bg-primary/90 shadow-md">
 				{op === 'login' ? 'Iniciar Sesion' : 'Registrarse'}
 			</button>

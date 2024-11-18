@@ -7,12 +7,21 @@ import { gyms } from "../../../assets/gyms"
 import { Welcome } from "./components/Welcome";
 import { AboutUs } from "./components/AboutUs";
 import { getGymsFb } from "./services/getGymsFb";
+import { useGym } from "../../store/useGym";
+import { getUserFb } from "../Profile/services/getUserFb";
+import { useUser } from "../../store/useUser";
+import { getDoc, doc } from 'firebase/firestore'
+import { db } from '../../firebase/firebasse.js'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
 
+  const navigate = useNavigate()
+  const user = useUser(state => state.user)
 
+	const gymsFiltered = useGym(state => state.gyms)
+  const setGymsFiltered = useGym(state => state.set_gyms)
 
-	const [gymsFiltered, setGymsFiltered] = useState(gyms);
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
 		{ value: 'highest-rated', label: 'Mejor valorado' },
@@ -20,14 +29,20 @@ export const Home = () => {
 	];
 
 	const handleFilterChange = (selectedOption) => {
+		let sortedGyms;
 		switch (selectedOption) {
 			case "highest-rated":
-				setGymsFiltered(gyms.filter((g) => g.stars >= 3.5));
+				sortedGyms = [...gyms].sort((a, b) => b.stars - a.stars);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "lowest-price":
-				setGymsFiltered(gyms.filter((g) => g.suscription_price <= 300));
+				sortedGyms = [...gyms].sort((a, b) => a.suscription_price - b.suscription_price);
+				setGymsFiltered(sortedGyms);
 				break;
 			case "all":
+				setGymsFiltered(gyms);
+				break;
+			default:
 				setGymsFiltered(gyms);
 				break;
 		}
@@ -37,14 +52,30 @@ export const Home = () => {
 		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 
-  //NOTE: ACA ESTAN LOS GYMS DESDE FIREBASE
-  const [gymsFromFb, setGymsFromFb] = useState()
+  const set_user = useUser(state => state.set_user)
+
 	useEffect(() => {
+    console.log({user})
 		window.scrollTo(0, 0);
-    getGymsFb().then(gyms => setGymsFromFb(gyms))
+		getGymsFb().then(gyms => {
+			setGymsFiltered(gyms)
+		})
+    const lc = localStorage.getItem('user')
+
+    if(lc) {
+      const id = lc.replaceAll('"', '');
+      getDoc(doc(db, 'user', id)).then(userFb => set_user(userFb.data()))
+    }
+    if(user) {
+      (user.id_rol == 1) ? navigate('/')
+        : (user.id_rol == 2) ? navigate('/admin/users')
+          : (user.id_rol == 3) ? navigate('/superadmin/gyms')
+            : (user.id_rol == 4) ? navigate('/trainer/users')
+              : null
+    }
 	}, [])
-  
-  console.log({gymsFromFb})
+
+
 	return (
 		<UserLayout>
 

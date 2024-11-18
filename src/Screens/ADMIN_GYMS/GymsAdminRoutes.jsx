@@ -4,9 +4,8 @@ import { useUser } from "../../store/useUser"
 
 export const GymsAdminRoutes = () => {
 
-  // const user = useUser(state => state.user)
-  const user = 1
+	const user = useUser(state => state.user)
 
-	return (user === 1) ? <Outlet /> : <Navigate to={'/'} />
+	return (user.id_rol == 3) ? <Outlet /> : <Navigate to={'/'} />
 }
 
