@@ -287,7 +287,7 @@ export const GymForm = () => {
         />
       </span>
       <button 
-        className='focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900'
+        className='focus:outline-none text-white bg-yellow-400 hover:bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-primary'
         type='submit'>Aceptar</button>
     </form>
   )

@@ -89,7 +89,7 @@ function App() {
 			element: <GymInfo />
 		},
 		{
-			path: '/gyms/:id/suscript',
+      path: '/gyms/:id/suscript',
 			element: <Suscription />
 		},
 	])

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { getUserFromID } from '../../services/getUserFromID'
 import { ExerciseCard } from './ExerciseCard'
 
-export const RoutineCardTrainer = ({routine}) => {
+export const RoutineCardTrainer = ({routine, user_id}) => {
 
   const [userInfo, setUserInfo] =useState()
 
   useEffect(() => {
-    getUserFromID(routine.user_id).then(user => setUserInfo(user))
-  })
+    getUserFromID(user_id).then(user => setUserInfo(user))
+  }, [])
 
   return (
     <div>
@@ -26,7 +26,7 @@ export const RoutineCardTrainer = ({routine}) => {
                 <>
                   <h3 key={item.day}>{`${item.day} -> ${item.group}`}</h3>
                   {
-                    item.map((exercise) => 
+                      exercises.map((exercise) => 
                       <ExerciseCard
                         key={exercise.set}
                         name={exercise.name}

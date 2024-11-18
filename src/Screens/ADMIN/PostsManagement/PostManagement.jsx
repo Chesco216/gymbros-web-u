@@ -3,34 +3,32 @@ import styles from './PostManagement.module.css'
 import { PostForm } from './components/PostForm/PostForm'
 import { PostGrid } from './components/PostGrid/PostGrid'
 import { UserLayout } from '../../Common/Layouts/UserLayout.jsx'
-const posts = [
-	{
-		id: '1',
-		title: 'title post',
-		description: 'post description here',
-		img: 'https://img.freepik.com/free-psd/gym-fitness-social-media-banner-instagram-post-template_106176-3939.jpg'
-	},
-	{
-		id: '2',
-		title: 'title post',
-		description: 'post description here',
-		img: 'https://img.freepik.com/free-psd/gym-fitness-social-media-banner-instagram-post-template_106176-3939.jpg'
-	},
-	{
-		id: '3',
-		title: 'title post',
-		description: 'post description here',
-		img: 'https://img.freepik.com/free-psd/gym-fitness-social-media-banner-instagram-post-template_106176-3939.jpg'
-	},
-	{
-		id: '4',
-		title: 'title post',
-		description: 'post description here',
-		img: 'https://img.freepik.com/free-psd/gym-fitness-social-media-banner-instagram-post-template_106176-3939.jpg'
-	},
-]
+import { useEffect, useState } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../../firebase/firebasse.js'
+import { useUser } from '../../../store/useUser.js'
 
 export const PostManagement = () => {
+
+  const user = useUser(state => state.user)
+  const [posts, setPosts] = useState([])
+  
+  useEffect(() => {
+    try {
+      getDocs(collection(db, 'posts')).then(docs => {
+        const postsArr = []
+        docs.forEach(doc => {
+          const post = doc.data()
+          if(post.id_gym == user.id_gym) postsArr.push(post)
+        });
+        setPosts(postsArr)
+      })
+    } catch (error) {
+      alert(error.code)
+    }
+  }, [])
+
+  console.log({posts})
 
 	return (
 		<UserLayout>
