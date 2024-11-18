@@ -1,6 +1,7 @@
 import React from 'react'
 
-export const GymAdminCard = ({expires_at, name, active_users, max_users, plan}) => {
+export const GymAdminCard = ({expires_at= {seconds: 0}, name, active_users, max_users, plan}) => {
+  console.log({expires_at})
 
   const dateObj = new Date(expires_at.seconds*1000)
   const date = `${dateObj.getDate().toString()} / ${dateObj.getMonth().toString()} / ${dateObj.getFullYear().toString()}`
@@ -13,8 +14,6 @@ export const GymAdminCard = ({expires_at, name, active_users, max_users, plan}) 
 			<td className="px-6 py-4">{date}</td>
 			<td className="px-6 py-4 capitalize">{plan}</td>
 			<td className="px-6 py-4 text-right">
-
-				<button onClick={() => handleUpdate()} className="text-primary hover:underline"> Editar </button>
 			</td>
 		</tr>
   )

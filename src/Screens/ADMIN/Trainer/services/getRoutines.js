@@ -21,14 +21,14 @@ export const getRoutines = async() => {
           routine.day_5,
         ],
         isAproved: routine.isAproved,
-        user_id: routine.user_id
+        user_id: routine.user_id,
+        uid: routine.uid
       }
       formatedRoutines.push(fr)
     })
 
     return formatedRoutines
   } catch (error) {
-    console.log({error})
     alert(error.code)
   }
 }
