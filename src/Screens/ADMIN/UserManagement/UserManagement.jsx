@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { UserGrid } from './components/UserGrid/UserGrid'
 import { AddUserModal } from './components/AddUserModal/AddUserModal'
-import { useUserList } from '../store/useUserList'
 import { getUsers } from '../services/getUsers'
 import { UserLayout } from '../../Common/Layouts/UserLayout'
 import { useNavigate } from 'react-router-dom'
@@ -18,8 +17,6 @@ import { useUser } from '../../../store/useUser'
 import { PdfIcon } from './icons/PdfIcon'
 import { ExcelIcon } from './icons/ExcelIcon'
 
-// dom to png
-import domtoimage from 'dom-to-image';
 
 //PERF: no esta del todo bien esto
 export const UserManagement = () => {
@@ -152,10 +149,11 @@ export const UserManagement = () => {
 							/>
 							<button
 								type='submit'
-								className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse flex items-center gap-2"
+								className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse flex items-center gap-2 text-sm"
 							>
-								<svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
 								Buscar
+
+								<svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
 							</button>
 
 						</form>
@@ -165,16 +163,16 @@ export const UserManagement = () => {
 						</button>
 
 
-						<button onClick={() => generatePDF()} type="button" className="gap-2 flex items-center text-white bg-gradient-to-br from-red-700/80 to-red-700 hover:bg-red-700/60 font-semibold rounded-lg px-5 py-3 text-center"><PdfIcon /> Exportar en PDF</button>
+						<button onClick={() => generatePDF()} type="button" className="gap-2 flex items-center text-white bg-gradient-to-br from-red-700/80 to-red-700 hover:bg-red-700/60 font-semibold rounded-lg px-5 py-3 text-center text-sm"><PdfIcon /> Exportar en PDF</button>
 
-						<button onClick={() => generateExcel()} type="button" className="gap-2 flex items-center text-white bg-gradient-to-br from-green-700/80 to-green-700 hover:bg-green-700/60 font-semibold rounded-lg px-5 py-3 text-center"> <ExcelIcon /> Exportar en Excel</button>
+						<button onClick={() => generateExcel()} type="button" className="gap-2 flex items-center text-white bg-gradient-to-br from-green-700/80 to-green-700 hover:bg-green-700/60 font-semibold rounded-lg px-5 py-3 text-center text-sm"> <ExcelIcon /> Exportar en Excel</button>
 						<button
 							onClick={() => {
 								setIsOpen(true);
 								setMod('Crear');
 								setUpdateUser({});
 							}}
-							className="ml-auto px-5 py-3 bg-black text-white rounded-md font-semibold slide-in-reverse hover:bg-black/[0.85]"
+							className="ml-auto px-5 py-3 bg-black text-white rounded-md font-semibold slide-in-reverse hover:bg-black/[0.85] text-sm"
 							data-modal-target="cu-users"
 							data-modal-toggle="cu-users"
 							type="button"
