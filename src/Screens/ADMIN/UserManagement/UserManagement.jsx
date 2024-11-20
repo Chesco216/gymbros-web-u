@@ -99,7 +99,7 @@ export const UserManagement = () => {
 							type="button"
 						>
 
-							Crear Usuario
+							Inscribir Usuario
 						</button>
 					</div>
 
