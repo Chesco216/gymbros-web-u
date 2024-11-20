@@ -18,11 +18,11 @@ export const UserGrid = ({ users, setIsOpen, setMod, setUpdateUser }) => {
 
 					{
 						users.map(user => <UserCard
-							key={user.name}
-              uid={user.uid}
+							key={user.uid}
+							uid={user.uid}
 							name={user.name}
 							ci={user.ci}
-							isActive={user.isActive}
+							isActive={user.is_active}
 							expires={user.expires_at}
 							plan={user.plan}
 							setIsOpen={setIsOpen}

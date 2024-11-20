@@ -18,7 +18,7 @@ export const getUsers = async () => {
 				height: data.height,
 				id_gym: data.id_gym,
 				id_rol: data.id_rol,
-				is_active: data.is_active,
+				is_active: data.isActive,
 				phone: data.phone,
 				plan: data.plan,
 				weight: data.weight,
