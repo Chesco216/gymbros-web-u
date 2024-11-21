@@ -14,7 +14,6 @@ export const Profile = () => {
 	// user
 	const user = useUser(state => state.user)
 
-	console.log(user.profile_photo)
 
 	// toggle update or not
 	const [update, setUpdate] = useState(false)

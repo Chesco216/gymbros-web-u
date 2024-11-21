@@ -16,11 +16,11 @@ import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
 
-  const navigate = useNavigate()
-  const user = useUser(state => state.user)
+	const navigate = useNavigate()
+	const user = useUser(state => state.user)
 
 	const gymsFiltered = useGym(state => state.gyms)
-  const setGymsFiltered = useGym(state => state.set_gyms)
+	const setGymsFiltered = useGym(state => state.set_gyms)
 
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
@@ -52,27 +52,27 @@ export const Home = () => {
 		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
 	}
 
-  const set_user = useUser(state => state.set_user)
+	const set_user = useUser(state => state.set_user)
 
 	useEffect(() => {
-    console.log({user})
+		console.log({ user })
 		window.scrollTo(0, 0);
 		getGymsFb().then(gyms => {
 			setGymsFiltered(gyms)
 		})
-    const lc = localStorage.getItem('user')
+		const lc = localStorage.getItem('user')
 
-    if(lc) {
-      const id = lc.replaceAll('"', '');
-      getDoc(doc(db, 'user', id)).then(userFb => set_user(userFb.data()))
-    }
-    if(user) {
-      (user.id_rol == 1) ? navigate('/')
-        : (user.id_rol == 2) ? navigate('/admin/users')
-          : (user.id_rol == 3) ? navigate('/superadmin/gyms')
-            : (user.id_rol == 4) ? navigate('/trainer/users')
-              : null
-    }
+		if (lc) {
+			const id = lc.replaceAll('"', '');
+			getDoc(doc(db, 'user', id)).then(userFb => set_user(userFb.data()))
+		}
+		if (user) {
+			(user.id_rol == 1) ? navigate('/')
+				: (user.id_rol == 2) ? navigate('/admin/users')
+					: (user.id_rol == 3) ? navigate('/superadmin/gyms')
+						: (user.id_rol == 4) ? navigate('/trainer/users')
+							: null
+		}
 	}, [])
 
 

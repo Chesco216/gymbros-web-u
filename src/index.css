@@ -21,6 +21,7 @@ body {
 
 }
 
+
 .fade-in {
 	animation: fadeIn 0.80s;
 }
@@ -60,7 +61,7 @@ body {
 @keyframes slideIn {
 	from {
 		opacity: 0;
-		transform: translateX(-16px);
+		transform: translateX(-10px);
 	}
 
 	to {
@@ -72,7 +73,7 @@ body {
 @keyframes slideInReverse {
 	from {
 		opacity: 0;
-		transform: translateX(16px);
+		transform: translateX(10px);
 	}
 
 	to {

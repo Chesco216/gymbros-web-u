@@ -32,8 +32,6 @@ export const PostManagement = () => {
     }
   }, [])
 
-  console.log({posts})
-
 	return (
 		<UserLayout>
 			<h1 className='font-bold w-screen text-[30px] text-center my-[30px]'>Publicaciones</h1>
