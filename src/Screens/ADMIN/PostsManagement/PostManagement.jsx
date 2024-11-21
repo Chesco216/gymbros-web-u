@@ -18,7 +18,11 @@ export const PostManagement = () => {
       getDocs(collection(db, 'posts')).then(docs => {
         const postsArr = []
         docs.forEach(doc => {
-          const post = doc.data()
+          const data = doc.data()
+          const post = {
+            ...data,
+            uid: doc.id
+          }
           if(post.id_gym == user.id_gym) postsArr.push(post)
         });
         setPosts(postsArr)
@@ -32,7 +36,10 @@ export const PostManagement = () => {
 
 	return (
 		<UserLayout>
-			<PostGrid posts={posts} />
+			<h1 className='font-bold w-screen text-[30px] text-center my-[30px]'>Publicaciones</h1>
+      <div className='w-full flex justify-center'>
+        <PostGrid posts={posts} />
+      </div>
       <div className='flex align-center justify-center'>
         <PostForm />
       </div>
