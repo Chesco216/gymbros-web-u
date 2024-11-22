@@ -21,6 +21,7 @@ export const Login = () => {
 			const res = await getDoc(doc(db, 'user', user.uid))
 			const data = res.data()
 			console.log({ msg: 'data from login', data: data })
+      localStorage.setItem('user', user.uid)
 			set_user(data)
 			// (data.id_rol == 1) ? navigate('/')
 			//   : (data.id_rol == 2) ? navigate('/admin/users')

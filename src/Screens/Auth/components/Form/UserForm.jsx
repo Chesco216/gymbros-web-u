@@ -63,10 +63,11 @@ export const UserForm = ({name, email}) => {
 
 	return (
 		<form 
-      className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg"
+      className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg py-[50px]"
       onSubmit={handleSubmit}>
-			<label>Numero de documento</label>
+			<label className={subtitles}>Numero de documento</label>
 			<input
+        className={inputs}
 				type='text'
 				name='ci'
 				value={userInfo.ci}
@@ -76,8 +77,9 @@ export const UserForm = ({name, email}) => {
 					ci: e.target.value
 				})}
 			/>
-			<label>Edad</label>
+			<label className={subtitles}>Edad</label>
 			<input
+        className={inputs}
 				type='number'
 				name='age'
 				value={userInfo.age}
@@ -87,8 +89,9 @@ export const UserForm = ({name, email}) => {
 					age: e.target.value
 				})}
 			/>
-			<label>Peso (kg)</label>
+			<label className={subtitles}>Peso (kg)</label>
 			<input
+        className={inputs}
 				type='number'
 				name='weight'
 				value={userInfo.weight}
@@ -98,8 +101,9 @@ export const UserForm = ({name, email}) => {
 					weight: e.target.value
 				})}
 			/>
-			<label>Altura (cm)</label>
+			<label className={subtitles}>Altura (cm)</label>
 			<input
+        className={inputs}
 				type='number'
 				name='height'
 				value={userInfo.height}
@@ -109,8 +113,9 @@ export const UserForm = ({name, email}) => {
 					height: e.target.value
 				})}
 			/>
-			<label>Telefono</label>
+			<label className={subtitles}>Telefono</label>
 			<input
+        className={inputs}
 				type='tel'
 				name='phone'
 				value={userInfo.phone}
@@ -120,7 +125,12 @@ export const UserForm = ({name, email}) => {
 					phone: e.target.value
 				})}
 			/>
-			<button type='submit'>Aceptar</button>
+			<button
+        className='flex flex-col justify-center items-center col-span-2 gap-6 px-8 py-3 rounded-md text-white font-semibold bg-primary'
+        type='submit'
+        >
+        Aceptar
+        </button>
 		</form>
 	)
 }

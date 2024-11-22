@@ -190,7 +190,7 @@ export const AdminForm = ({email, name}) => {
   const titles = 'text-[25px] font-bold my-[20px]'
   const subtitles = 'text-[18px] font-semibold'
   const inputs = 'border border-gray-300 px-4 py-3 rounded-md w-full fade-in my-[15px]'
-  // WARN: Perdon trini esto va a estar feito de estilizar
+
   return (
     <form 
       className='flex flex-col w-[800px]'
@@ -245,7 +245,7 @@ export const AdminForm = ({email, name}) => {
       <span>
         <label className={titles}>Agrega imagenes</label>
         <input 
-          className="my-[15px] block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" 
+          className='my-[20px] block w-full text-lg text-primary border rounded-lg cursor-pointer bg-fourth dark:text-white focus:outline-none dark:bg-primary dark:placeholder-white'
           type="file"
           name='images'
           multiple 
