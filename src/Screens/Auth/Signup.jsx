@@ -48,11 +48,11 @@ export const Signup = () => {
 	const handleSubmit = async () => {
 
 		const userFB = await signupEP(email, password)
-		// set_user({
-		//	...user,
-		// 	email: userFB.email,
-		//	uid: userFB.uid
-		// })
+		set_user({
+		...user,
+			email: userFB.email,
+		uid: userFB.uid
+		})
 		setIsSubmited(true)
 		// navigate('/')
 		const res = await createAssessment()
@@ -104,7 +104,7 @@ export const Signup = () => {
 					</div>
 				</>
 			}
-			<div className='flex flex-col px-[50px] bg-fourth rounded-xl'>
+			<div className='my-[40px] flex flex-col px-[50px] bg-fourth rounded-xl'>
 
 				{
 					(isSubmited) && (selectUserType) &&

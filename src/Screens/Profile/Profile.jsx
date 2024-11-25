@@ -5,8 +5,8 @@ import { getUserFb } from './services/getUserFb'
 import { UpdateForm } from './components/UpdateForm'
 import { UserLayout } from '../Common/Layouts/UserLayout'
 import { ProfileAttribute } from './components/ProfileAttribute'
-import styles from './Profile.module.css'
-import { getDownloadURL } from 'firebase/storage'
+// import styles from './Profile.module.css'
+// import { getDownloadURL } from 'firebase/storage'
 import { AddImageModal } from './components/AddImageModal'
 
 export const Profile = () => {
@@ -164,7 +164,7 @@ export const Profile = () => {
 							)
 							}
 
-							{!update && (
+							{(!update && user.id_rol != 3) && (
 								<button
 									onClick={() => navigate('/profile/payment')}
 									className="flex gap-2 justify-center mt-8 w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 slide-in mb-4"
