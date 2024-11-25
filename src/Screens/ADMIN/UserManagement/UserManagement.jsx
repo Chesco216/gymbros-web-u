@@ -5,7 +5,6 @@ import { getUsers } from '../services/getUsers'
 import { UserLayout } from '../../Common/Layouts/UserLayout'
 import { useNavigate } from 'react-router-dom'
 
-
 // pdf
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -18,7 +17,6 @@ import { PdfIcon } from './icons/PdfIcon'
 import { ExcelIcon } from './icons/ExcelIcon'
 
 
-//PERF: no esta del todo bien esto
 export const UserManagement = () => {
 	const [updateUser, setUpdateUser] = useState();
 	const [userCI, setUserCI] = useState();
@@ -127,7 +125,6 @@ export const UserManagement = () => {
 		setUsersFiltered(users.filter((u) => u.ci.toLowerCase().includes(userCI.toLowerCase())));
 
 	}
-
 
 	return (
 

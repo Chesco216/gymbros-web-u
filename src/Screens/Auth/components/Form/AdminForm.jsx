@@ -1,70 +1,14 @@
-// import { collection, getDocs } from 'firebase/firestore'
-// import React, { useEffect, useState } from 'react'
-// import { db } from '../../../../firebase/firebasse'
-//
-// const info = {
-//   uid: '',
-//   name: '',
-//   email: '',
-//   id_gym: '',
-//   id_rol: '',
-//   member_type: '',
-//   expires_at: ''
-// }
-//
-// export const AdminForm = () => {
-//
-//   const [gymInfo, setGymInfo] = useState(info)
-//   const [gymList, setGymList] = useState([])
-//
-//   //FIX: i dont know why but statte is not changing
-//   useEffect(() => {
-//     const data = []
-//     getDocs(collection(db, 'gym'))
-//       .then(doc => doc.forEach(gym => {
-//         data.push(gym.data())
-//       }))
-//     setGymList(data)
-//     console.log(data)
-//   },[])
-//
-//
-//   return (
-//     <form>
-//       {
-//         console.log({msg: 'gymList from form', gymList})
-//       }
-//       {
-//         (gymList.length > 0) &&
-//           <select
-//             onChange={(e) => setGymInfo({
-//               ...gymInfo,
-//               id_gym: e.target.value
-//             })}
-//           >
-//             {
-//               gymList.map((gym) =>
-//                 <option
-//                   key={gym.uid}
-//                   value={gym.uid}
-//                 >
-//                   {gym.name}
-//                 </option>
-//               )
-//             }
-//           </select>
-//       }
-//     </form>
-//   )
-// }
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { db, store } from '../../../../firebase/firebasse.js'
 import { addDoc, collection, setDoc } from 'firebase/firestore'
-
-//NOTE: only for superuser rol pipipi
+import { Toaster, toast } from 'sonner'
+import { BackIcon } from '../BackIcon/BackIcon.jsx'
 
 export const AdminForm = ({email, name}) => {
+
+  const navigate = useNavigate()
 
   const [equipement, setEquipement] = useState({
     arms: [],
@@ -182,6 +126,10 @@ export const AdminForm = ({email, name}) => {
         id_rol: 2,
         id_gym: gymDoc.uid
       })
+      toast.success('Gimnasio subido correctamente', {
+        duration: 2500,
+      })
+      navigate('/')
     } catch (error) {
       alert(error.code)
     }
@@ -190,170 +138,174 @@ export const AdminForm = ({email, name}) => {
   const titles = 'text-[25px] font-bold my-[20px]'
   const subtitles = 'text-[18px] font-semibold'
   const inputs = 'border border-gray-300 px-4 py-3 rounded-md w-full fade-in my-[15px]'
-  // WARN: Perdon trini esto va a estar feito de estilizar
+
   return (
-    <form 
-      className='flex flex-col w-[800px]'
-      onSubmit={(e) => handleSubmit(e)}>
-      <span className='flex flex-col'>
-        <label className={titles}>Con que maquinas cuenta?</label>
-        <label className={subtitles}>Brazos</label>
-        <input
-          className={inputs}
-          placeholder='ej: maquina 1, maquina 2, maquina 3'
-          name='arms'
-          onChange={(e) => setEquipementOnChange(e, 'arms')}
-        />
-        <label className={subtitles}>Espalda</label>
-        <input
-          className={inputs}
-          placeholder='ej: maquina 1, maquina 2, maquina 3'
-          name='back'
-          onChange={(e) => setEquipementOnChange(e, 'back')}
-        />
-        <label className={subtitles}>Pecho</label>
-        <input
-          className={inputs}
-          placeholder='ej: maquina 1, maquina 2, maquina 3'
-          name='chest'
-          onChange={(e) => setEquipementOnChange(e, 'chest')}
-        />
-        <label className={subtitles}>Piernas</label>
-        <input
-          className={inputs}
-          placeholder='ej: maquina 1, maquina 2, maquina 3'
-          name='legs'
-          onChange={(e) => setEquipementOnChange(e, 'legs')}
-        />
-        <label className={subtitles}>Mancuernas</label>
-        <input
-          className={inputs}
-          placeholder='ej: 2kg - 60kg'
-          name='dumbells'
-          onChange={(e) => setEquipementOnChange(e, 'dumbells')}
-        />
-      </span>
-      <span>
-        <label className={titles}>Que servicios ofrece?</label>
-        <input
-          className={inputs}
-          placeholder='ej: servicio 1, servicio 2, servicio 3'
-          name='services'
-          onChange={(e) => setServices(e.target.value.split(','))}
-        />
-      </span>
-      <span>
-        <label className={titles}>Agrega imagenes</label>
-        <input 
-          className="my-[15px] block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" 
-          type="file"
-          name='images'
-          multiple 
-          onChange={(e) => setImages(e.target.files)}
-        />
-      </span>
-      <span>
-        <label className={titles}>Agrega la ubicacion</label>
-        <input
-          className={inputs}
-          placeholder='coordenadas'
-          name='chords'
-          onChange={(e) => setLocation({
-            ...location,
-            chords: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='ubicacion'
-          name='locationText'
-          onChange={(e) => setLocation({
-            ...location,
-            text: e.target.value
-          })}
-        />
-      </span>
-      <span>
-        <label className={titles}>Agrega la informacion basica del gimnasio</label>
-        <input
-          className={inputs}
-          placeholder='Nombre del gimnaiso'
-          name='gymName'
-          onChange={(e) => setBasicInfo({
-            ...basicInfo,
-            name: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Numero de telefono'
-          name='phone'
-          onChange={(e) => setBasicInfo({
-            ...basicInfo,
-            phone_number: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Horarios'
-          name='schedule'
-          onChange={(e) => setBasicInfo({
-            ...basicInfo,
-            schedule: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Calificacion'
-          name='stars'
-          onChange={(e) => setBasicInfo({
-            ...basicInfo,
-            stars: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Precio de la suscripcion'
-          name='price'
-          onChange={(e) => setBasicInfo({
-            ...basicInfo,
-            suscription_price: e.target.value
-          })}
-        />
-      </span>
-      <span>
-        <label className={titles}>Agregue la informacion de su entrenador</label>
-        <input
-          className={inputs}
-          placeholder='Nombre'
-          name='trainerName'
-          onChange={(e) => setTrainers({
-            ...trainers,
-            name: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Horario'
-          name='trainerSchedule'
-          onChange={(e) => setTrainers({
-            ...trainers,
-            schedule: e.target.value
-          })}
-        />
-        <input
-          className={inputs}
-          placeholder='Actividades'
-          name='trainerActivity'
-          onChange={(e) => setTrainers({
-            ...trainers,
-            activity: e.target.value
-          })}
-        />
-      </span>
-      <button 
-        className='focus:outline-none text-white bg-primary-400 hover:bg-primary-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900'
-        type='submit'>Aceptar</button>
-    </form>
+    <>
+      <BackIcon w={60} h={60} c='#F6F1EE' />
+      <form 
+        className='flex flex-col w-[800px]'
+        onSubmit={(e) => handleSubmit(e)}>
+        <span className='flex flex-col'>
+          <label className={titles}>Con que maquinas cuenta?</label>
+          <label className={subtitles}>Brazos</label>
+          <input
+            className={inputs}
+            placeholder='ej: maquina 1, maquina 2, maquina 3'
+            name='arms'
+            onChange={(e) => setEquipementOnChange(e, 'arms')}
+          />
+          <label className={subtitles}>Espalda</label>
+          <input
+            className={inputs}
+            placeholder='ej: maquina 1, maquina 2, maquina 3'
+            name='back'
+            onChange={(e) => setEquipementOnChange(e, 'back')}
+          />
+          <label className={subtitles}>Pecho</label>
+          <input
+            className={inputs}
+            placeholder='ej: maquina 1, maquina 2, maquina 3'
+            name='chest'
+            onChange={(e) => setEquipementOnChange(e, 'chest')}
+          />
+          <label className={subtitles}>Piernas</label>
+          <input
+            className={inputs}
+            placeholder='ej: maquina 1, maquina 2, maquina 3'
+            name='legs'
+            onChange={(e) => setEquipementOnChange(e, 'legs')}
+          />
+          <label className={subtitles}>Mancuernas</label>
+          <input
+            className={inputs}
+            placeholder='ej: 2kg - 60kg'
+            name='dumbells'
+            onChange={(e) => setEquipementOnChange(e, 'dumbells')}
+          />
+        </span>
+        <span>
+          <label className={titles}>Que servicios ofrece?</label>
+          <input
+            className={inputs}
+            placeholder='ej: servicio 1, servicio 2, servicio 3'
+            name='services'
+            onChange={(e) => setServices(e.target.value.split(','))}
+          />
+        </span>
+        <span>
+          <label className={titles}>Agrega imagenes</label>
+          <input 
+            className='my-[20px] block w-full text-lg text-primary border rounded-lg cursor-pointer bg-fourth dark:text-white focus:outline-none dark:bg-primary dark:placeholder-white'
+            type="file"
+            name='images'
+            multiple 
+            onChange={(e) => setImages(e.target.files)}
+          />
+        </span>
+        <span>
+          <label className={titles}>Agrega la ubicacion</label>
+          <input
+            className={inputs}
+            placeholder='coordenadas'
+            name='chords'
+            onChange={(e) => setLocation({
+              ...location,
+              chords: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='ubicacion'
+            name='locationText'
+            onChange={(e) => setLocation({
+              ...location,
+              text: e.target.value
+            })}
+          />
+        </span>
+        <span>
+          <label className={titles}>Agrega la informacion basica del gimnasio</label>
+          <input
+            className={inputs}
+            placeholder='Nombre del gimnaiso'
+            name='gymName'
+            onChange={(e) => setBasicInfo({
+              ...basicInfo,
+              name: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Numero de telefono'
+            name='phone'
+            onChange={(e) => setBasicInfo({
+              ...basicInfo,
+              phone_number: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Horarios'
+            name='schedule'
+            onChange={(e) => setBasicInfo({
+              ...basicInfo,
+              schedule: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Calificacion'
+            name='stars'
+            onChange={(e) => setBasicInfo({
+              ...basicInfo,
+              stars: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Precio de la suscripcion'
+            name='price'
+            onChange={(e) => setBasicInfo({
+              ...basicInfo,
+              suscription_price: e.target.value
+            })}
+          />
+        </span>
+        <span>
+          <label className={titles}>Agregue la informacion de su entrenador</label>
+          <input
+            className={inputs}
+            placeholder='Nombre'
+            name='trainerName'
+            onChange={(e) => setTrainers({
+              ...trainers,
+              name: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Horario'
+            name='trainerSchedule'
+            onChange={(e) => setTrainers({
+              ...trainers,
+              schedule: e.target.value
+            })}
+          />
+          <input
+            className={inputs}
+            placeholder='Actividades'
+            name='trainerActivity'
+            onChange={(e) => setTrainers({
+              ...trainers,
+              activity: e.target.value
+            })}
+          />
+        </span>
+        <button 
+          className='mt-[20px] mb-[40px] bg-primary font-semibold text-white text-[20px] py-[10px] rounded-lg'
+          type='submit'>Aceptar</button>
+      </form>
+      <Toaster/>
+    </>
   )
 }

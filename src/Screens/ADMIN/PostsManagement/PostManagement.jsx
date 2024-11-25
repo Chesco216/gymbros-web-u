@@ -10,33 +10,37 @@ import { useUser } from '../../../store/useUser.js'
 
 export const PostManagement = () => {
 
-	const user = useUser(state => state.user)
-	const [posts, setPosts] = useState([])
-
-	useEffect(() => {
-		try {
-			getDocs(collection(db, 'posts')).then(docs => {
-				const postsArr = []
-				docs.forEach(doc => {
-					const post = doc.data()
-					if (post.id_gym == user.id_gym) postsArr.push(post)
-				});
-				setPosts(postsArr)
-			})
-		} catch (error) {
-			alert(error.code)
-		}
-	}, [])
-
-
-
+  const user = useUser(state => state.user)
+  const [posts, setPosts] = useState([])
+  
+  useEffect(() => {
+    try {
+      getDocs(collection(db, 'posts')).then(docs => {
+        const postsArr = []
+        docs.forEach(doc => {
+          const data = doc.data()
+          const post = {
+            ...data,
+            uid: doc.id
+          }
+          if(post.id_gym == user.id_gym) postsArr.push(post)
+        });
+        setPosts(postsArr)
+      })
+    } catch (error) {
+      alert(error.code)
+    }
+  }, [])
 
 	return (
 		<UserLayout>
-			<PostGrid posts={posts} />
-			<div className='flex align-center justify-center'>
-				<PostForm />
-			</div>
+			<h1 className='font-bold w-screen text-[30px] text-center my-[30px]'>Publicaciones</h1>
+      <div className='w-full flex justify-center'>
+        <PostGrid posts={posts} />
+      </div>
+      <div className='flex align-center justify-center'>
+        <PostForm />
+      </div>
 		</UserLayout>
 	)
 }

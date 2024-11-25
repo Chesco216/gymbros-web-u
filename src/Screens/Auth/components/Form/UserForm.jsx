@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { Toaster, toast } from 'sonner'
 import { useUser } from '../../../../store/useUser'
 import { addDoc, doc, collection, setDoc } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasse.js'
 import { useNavigate } from 'react-router-dom'
+import { BackIcon } from '../BackIcon/BackIcon.jsx'
 
 const info = {
 	name: '',
@@ -50,6 +52,9 @@ export const UserForm = ({name, email}) => {
         expires_at: date,
         uid: id
       })
+      toast.success('Inicio de sesion completado', {
+        duration: 2500,
+      })
       navigate('/')
     } catch (error) {
       alert(error)
@@ -62,66 +67,80 @@ export const UserForm = ({name, email}) => {
   const inputs = 'border border-gray-300 px-4 py-3 rounded-md w-full fade-in my-[15px]'
 
 	return (
-		<form 
-      className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg"
-      onSubmit={handleSubmit}>
-			<label>Numero de documento</label>
-			<input
-				type='text'
-				name='ci'
-				value={userInfo.ci}
-				placeholder='ci'
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					ci: e.target.value
-				})}
-			/>
-			<label>Edad</label>
-			<input
-				type='number'
-				name='age'
-				value={userInfo.age}
-				placeholder='Edad'
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					age: e.target.value
-				})}
-			/>
-			<label>Peso (kg)</label>
-			<input
-				type='number'
-				name='weight'
-				value={userInfo.weight}
-				placeholder='Peso'
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					weight: e.target.value
-				})}
-			/>
-			<label>Altura (cm)</label>
-			<input
-				type='number'
-				name='height'
-				value={userInfo.height}
-				placeholder='Altura'
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					height: e.target.value
-				})}
-			/>
-			<label>Telefono</label>
-			<input
-				type='tel'
-				name='phone'
-				value={userInfo.phone}
-				placeholder=''
-				onChange={(e) => setUserInfo({
-					...userInfo,
-					phone: e.target.value
-				})}
-			/>
-			<button type='submit'>Aceptar</button>
-		</form>
+    <>
+      <BackIcon w={60} h={60} c='#F6F1EE' />
+      <form 
+        className="flex flex-col gap-2.5 xl:gap-5 xl:text-lg py-[50px]"
+        onSubmit={handleSubmit}>
+        <label className={subtitles}>Numero de documento</label>
+        <input
+          className={inputs}
+          type='text'
+          name='ci'
+          value={userInfo.ci}
+          placeholder='ci'
+          onChange={(e) => setUserInfo({
+            ...userInfo,
+            ci: e.target.value
+          })}
+        />
+        <label className={subtitles}>Edad</label>
+        <input
+          className={inputs}
+          type='number'
+          name='age'
+          value={userInfo.age}
+          placeholder='Edad'
+          onChange={(e) => setUserInfo({
+            ...userInfo,
+            age: e.target.value
+          })}
+        />
+        <label className={subtitles}>Peso (kg)</label>
+        <input
+          className={inputs}
+          type='number'
+          name='weight'
+          value={userInfo.weight}
+          placeholder='Peso'
+          onChange={(e) => setUserInfo({
+            ...userInfo,
+            weight: e.target.value
+          })}
+        />
+        <label className={subtitles}>Altura (cm)</label>
+        <input
+          className={inputs}
+          type='number'
+          name='height'
+          value={userInfo.height}
+          placeholder='Altura'
+          onChange={(e) => setUserInfo({
+            ...userInfo,
+            height: e.target.value
+          })}
+        />
+        <label className={subtitles}>Telefono</label>
+        <input
+          className={inputs}
+          type='tel'
+          name='phone'
+          value={userInfo.phone}
+          placeholder='telefono'
+          onChange={(e) => setUserInfo({
+            ...userInfo,
+            phone: e.target.value
+          })}
+        />
+        <button
+          className='flex flex-col justify-center items-center col-span-2 gap-6 px-8 py-3 rounded-md text-white font-semibold bg-primary'
+          type='submit'
+          >
+          Aceptar
+          </button>
+      </form>
+      <Toaster/>
+    </>
 	)
 }
 
