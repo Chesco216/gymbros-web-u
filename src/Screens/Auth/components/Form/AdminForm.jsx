@@ -5,19 +5,21 @@ import { db, store } from '../../../../firebase/firebasse.js'
 import { addDoc, collection, setDoc } from 'firebase/firestore'
 import { Toaster, toast } from 'sonner'
 import { BackIcon } from '../BackIcon/BackIcon.jsx'
+import { useUser } from '../../../../store/useUser.js'
 
 export const AdminForm = ({email, name}) => {
 
   const navigate = useNavigate()
+  const user = useUser(state => state.user)
 
   const [equipement, setEquipement] = useState({
-    arms: [],
-    back: [],
-    chest: [],
-    dumbells: [],
-    legs: []
+    arms: '',
+    back: '',
+    chest: '',
+    dumbells: '',
+    legs: ''
   })
-  const [services, setServices] = useState()
+  const [servicesList, setServicesList] = useState([])
   const [images, setImages] = useState([])
   const [location, setLocation] = useState({
     chords: '',
@@ -31,56 +33,42 @@ export const AdminForm = ({email, name}) => {
     stars: 0,
     suscription_price: 0
   })
-  const [trainers, setTrainers] = useState()
+  const [trainerList, setTrainerList] = useState([])
+  const [planes, setPlanes] = useState([])
 
 
   const setEquipementOnChange = (e, cat) => {
-    const valueRaw = e.target.value
-    const value = valueRaw.split(',');
+    const value = e.target.value
+    // const value = valueRaw.split(',');
     switch (cat) {
       case 'arms':
         setEquipement({
-          arms: equipement.arms.push(value),
-          back: equipement.back,
-          chest: equipement.chest,
-          dumbells: equipement.dumbells,
-          legs: equipement.legs
+          ...equipement,
+          arms: value,
         })
         break;
       case 'back':
         setEquipement({
-          arms: equipement.arms,
-          back: equipement.back.push(value),
-          chest: equipement.chest,
-          dumbells: equipement.dumbells,
-          legs: equipement.legs
+          ...equipement,
+          back: value,
         })
         break;
       case 'chest':
         setEquipement({
-          arms: equipement.arms,
-          back: equipement.back,
-          chest: equipement.chest.push(value),
-          dumbells: equipement.dumbells,
-          legs: equipement.legs
+          ...equipement,
+          chest: value,
         })
         break;
       case 'dumbells':
         setEquipement({
-          arms: equipement.arms,
-          back: equipement.back,
-          chest: equipement.chest,
-          dumbells: equipement.dumbells.push(valueRaw),
-          legs: equipement.legs
+          ...equipement,
+          dumbells: value,
         })
         break;
       case 'legs':
         setEquipement({
-          arms: equipement.arms,
-          back: equipement.back,
-          chest: equipement.chest,
-          dumbells: equipement.dumbells,
-          legs: equipement.legs.push(value)
+          ...equipement,
+          legs: value
         })
         break;
 
@@ -102,20 +90,30 @@ export const AdminForm = ({email, name}) => {
       imagesToUpload.push(downloadUrl)
     }
     console.log(imagesToUpload)
+    setImages(imagesToUpload)
   }
   
   const handleSubmit = async(e) => {
     e.preventDefault()
     console.log('submited')
     await uploadImages()
-    console.log({location})
+    console.log({images})
+    const equipementFormated = {
+      arms: equipement.arms.split(','),
+      legs: equipement.legs.split(','),
+      back: equipement.back.split(','),
+      chest: equipement.chest.split(','),
+      dumbells: equipement.dumbells
+    }
+    console.log({equipementFormated})
     const gymToUpload = {
-      equipement,
-      services,
+      equipementFormated,
+      servicesList,
+      planes,
       images,
       location,
       ...basicInfo,
-      trainers
+      trainerList
     }
     try {
       const gymDoc = await addDoc(collection(db, 'gym'), gymToUpload)
@@ -124,7 +122,15 @@ export const AdminForm = ({email, name}) => {
         email: email,
         name: name,
         id_rol: 2,
-        id_gym: gymDoc.uid
+        id_gym: gymDoc.id,
+        profle_photo: '',
+        uid: user.uid,
+        age: '',
+        ci: '',
+        height: '',
+        phone: '',
+        weight: ''
+
       })
       toast.success('Gimnasio subido correctamente', {
         duration: 2500,
@@ -132,8 +138,17 @@ export const AdminForm = ({email, name}) => {
       navigate('/')
     } catch (error) {
       alert(error.code)
+      console.error(error)
     }
   }
+
+  // const handleSubmitTest = (e) => {
+  //   e.preventDefault()
+  //   console.log('test submited')
+  //   console.log({servicesList})
+  //   console.log({planes})
+  //   console.log({trainerList})
+  // }
 
   const titles = 'text-[25px] font-bold my-[20px]'
   const subtitles = 'text-[18px] font-semibold'
@@ -183,14 +198,89 @@ export const AdminForm = ({email, name}) => {
             onChange={(e) => setEquipementOnChange(e, 'dumbells')}
           />
         </span>
-        <span>
+        <span className='flex flex-col'>
           <label className={titles}>Que servicios ofrece?</label>
-          <input
-            className={inputs}
-            placeholder='ej: servicio 1, servicio 2, servicio 3'
-            name='services'
-            onChange={(e) => setServices(e.target.value.split(','))}
-          />
+          
+          {
+            servicesList.map((item, index) => 
+              <div className='flex flex-row items-center'>
+                <span>
+                  <input
+                    onChange={(e) => {
+                      servicesList[index] = {...servicesList[index], name: e.target.value}
+                    }}
+                    type='text'
+                    className={inputs} 
+                    placeholder='servicio'
+                  />
+                  <input 
+                    onChange={(e) => {
+                      servicesList[index] = {...servicesList[index], schedule: e.target.value}
+                    }}    
+                    type='text'
+                    className={inputs} 
+                    placeholder='horario'
+                  />
+                </span>
+                <button
+                  onClick={() => {
+                    setServicesList([...servicesList.slice(0, index), ...servicesList.slice(index + 1)])
+                  }}
+                  className='bg-red-500 h-fit w-fit ml-[20px] text-white py-1.5 px-3 font-semibold rounded-lg'
+                >
+                  Quitar
+                </button>
+              </div>
+            )
+          }
+          <label
+            className='h-fit w-fit bg-primary py-1.5 px-3 font font-semibold rounded-lg text-white mb-[20px]'
+            onClick={() => setServicesList([...servicesList, {name: '', schedule: ''}])}
+          >
+            Agregar servicio
+          </label>
+        </span>
+        <span className='flex flex-col'>
+          <label className={titles}>Que planes tiene?</label>
+          
+          {
+            planes.map((item, index) => 
+              <div className='flex flex-row items-center'>
+                <span>
+                  <input
+                    onChange={(e) => {
+                      planes[index] = {...planes[index], name: e.target.value}
+                    }}
+                    type='text'
+                    className={inputs} 
+                    placeholder='servicio'
+                  />
+                  <input 
+                    onChange={(e) => {
+                      planes[index] = {...planes[index], price: e.target.value}
+                    }}    
+                    type='number'
+                    className={inputs} 
+                    placeholder='precio'
+                  />
+                </span>
+                <button
+                  onClick={() => {
+                    setPlanes([...planes.slice(0, index), ...planes.slice(index + 1)])
+                  }}
+                  className='bg-red-500 h-fit w-fit ml-[20px] text-white py-1.5 px-3 font-semibold rounded-lg'
+                >
+                  Quitar
+                </button>
+              </div>
+            )
+          }
+          <label 
+            className='h-fit w-fit bg-primary py-1.5 px-3 font font-semibold rounded-lg text-white mb-[20px]'
+            onClick={() => setPlanes([...planes, {name: '', price: 0}])}
+          >
+            Agregar plan
+          </label>
         </span>
         <span>
           <label className={titles}>Agrega imagenes</label>
@@ -271,35 +361,55 @@ export const AdminForm = ({email, name}) => {
             })}
           />
         </span>
-        <span>
-          <label className={titles}>Agregue la informacion de su entrenador</label>
-          <input
-            className={inputs}
-            placeholder='Nombre'
-            name='trainerName'
-            onChange={(e) => setTrainers({
-              ...trainers,
-              name: e.target.value
-            })}
-          />
-          <input
-            className={inputs}
-            placeholder='Horario'
-            name='trainerSchedule'
-            onChange={(e) => setTrainers({
-              ...trainers,
-              schedule: e.target.value
-            })}
-          />
-          <input
-            className={inputs}
-            placeholder='Actividades'
-            name='trainerActivity'
-            onChange={(e) => setTrainers({
-              ...trainers,
-              activity: e.target.value
-            })}
-          />
+        <span className='flex flex-col'>
+          <label className={titles}>Entrenadores</label>
+          
+          {
+            trainerList.map((item, index) => 
+              <div className='flex flex-row items-center'>
+                <span>
+                  <input
+                    onChange={(e) => {
+                      trainerList[index] = {...trainerList[index], name: e.target.value}
+                    }}
+                    type='text'
+                    className={inputs} 
+                    placeholder='nombre del entrenador'
+                  />
+                  <input 
+                    onChange={(e) => {
+                      trainerList[index] = {...trainerList[index], schedule: e.target.value}
+                    }}    
+                    type='text'
+                    className={inputs} 
+                    placeholder='horario'
+                  />
+                  <input 
+                    onChange={(e) => {
+                      trainerList[index] = {...trainerList[index], activity: e.target.value}
+                    }}    
+                    type='text'
+                    className={inputs} 
+                    placeholder='actividad'
+                  />
+                </span>
+                <button
+                  onClick={() => {
+                    setTrainerList([...trainerList.slice(0, index), ...trainerList.slice(index + 1)])
+                  }}
+                  className='bg-red-500 h-fit w-fit ml-[20px] text-white py-1.5 px-3 font-semibold rounded-lg'
+                >
+                  Quitar
+                </button>
+              </div>
+            )
+          }
+          <label 
+            className='h-fit w-fit bg-primary py-1.5 px-3 font font-semibold rounded-lg text-white mb-[20px]'
+            onClick={() => setTrainerList([...trainerList, {name: '', schedule: '', activity: ''}])}
+          >
+            Agregar entrenador
+          </label>
         </span>
         <button 
           className='mt-[20px] mb-[40px] bg-primary font-semibold text-white text-[20px] py-[10px] rounded-lg'
