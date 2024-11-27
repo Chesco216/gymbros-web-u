@@ -113,7 +113,8 @@ export const AdminForm = ({email, name}) => {
       images,
       location,
       ...basicInfo,
-      trainerList
+      trainerList,
+      extra_services: ['Calistenia', 'Spining']
     }
     try {
       const gymDoc = await addDoc(collection(db, 'gym'), gymToUpload)

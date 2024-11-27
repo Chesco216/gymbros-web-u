@@ -164,7 +164,7 @@ export const Profile = () => {
 							)
 							}
 
-							{(!update && user.id_rol != 3) && (
+							{(!update && user.id_rol == 1) && (
 								<button
 									onClick={() => navigate('/profile/payment')}
 									className="flex gap-2 justify-center mt-8 w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 slide-in mb-4"

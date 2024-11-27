@@ -10,11 +10,13 @@ export const PostGrid = ({ posts, setPosts }) => {
       const postArr = []
       p.forEach(docSnap => {
         const data = docSnap.data()
-        postArr.push(data)
+        postArr.push({...data, uid: docSnap.id})
       })
       setPosts(postArr)
     })
   }
+
+  console.log({posts})
 
 	return (
 		<div className='w-[90%] h-fit mt-[20px] p-[40px] rounded-xl bg-primary'>
