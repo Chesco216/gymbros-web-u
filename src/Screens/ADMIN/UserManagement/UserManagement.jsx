@@ -140,15 +140,14 @@ export const UserManagement = () => {
 								name='user_ci'
 								value={userCI}
 								type='number'
-								placeholder='Buscar clientes por CI'
+								placeholder='Buscar clientes por nro de documento'
 								onChange={(e) => setUserCI(e.target.value)}
-								className="border border-gray-300 px-4 py-2 rounded-md w-full slide-in-reverse"
+								className="border border-gray-300 px-4 py-2 rounded-md slide-in-reverse w-96"
 							/>
 							<button
 								type='submit'
-								className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse flex items-center gap-2 text-sm"
+								className="bg-primary text-white px-3 py-2 rounded-md hover:bg-primary/90 shadow-black/5 shadow-xl font-semibold slide-in-reverse flex items-center gap-2 text-sm"
 							>
-								Buscar
 
 								<svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
 							</button>

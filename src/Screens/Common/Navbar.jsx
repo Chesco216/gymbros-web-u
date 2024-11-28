@@ -39,7 +39,7 @@ const adminRolesMenu = [
 		),
 	},
 	{
-		name: "Comunicados",
+		name: "Publicaciones",
 		url: "/admin/posts",
 		icon: (
 			<GymIcon />

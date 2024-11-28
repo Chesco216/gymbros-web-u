@@ -8,7 +8,7 @@ export const UserGrid = ({ users, setIsOpen, setMod, setUpdateUser }) => {
 				<thead className="text-gray-500 font-light ">
 					<tr>
 						<th scope="col" className="px-6 py-3">Nombre</th>
-						<th scope="col" className="px-6 py-3">CI</th>
+						<th scope="col" className="px-6 py-3">Numero de documento</th>
 						<th scope="col" className="px-6 py-3">Estado</th>
 						<th scope="col" className="px-6 py-3">Expira</th>
 						<th scope="col" className="px-6 py-3">Plan</th>
