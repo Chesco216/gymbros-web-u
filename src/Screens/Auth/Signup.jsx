@@ -47,12 +47,12 @@ export const Signup = () => {
 	const user = useUser(state => state.user)
 	const handleSubmit = async () => {
 
-		// const userFB = await signupEP(email, password)
-		// set_user({
-		// ...user,
-		// 	email: userFB.email,
-		// uid: userFB.uid
-		// })
+		const userFB = await signupEP(email, password)
+		set_user({
+		...user,
+			email: userFB.email,
+		uid: userFB.uid
+		})
 		setIsSubmited(true)
 		// navigate('/')
 		const res = await createAssessment()

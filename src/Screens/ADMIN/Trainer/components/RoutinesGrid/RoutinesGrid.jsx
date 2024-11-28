@@ -5,10 +5,11 @@ import { RoutineCardTrainer } from './RoutineCardTrainer'
 export const RoutinesGrid = () => {
 
   const [routines, setRoutines] = useState()
+  const [routinesChanged, setRoutinesChanged] = useState(true)
 
   useEffect(() => {
     getRoutines().then(res => setRoutines(res))
-  },[])
+  },[routinesChanged])
 
   return (
     <>
@@ -18,6 +19,8 @@ export const RoutinesGrid = () => {
           { 
             routines.map((routine) => 
               <RoutineCardTrainer
+                routinesChanged={routinesChanged}
+                setRoutinesChanged={setRoutinesChanged}
                 key={routine.user_id}
                 r_id={routine.uid}
                 routine={routine.days}

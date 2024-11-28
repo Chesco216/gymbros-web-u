@@ -7,10 +7,11 @@ import { Toaster, toast } from 'sonner'
 import { BackIcon } from '../BackIcon/BackIcon.jsx'
 import { useUser } from '../../../../store/useUser.js'
 
-export const AdminForm = ({email, name}) => {
+export const AdminForm = ({email, name, adminUser=null}) => {
 
   const navigate = useNavigate()
   const user = useUser(state => state.user)
+  console.log({user})
 
   const [equipement, setEquipement] = useState({
     arms: '',
@@ -119,7 +120,10 @@ export const AdminForm = ({email, name}) => {
     try {
       const gymDoc = await addDoc(collection(db, 'gym'), gymToUpload)
       console.log({message: 'gym added', gym: gymDoc})
-      const res = await addDoc(collection(db, 'user'), {
+      //TODO: add condition if user rol = owner
+      const userToUpload = (user.id_rol == 3 && adminUser) ? adminUser
+      : 
+      {
         email: email,
         name: name,
         id_rol: 2,
@@ -131,8 +135,8 @@ export const AdminForm = ({email, name}) => {
         height: '',
         phone: '',
         weight: ''
-
-      })
+      }
+      await addDoc(collection(db, 'user'), )
       toast.success('Gimnasio subido correctamente', {
         duration: 2500,
       })
