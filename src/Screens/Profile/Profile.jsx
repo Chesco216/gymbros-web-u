@@ -10,15 +10,16 @@ import { ProfileAttribute } from './components/ProfileAttribute'
 import { AddImageModal } from './components/AddImageModal'
 
 export const Profile = () => {
+	// navigate
+	const navigate = useNavigate()
 
 	// user
 	const user = useUser(state => state.user)
 
 
+
 	// toggle update or not
 	const [update, setUpdate] = useState(false)
-	// navigate
-	const navigate = useNavigate()
 	const [isOpen, setIsOpen] = useState(false)
 
 	// loading
@@ -31,6 +32,7 @@ export const Profile = () => {
 
 	const set_user = useUser(state => state.set_user)
 	useEffect(() => {
+		setLoading(true);
 		const lc = localStorage.getItem('user')
 		const id = (lc) ? lc.replaceAll('"', '') : null
 		console.log({ id })
@@ -40,7 +42,7 @@ export const Profile = () => {
 				setLoading(false);
 			})
 		} else {
-			setLoading(true);
+			navigate("/")
 		}
 	}, [])
 
@@ -164,10 +166,10 @@ export const Profile = () => {
 							)
 							}
 
-							{(!update && user.id_rol == 1) && (
+							{(!update && user.id_rol === 1) && (
 								<button
 									onClick={() => navigate('/profile/payment')}
-									className="flex gap-2 justify-center mt-8 w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 slide-in mb-4"
+									className="flex gap-2 justify-center mt-8 w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 slide-in"
 									type="button"
 								>
 									<svg className="w-6 h-6" version="1.1" id="_ x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xmlSpace="preserve" fill="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css">  </style> <g> <path className="st0" d="M0,47.7v416.6h512V47.7H0z M50.881,413.415V98.585h410.238v314.83H50.881z"></path> <rect x="238.51" y="159.004" className="st0" width="178.086" height="34.985"></rect> <rect x="238.51" y="238.508" className="st0" width="178.086" height="34.985"></rect> <rect x="95.404" y="318.011" className="st0" width="321.192" height="34.984"></rect> <path className="st0" d="M152.646,204.463c19.107,0,34.652-15.548,34.652-34.655s-15.546-34.654-34.652-34.654 c-19.106,0-34.649,15.547-34.649,34.654S133.54,204.463,152.646,204.463z"></path> <path className="st0" d="M191.295,247.926c0-13.222-9.276-29.142-21.118-36.242l-0.376-0.229h-34.307l-0.376,0.229 c-11.842,7.1-21.118,23.02-21.118,36.242Modov25.567h77.296V247.926z"></path> </g> </g></svg>
@@ -178,7 +180,7 @@ export const Profile = () => {
 
 							<button
 								type="button"
-								className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 slide-in gap-2"
+								className="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 slide-in gap-2 mt-3"
 								onClick={handleLogout}
 							>
 								<svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12H20M20 12L17 9M20 12L17 15" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M4 12C4 7.58172 7.58172 4 12 4M12 20C9.47362 20 7.22075 18.8289 5.75463 17" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"></path> </g></svg>

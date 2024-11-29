@@ -10,6 +10,7 @@ import { useUser } from "../../store/useUser";
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/firebasse.js';
 import { useNavigate } from 'react-router-dom';
+import { GymGridSkeleton } from "./components/GymGridSkeleton.jsx";
 
 export const Home = () => {
 	const navigate = useNavigate();
@@ -86,9 +87,7 @@ export const Home = () => {
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
 
 			{loading && (
-				<section className="px-2 py-4 w-full flex justify-center">
-					<p className="text-xl">Cargando gimnasios...</p>
-				</section>
+				<GymGridSkeleton />
 			)}
 
 			{error && (
@@ -99,7 +98,7 @@ export const Home = () => {
 
 			{!loading && !error && (
 				<>
-					{gyms.length !== 0 ? (
+					{filteredGyms().length !== 0 ? (
 						<GymGrid gyms={filteredGyms()} />
 					) : (
 						<section className="px-2 py-4 w-full flex justify-center">

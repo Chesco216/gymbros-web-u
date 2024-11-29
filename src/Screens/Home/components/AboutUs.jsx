@@ -19,7 +19,7 @@ export const AboutUs = () => {
 					</p>
 
 				</header>
-				<img className="hidden xl:flex" src="/imggym.png" alt="" />
+				<img className={`hidden xl:flex ${isVisible ? 'fade-in' : ''}`} src="/imggym.png" alt="" />
 
 			</section>
 		</div>
