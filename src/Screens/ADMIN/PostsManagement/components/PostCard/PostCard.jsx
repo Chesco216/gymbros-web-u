@@ -1,7 +1,13 @@
-export const PostCard = ({ uid, img, description, title }) => {
+import { doc, setDoc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
+import { db } from '../../../../../firebase/firebasse'
 
-  const handleDeletePost = () => {
+export const PostCard = ({ uid, img, description, title, updatePosts }) => {
+
+  const handleDeletePost = async() => {
     console.log('post deleted', uid)
+    await setDoc(doc(db, 'posts', uid), { is_Active: false })
+    updatePosts()
   }
 
 	return (
@@ -20,4 +26,3 @@ export const PostCard = ({ uid, img, description, title }) => {
 		</span>
 	)
 }
-

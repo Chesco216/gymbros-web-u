@@ -5,7 +5,7 @@ import { ExerciseCard } from './ExerciseCard'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '../../../../../firebase/firebasse'
 
-export const RoutineCardTrainer = ({r_id, routine, user_id}) => {
+export const RoutineCardTrainer = ({routinesChanged, setRoutinesChanged, r_id, routine, user_id}) => {
 
   const [routineState, setRoutine] = useState(routine)
   const [userInfo, setUserInfo] =useState()
@@ -26,6 +26,7 @@ export const RoutineCardTrainer = ({r_id, routine, user_id}) => {
       toast.success('Rutina aprobada', {
         duration: 2000,
       })
+      setRoutinesChanged(!routinesChanged)
     } catch (error) {
       alert(error.code)
     }
@@ -49,28 +50,31 @@ export const RoutineCardTrainer = ({r_id, routine, user_id}) => {
               <p>{userInfo.weight}</p>
               <p>{userInfo.height}</p>
             </span>
-            {
-              routineState.map((item) => {
-                const exercises = item.exercises
-                return (
-                  <>
-                    <h3 className='font-bold text-2xl' key={item.day}>{`${item.day}:   ${item.group}`}</h3>
-                    {
-                      (exercises) && 
-                        exercises.map((exercise) => 
-                        <ExerciseCard
-                          key={exercise.set}
-                          name={exercise.set}
-                          reps={exercise.reps}
-                          series={exercise.series}
-                        />  
-                      )
-                    }
-                  </>  
-                )
-              }
-              )
-            }
+            <div className='grid grid-cols-3'>
+              <span>
+                {
+                  routineState.map((item) => {
+                    const exercises = item.exercises
+                    return (
+                      <>
+                        <h3 className='font-bold text-2xl' key={item.day}>{`${item.day}:   ${item.group}`}</h3>
+                        {
+                          (exercises) && 
+                            exercises.map((exercise) => 
+                            <ExerciseCard
+                              key={exercise.set}
+                              name={exercise.set}
+                              reps={exercise.reps}
+                              series={exercise.series}
+                            />  
+                          )
+                        }
+                      </>  
+                    )
+                  })
+                }
+              </span>
+            </div>
             <div className='w-full flex justify-end'>
               <button 
                 onClick={() => handleAproveRoutine()}

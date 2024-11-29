@@ -9,22 +9,25 @@ export const getRoutines = async() => {
     res.forEach(routine => {
       routines.push(routine.data())
     })
-    
+  
+    console.log({routines})
     const formatedRoutines = []
     routines.forEach((routine) => {
-      const fr = {
-        days: [
-          routine.day_1,
-          routine.day_2,
-          routine.day_3,
-          routine.day_4,
-          routine.day_5,
-        ],
-        isAproved: routine.isAproved,
-        user_id: routine.user_id,
-        uid: routine.uid
+      if(routine.user_id && routine.day_1) {
+        const fr = {
+          days: [
+            routine.day_1,
+            routine.day_2,
+            routine.day_3,
+            routine.day_4,
+            routine.day_5,
+          ],
+          isAproved: routine.isAproved,
+          user_id: routine.user_id,
+          uid: routine.uid
+        }
+        formatedRoutines.push(fr)
       }
-      formatedRoutines.push(fr)
     })
 
     return formatedRoutines

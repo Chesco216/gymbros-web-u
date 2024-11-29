@@ -28,7 +28,7 @@ export const GymInfo = () => {
 			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 px-4 py-14 xl:px-8 gap-5 xl:gap-5 w-full xl:py-10">
 				<Chatbot gym_id={params.id} />
 				<ExtraServices services={[gym.equipment.arms, gym.equipment.back, gym.equipment.chest, gym.equipment.dumbells, gym.equipment.legs]} schedule={gym.schedule} extra_services={gym.extra_services} />
-				<Location coords_addresss={gym.coords_address} />
+				<Location coords={gym.location.coords} text={gym.location.text} />
 
 			</div>
 		</UserLayout>
