@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Toaster, toast } from 'sonner'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { db, store } from '../../../../../firebase/firebasse'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, updateDoc } from 'firebase/firestore'
 import { useUser } from '../../../../../store/useUser'
 
-export const PostForm = () => {
+export const PostForm = ({updatePosts}) => {
 
 	const [title, setTitle] = useState()
 	const [desc, setDesc] = useState()
@@ -41,6 +41,7 @@ export const PostForm = () => {
       toast.success('Publicacion subida correctamente', {
         duration: 2500,
       })
+      updatePosts()
       setTitle('')
       setDesc('')
 		} catch (error) {

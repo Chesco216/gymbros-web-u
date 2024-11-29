@@ -4,7 +4,7 @@ import { PostForm } from './components/PostForm/PostForm'
 import { PostGrid } from './components/PostGrid/PostGrid'
 import { UserLayout } from '../../Common/Layouts/UserLayout.jsx'
 import { useEffect, useState } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase/firebasse.js'
 import { useUser } from '../../../store/useUser.js'
 
@@ -15,7 +15,8 @@ export const PostManagement = () => {
   
   useEffect(() => {
     try {
-      getDocs(collection(db, 'posts')).then(docs => {
+      const q = query(collection(db, 'posts'), where('is_Active', '==', true))
+      getDocs(q).then(docs => {
         const postsArr = []
         docs.forEach(doc => {
           const data = doc.data()
@@ -32,14 +33,26 @@ export const PostManagement = () => {
     }
   }, [])
 
+  const updatePosts = () => {
+    const q = query(collection(db, 'posts'), where('is_Active', '==', true))
+    getDocs(q).then(p => {
+      const postArr = []
+      p.forEach(docSnap => {
+        const data = docSnap.data()
+        postArr.push(data)
+      })
+      setPosts(postArr)
+    })
+  }
+
 	return (
 		<UserLayout>
 			<h1 className='font-bold w-screen text-[30px] text-center my-[30px]'>Publicaciones</h1>
       <div className='w-full flex justify-center'>
-        <PostGrid posts={posts} />
+        <PostGrid posts={posts} setPosts={setPosts} />
       </div>
       <div className='flex align-center justify-center'>
-        <PostForm />
+        <PostForm updatePosts={updatePosts}/>
       </div>
 		</UserLayout>
 	)

@@ -56,7 +56,7 @@ const ownerRolesMenu = [
 		),
 	},
 	{
-		name: "Gimnasios",
+		name: "Lista de Gimnasios",
 		url: "/superadmin/gyms",
 		icon: (
 			<GymIcon />
