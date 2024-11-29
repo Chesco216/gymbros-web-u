@@ -75,6 +75,13 @@ export const Home = () => {
 		}
 	}, [])
 
+  if (user) {
+      (user.id_rol == 2) ? navigate('/admin/users')
+        : (user.id_rol == 3) ? navigate('/superadmin/gyms')
+          : (user.id_rol == 4) ? navigate('/trainer/users')
+            : null
+  }
+
 
 	return (
 		<UserLayout>

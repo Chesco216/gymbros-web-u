@@ -1,3 +1,4 @@
+import { ConfirmPopUp } from "../../../components/ConfirmPopUp"
 import { Footer } from "../Footer"
 import { Navbar } from "../Navbar"
 import './UserLayout.css'
@@ -11,6 +12,7 @@ export const UserLayout = ({ children }) => {
 				{children}
 			</div>
 			<Footer />
+      <ConfirmPopUp/>
 		</div>
 
 	)

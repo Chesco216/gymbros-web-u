@@ -4,17 +4,14 @@ import { useGymsAdmin } from "../../store/useGymsAdmin.js"
 import { useEffect, useState } from "react"
 import { collection, getDocs } from "firebase/firestore"
 import { db } from "../../../../firebase/firebasse.js"
-import { ConfirmPopUp } from "../../../../components/ConfirmPopUp.jsx"
 import { usePopUp } from "../../../../store/usePopUp.js"
 
 export const GymsManagement = () => {
 
   const [gyms, setGyms] = useState([])
 
-  const isOpen = usePopUp(state => state.props.isOpen)
-  const message = usePopUp(state => state.props.message)
-  const setIsOpen = usePopUp(state => state.setIsOpen)
-  
+  const props = usePopUp(state => state.props)
+
   useEffect(() => {
     getDocs(collection(db, 'gymsAdmin'))
       .then(docs => {
@@ -27,13 +24,11 @@ export const GymsManagement = () => {
       })
   }, [])
 
-  console.log({gyms})
   return (
     <UserLayout>
       <div className='flex alig-center justify-center pt-[100px]'>
         <GymsAdminGrid gyms={gyms}/>
       </div>
-      <ConfirmPopUp message={message} isOpen={isOpen} setIsOpen={setIsOpen}/>
     </UserLayout>
   )
 }
