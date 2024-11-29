@@ -8,7 +8,7 @@ export const GymGrid = ({ gyms }) => {
 				<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 xl:gap-5 2xl:gap-7">
 					{
 						gyms.map((g) => (
-							<GymCard key={g.id} gym={g} />
+							<GymCard key={g?.id} gym={g} />
 						))
 					}
 				</ul>
