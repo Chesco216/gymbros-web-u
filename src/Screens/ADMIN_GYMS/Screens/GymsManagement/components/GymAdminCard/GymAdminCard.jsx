@@ -1,4 +1,5 @@
 import React from 'react'
+import { usePopUp } from '../../../../../../store/usePopUp'
 
 export const GymAdminCard = ({expires_at= {seconds: 0}, name, active_users, max_users, plan}) => {
   console.log({expires_at})
@@ -6,12 +7,16 @@ export const GymAdminCard = ({expires_at= {seconds: 0}, name, active_users, max_
   const dateObj = new Date(expires_at.seconds*1000)
   const date = `${dateObj.getDate().toString()} / ${dateObj.getMonth().toString()} / ${dateObj.getFullYear().toString()}`
 
+  const setMessage = usePopUp(state => state.setMessage)
+  const setIsOpen = usePopUp(state => state.setIsOpen)
+  const props = usePopUp(state => state.props)
+
   const handleDelete = () => {
-    if(confirm(`Esta seguro de que desea eliminar el gimnasio ${name}?`)){
-      console.log(`deleted ${name}`)
-    }
+    setIsOpen(true)
+    setMessage(`Estas seguro de que quieres eliminar el gimnasio ${name}?`)
   }
 
+  console.log({props})
   const handleUpdate = () => {
 
   }
