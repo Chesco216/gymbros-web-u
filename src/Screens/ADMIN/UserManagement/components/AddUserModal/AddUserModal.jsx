@@ -126,7 +126,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 					<div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
 						<div className="bg-white px-4 pb-5 pt-6 sm:p-7 sm:pb-6">
 							<h3 className="slide-in text-xl font-semibold leading-6 text-gray-900" id="modal-title">{mod} usuario</h3>
-							<p className="slide-in text-md text-gray-500 my-3">
+							<p className="slide-in-reverse text-md text-gray-500 my-3">
 								Estás a punto de <strong className="underline">{mod}</strong> un usuario. Ingresa los campos correspondientes para dicha acción.
 							</p>
 
@@ -147,7 +147,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 								{
 									(mod == 'Crear') &&
 									<>
-										<label className="slide-in text-md text-gray-900">Carnet de Identidad:</label>
+										<label className="slide-in-reverse text-md text-gray-900">Carnet de Identidad:</label>
 										<input
 											type='number'
 											name='ci'
@@ -178,7 +178,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 
 									(mod == 'Crear') &&
 									<>
-										<label className="slide-in text-md text-gray-900">Contraseña:</label>
+										<label className="slide-in-reverse text-md text-gray-900">Contraseña:</label>
 										<input
 											type='password'
 											name='password'
@@ -200,7 +200,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Peso (kg):</label>
+								<label className="slide-in-reverse text-md text-gray-900">Peso (kg):</label>
 								<input
 									type='number'
 									name='weight'
@@ -210,7 +210,7 @@ export const AddUserModal = ({ isOpen, setIsOpen, userInfo = info, mod }) => {
 									className="border border-gray-300 px-4 py-3 rounded-md w-full fade-in"
 									required
 								/>
-								<label className="slide-in text-md text-gray-900">Altura (cm):</label>
+								<label className="slide-in-reverse text-md text-gray-900">Altura (cm):</label>
 								<input
 									type='number'
 									name='height'

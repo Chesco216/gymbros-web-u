@@ -18,13 +18,14 @@ export const UpdateForm = () => {
 	const [isUpdated, setIsUpdated] = useState(false);
 
 
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		setIsUpdating(true);
 		try {
 			const res = await setDoc(doc(db, 'user', user.uid), user)
-			toast.success("Actualizado correctamente", {
+			toast.success("Perfil actualizado correctamente", {
 				duration: 2500,
 			})
 			setIsUpdating(false);
@@ -45,7 +46,7 @@ export const UpdateForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit} className="fade-in">
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 				<div className="relative group">
 					<input
 						type="text"
@@ -70,6 +71,8 @@ export const UpdateForm = () => {
 						onChange={(e) => setUser({ ...user, age: e.target.value })}
 						className="mt-3 peer w-full h-14 px-4 border-2 border-gray-300 rounded-lg outline-none transition-all duration-300 focus:border-primary bg-white/5 backdrop-blur-sm"
 						placeholder=" "
+						min="1"
+						max="200"
 					/>
 					<label className="absolute left-2 top-1 px-2 transition-all duration-300 transform 
                          text-gray-500 text-sm peer-placeholder-shown:text-base
@@ -87,6 +90,8 @@ export const UpdateForm = () => {
 						onChange={(e) => setUser({ ...user, weight: e.target.value })}
 						className="mt-3 peer w-full h-14 px-4 border-2 border-gray-300 rounded-lg outline-none transition-all duration-300 focus:border-primary bg-white/5 backdrop-blur-sm"
 						placeholder=" "
+						min="1"
+						max="1000"
 					/>
 					<label className="absolute left-2 top-1 px-2 transition-all duration-300 transform 
                          text-gray-500 text-sm peer-placeholder-shown:text-base
@@ -104,6 +109,8 @@ export const UpdateForm = () => {
 						onChange={(e) => setUser({ ...user, height: e.target.value })}
 						className="mt-3 peer w-full h-14 px-4 border-2 border-gray-300 rounded-lg outline-none transition-all duration-300 focus:border-primary bg-white/5 backdrop-blur-sm"
 						placeholder=" "
+						min="1"
+						max="240"
 					/>
 					<label className="absolute left-2 top-1 px-2 transition-all duration-300 transform 
                          text-gray-500 text-sm peer-placeholder-shown:text-base
@@ -121,6 +128,7 @@ export const UpdateForm = () => {
 						onChange={(e) => setUser({ ...user, phone: e.target.value })}
 						className="mt-3 peer w-full h-14 px-4 border-2 border-gray-300 rounded-lg outline-none transition-all duration-300 focus:border-primary bg-white/5 backdrop-blur-sm"
 						placeholder=" "
+						pattern='[6-7]{1}[0-9]{7}'
 					/>
 					<label className="absolute left-2 top-1 px-2 transition-all duration-300 transform 
                          text-gray-500 text-sm peer-placeholder-shown:text-base
@@ -135,7 +143,7 @@ export const UpdateForm = () => {
 			<div className="inline-flex w-full justify-center">
 				<button
 					type="submit"
-					className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-primary px-8 py-3 font-medium text-white transition duration-300 ease-out w-full hover:bg-primary/90 my-4"
+					className="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-primary px-8 py-3 font-medium text-white transition duration-300 ease-out w-full hover:bg-primary/90 mt-10"
 				>
 					<span
 						className={`absolute inset-0 flex h-full w-full items-center justify-center translate-x-full group-hover:translate-x-0 duration-300 ${isUpdating ? 'animate-spin' : 'animate-pulse'
