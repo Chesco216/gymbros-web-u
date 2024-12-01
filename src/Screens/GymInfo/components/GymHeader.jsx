@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom"
 
 export const GymHeader = ({ uid, name, stars, number_of_reviews, main_image, location, suscription_price }) => {
 
-	console.log(location)
 
 	return (
 		<section className='flex flex-col gap-3 w-full bg-white pb-6 shadow-xl shadow-black/5'>
