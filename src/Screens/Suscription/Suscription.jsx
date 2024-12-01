@@ -17,8 +17,6 @@ export const Suscription = () => {
 
 	const [cardNumber, setCardNumber] = useState('');
 	const [expDate, setExpDate] = useState('');
-	const [cvv, setCvv] = useState('');
-	const [cardName, setCardName] = useState('');
 
 	const [cardNumberError, setCardNumberError] = useState('');
 	const [expDateError, setExpDateError] = useState('');
@@ -57,15 +55,6 @@ export const Suscription = () => {
 		}
 		setExpDate(value);
 		setExpDateError(''); // Limpiar el error al cambiar el valor
-	};
-
-	const handleCvvChange = (e) => {
-		const value = e.target.value.replace(/[^\d]/g, '').slice(0, 4);
-		setCvv(value);
-	};
-
-	const handleCardNameChange = (e) => {
-		setCardName(e.target.value);
 	};
 
 	const luhnCheck = (num) => {
