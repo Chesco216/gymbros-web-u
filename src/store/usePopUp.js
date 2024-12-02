@@ -8,5 +8,5 @@ export const usePopUp = create((set) => ({
   },
   setIsOpen: (payload) => set(state => ({props: {...state.props, isOpen: payload}})),
   setMessage: (payload) => set(state => ({props: {...state.props, message: payload}})),
-  setConfirmed: (payload) => set(state => ({props: {...state.props, confirmed: payload}})),
+  setConfirmed: (payload) => set(state => ({props: {...state.props, confirmed: payload}}))
 }))

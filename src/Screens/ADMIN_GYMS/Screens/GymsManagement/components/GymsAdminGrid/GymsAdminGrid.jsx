@@ -19,6 +19,7 @@ export const GymsAdminGrid = ({ gyms }) => {
             active_users={gym.active_users}
             expires_at={gym.expires_at}
             plan={gym.plan}
+            id={gym.uid}
           />
         )
       }

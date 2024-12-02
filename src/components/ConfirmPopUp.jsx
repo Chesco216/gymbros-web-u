@@ -24,7 +24,7 @@ export const ConfirmPopUp = () => {
                 onClick={() => {
                   setConfirmed(true)
                   setIsOpen(false)
-                  }}
+                }}
               >
                 SI
               </button>

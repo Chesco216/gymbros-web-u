@@ -13,16 +13,19 @@ export const GymsManagement = () => {
   const props = usePopUp(state => state.props)
 
   useEffect(() => {
-    getDocs(collection(db, 'gymsAdmin'))
+    getDocs(collection(db, 'gym'))
       .then(docs => {
         const g = []
         docs.forEach(gym => {
           const data = gym.data()
-          g.push(data)
+          g.push({
+            ...data,
+            uid: gym.id
+          })
         });
         setGyms(g)
       })
-  }, [])
+  }, [props.confirmed])
 
   return (
     <UserLayout>
