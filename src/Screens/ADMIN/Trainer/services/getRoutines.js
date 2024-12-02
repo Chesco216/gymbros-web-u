@@ -26,6 +26,7 @@ export const getRoutines = async() => {
           user_id: routine.user_id,
           uid: routine.uid
         }
+        console.log({fr})
         formatedRoutines.push(fr)
       }
     })
