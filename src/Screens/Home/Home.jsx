@@ -76,14 +76,21 @@ export const Home = () => {
 		setFilter(selectedOption);
 	};
 
-	const handleSearchSubmit = (inputValue) => {
-		setSearchQuery(inputValue);
-	};
+	const handleSubmit = (inputValue) => {
+		setGymsFiltered(gyms.filter((g) => g.name.toLowerCase().includes(inputValue.toLowerCase())));
+	}
+
+  if (user) {
+      (user.id_rol == 2) ? navigate('/admin/users')
+        : (user.id_rol == 3) ? navigate('/superadmin/gyms')
+          : (user.id_rol == 4) ? navigate('/trainer/users')
+            : null
+  }
 
 	return (
 		<UserLayout>
 			<Welcome />
-			<SearchBar onSubmit={handleSearchSubmit} />
+			<SearchBar onSubmit={handleSubmit} />
 			<FilterBy options={filterOptions} onSelect={handleFilterChange} />
 
 			{loading && (

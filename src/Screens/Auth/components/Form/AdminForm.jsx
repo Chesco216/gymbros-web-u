@@ -136,7 +136,7 @@ export const AdminForm = ({email, name, adminUser=null}) => {
         phone: '',
         weight: ''
       }
-      await addDoc(collection(db, 'user'), )
+      await addDoc(collection(db, 'user'), userToUpload)
       toast.success('Gimnasio subido correctamente', {
         duration: 2500,
       })

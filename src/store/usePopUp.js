@@ -3,8 +3,10 @@ import { create } from "zustand";
 export const usePopUp = create((set) => ({
   props: {
     isOpen: false,
-    message: ''
+    message: '',
+    confirmed: false
   },
-  setIsOpen: (payload, state) => set({...state, isOpen: payload}),
-  setMessage: (payload, state) => set({...state, message: payload})
+  setIsOpen: (payload) => set(state => ({props: {...state.props, isOpen: payload}})),
+  setMessage: (payload) => set(state => ({props: {...state.props, message: payload}})),
+  setConfirmed: (payload) => set(state => ({props: {...state.props, confirmed: payload}}))
 }))

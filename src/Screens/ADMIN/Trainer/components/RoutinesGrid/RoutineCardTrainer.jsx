@@ -16,9 +16,10 @@ export const RoutineCardTrainer = ({routinesChanged, setRoutinesChanged, r_id, r
 
   const handleAproveRoutine = async() => {
     try {
-      const res = await getDoc(doc(db, 'routines', r_id))
+      console.log({user_id})
+      const res = await getDoc(doc(db, 'routines', user_id))
       const data = res.data()
-      await setDoc(doc(db, 'routines', r_id), {
+      await setDoc(doc(db, 'routines', user_id), {
         ...data,
         isAproved: true
       })
@@ -43,20 +44,20 @@ export const RoutineCardTrainer = ({routinesChanged, setRoutinesChanged, r_id, r
               <p className='font-bold text-xl'>Peso</p>
               <p className='font-bold text-xl'>Altura</p>
             </span>
-            <hr/>
+            <hr className='mb-[10px]'/>
             <span className='flex flex-row justify-between mb-[10px]'>
               <p>{userInfo.name}</p>
               <p>{userInfo.age}</p>
               <p>{userInfo.weight}</p>
               <p>{userInfo.height}</p>
             </span>
+            <hr className='mb-[30px]'/>
             <div className='grid grid-cols-3'>
-              <span>
                 {
                   routineState.map((item) => {
                     const exercises = item.exercises
                     return (
-                      <>
+                      <span className='px-[20px] mb-[30px] flex flex-col text-center items-center'>
                         <h3 className='font-bold text-2xl' key={item.day}>{`${item.day}:   ${item.group}`}</h3>
                         {
                           (exercises) && 
@@ -69,11 +70,10 @@ export const RoutineCardTrainer = ({routinesChanged, setRoutinesChanged, r_id, r
                             />  
                           )
                         }
-                      </>  
+                      </span>  
                     )
                   })
                 }
-              </span>
             </div>
             <div className='w-full flex justify-end'>
               <button 

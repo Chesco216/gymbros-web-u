@@ -5,7 +5,6 @@
 //     </div>
 // 	)
 // }
-'use client'
 
 import { UserLayout } from '../../../Common/Layouts/UserLayout.jsx'
 import React, { useState } from 'react'
@@ -23,6 +22,7 @@ import {
 } from 'chart.js'
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select"
+import { useGym } from '../../../../store/useGym.js'
 
 ChartJS.register(
 	CategoryScale,
@@ -35,8 +35,15 @@ ChartJS.register(
 	PointElement
 )
 
+import * as XLSX from 'xlsx';
+import { ExcelIcon } from '../../../ADMIN/UserManagement/icons/ExcelIcon.jsx'
+
+
 export const Reports = () => {
 	const [selectedGym, setSelectedGym] = useState('all')
+
+  const {gyms}= useGym()
+  console.log({gyms})
 
 	const barChartData = {
 		labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
@@ -61,6 +68,24 @@ export const Reports = () => {
 		],
 	}
 
+	const generateExcel = () => {
+		const worksheet = XLSX.utils.json_to_sheet(
+			gyms.map((gym) => ({
+				ID: gym.uid,
+				Nombre: gym.name,
+				'Usuarios activos': gym.active_users,
+				'Usuarios permitidos': gym.active_users,
+				Estado: gym.isActive ? 'Activo' : 'Inactivo',
+				'Expira en': gym.expires_at.toDate().toLocaleString().slice(0, 24),
+			}))
+		);
+
+		const workbook = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(workbook, worksheet, 'Usuarios');
+
+		XLSX.writeFile(workbook, 'reporte_de_usuarios.xlsx');
+	};
+
 	return (
 		<UserLayout>
 			<div className="container mx-auto px-4 py-8">
@@ -73,9 +98,11 @@ export const Reports = () => {
 						</SelectTrigger>
 						<SelectContent>
 							<SelectItem value="all">Todos los Gimnasios</SelectItem>
-							<SelectItem value="gym1">Gimnasio 1</SelectItem>
-							<SelectItem value="gym2">Gimnasio 2</SelectItem>
-							<SelectItem value="gym3">Gimnasio 3</SelectItem>
+              {
+                gyms.map((item) =>
+                  <SelectItem value={item.name}>{item.name}</SelectItem>
+                )
+              }
 						</SelectContent>
 					</Select>
 				</div>
@@ -110,31 +137,27 @@ export const Reports = () => {
 									<tr>
 										<th className="px-6 py-3">Gimnasio</th>
 										<th className="px-6 py-3">Total Miembros</th>
-										<th className="px-6 py-3">Clases Ofrecidas</th>
-										<th className="px-6 py-3">Ingresos Totales</th>
+										<th className="px-6 py-3">Maximos miembros permitidos</th>
+										<th className="px-6 py-3">Ingresos Totales /mes</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr className="bg-white border-b">
-										<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Gimnasio 1</td>
-										<td className="px-6 py-4">500</td>
-										<td className="px-6 py-4">25</td>
-										<td className="px-6 py-4">$50,000</td>
-									</tr>
-									<tr className="bg-white border-b">
-										<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Gimnasio 2</td>
-										<td className="px-6 py-4">350</td>
-										<td className="px-6 py-4">20</td>
-										<td className="px-6 py-4">$35,000</td>
-									</tr>
-									<tr className="bg-white">
-										<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Gimnasio 3</td>
-										<td className="px-6 py-4">420</td>
-										<td className="px-6 py-4">22</td>
-										<td className="px-6 py-4">$42,000</td>
-									</tr>
+                  {
+                    gyms.map((item) => {
+                      const incomes = item.active_users * 17
+                      return (
+                        <tr className="bg-white border-b">
+                          <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{item.name}</td>
+                          <td className="px-6 py-4 text-center">{item.active_users}</td>
+                          <td className="px-6 py-4 text-center">{item.max_users}</td>
+                          <td className="px-6 py-4 text-center">{incomes}</td>
+                        </tr>
+                      )
+                    })
+                  }
 								</tbody>
 							</table>
+              <button onClick={() => generateExcel()} type="button" className="mt-[30px] gap-2 flex items-center text-white bg-gradient-to-br from-green-700/80 to-green-700 hover:bg-green-700/60 font-semibold rounded-lg px-5 py-3 text-center text-sm"> <ExcelIcon /> Exportar en Excel</button>
 						</div>
 					</CardContent>
 				</Card>
