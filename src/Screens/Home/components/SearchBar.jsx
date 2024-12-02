@@ -8,12 +8,6 @@ export const SearchBar = ({ onSubmit }) => {
 		onSubmit(gymSearch);
 	};
 
-	const handleKeyDown = (e) => {
-		if (!/[a-zA-Z]/.test(e.key) && e.key !== "Backspace") {
-			e.preventDefault();
-			console.log("Its incorrect");
-		}
-	};
 
 	return (
 		<section className="w-full flex justify-center">
@@ -22,7 +16,6 @@ export const SearchBar = ({ onSubmit }) => {
 					className="w-full h-14 xl:h-16 px-5 border border-primary xl:px-4"
 					placeholder="Nombre del gimnasio"
 					type="text"
-					onKeyDown={handleKeyDown}
 					value={gymSearch}
 					onChange={(e) => setGymSearch(e.target.value)}
 				/>
