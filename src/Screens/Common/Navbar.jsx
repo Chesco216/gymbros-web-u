@@ -5,6 +5,10 @@ import { ProfileIcon } from "./Icons/ProfileIcon";
 import { GymIcon } from "./Icons/GymIcon";
 import { LoginIcon } from "./Icons/LoginIcon";
 import { GymbrosIcon } from "./Icons/GymbrosIcon";
+import { UsersIcon } from "./Icons/UsersIcon";
+import { PostsIcon } from "./Icons/PostsIcon";
+import { AddNewGym } from "./Icons/AddNewGym";
+import { ReportsIcon } from "./Icons/ReportsIcon";
 
 const userRolesMenu = [
 	{
@@ -35,14 +39,14 @@ const adminRolesMenu = [
 		name: "Usuarios",
 		url: "/admin/users",
 		icon: (
-			<GymIcon />
+			<UsersIcon />
 		),
 	},
 	{
 		name: "Publicaciones",
 		url: "/admin/posts",
 		icon: (
-			<GymIcon />
+			<PostsIcon />
 		),
 	}
 ]
@@ -66,14 +70,14 @@ const ownerRolesMenu = [
 		name: "Agregar Nuevo Gimnasio",
 		url: "/superadmin/newgym",
 		icon: (
-			<GymIcon />
+			<AddNewGym />
 		),
 	},
 	{
 		name: "Reportes",
 		url: "/superadmin/reports",
 		icon: (
-			<GymIcon />
+			<ReportsIcon />
 		),
 	}
 ]

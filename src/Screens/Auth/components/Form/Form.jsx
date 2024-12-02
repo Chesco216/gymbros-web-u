@@ -47,6 +47,7 @@ export const Form = ({ fields, op, handleSubmit }) => {
 
 		if (!formIsValid) {
 			setErrors(newErrors);
+			setLoadingBtn(false);
 			return;
 		}
 
