@@ -34,7 +34,10 @@ export const Home = () => {
 		console.log({ user });
 		window.scrollTo(0, 0);
 
-		fetchGyms();
+		if (gyms?.length === 0) {
+			fetchGyms();
+		}
+
 
 		const lc = localStorage.getItem('user');
 		if (lc) {
@@ -64,7 +67,7 @@ export const Home = () => {
 					break;
 			}
 		}
-	}, []);
+	}, [gyms?.length]);
 
 	const filterOptions = [
 		{ value: 'all', label: 'Todos' },
